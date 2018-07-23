@@ -1,0 +1,52 @@
+Test identify_artist_0 (./identify_artist.pl song0.txt) - passed
+Test identify_artist_1 (./identify_artist.pl song1.txt) - failed (Incorrect output)
+Your program produced these 1 lines of output:
+song1.txt most resembles the work of Adele (log-probability=-211.4)
+
+The correct 1 lines of output for this test were:
+song1.txt most resembles the work of Rihanna (log-probability=-254.9)
+
+The difference between your output(-) and the correct output(+) is:
+- song1.txt most resembles the work of Adele (log-probability=-211.4)
++ song1.txt most resembles the work of Rihanna (log-probability=-254.9)
+You can reproduce this test by executing these commands:
+./identify_artist.pl song1.txt
+Test identify_artist_2 (./identify_artist.pl song2.txt) - passed
+Test identify_artist_3 (./identify_artist.pl song3.txt) - passed
+Test identify_artist_4 (./identify_artist.pl song4.txt) - failed (Incorrect output)
+Your program produced these 1 lines of output:
+song4.txt most resembles the work of Adele (log-probability=-487.0)
+
+The correct 1 lines of output for this test were:
+song4.txt most resembles the work of Leonard Cohen (log-probability=-493.8)
+
+The difference between your output(-) and the correct output(+) is:
+- song4.txt most resembles the work of Adele (log-probability=-487.0)
++ song4.txt most resembles the work of Leonard Cohen (log-probability=-493.8)
+You can reproduce this test by executing these commands:
+./identify_artist.pl song4.txt
+Test identify_artist_all (./identify_artist.pl song?.txt) - failed (Incorrect output)
+Your program produced these 5 lines of output:
+song0.txt most resembles the work of Adele (log-probability=-352.4)
+song1.txt most resembles the work of Adele (log-probability=-211.4)
+song2.txt most resembles the work of Ed Sheeran (log-probability=-206.6)
+song3.txt most resembles the work of Justin Bieber (log-probability=-1089.8)
+song4.txt most resembles the work of Adele (log-probability=-487.0)
+
+The correct 5 lines of output for this test were:
+song0.txt most resembles the work of Adele (log-probability=-352.4)
+song1.txt most resembles the work of Rihanna (log-probability=-254.9)
+song2.txt most resembles the work of Ed Sheeran (log-probability=-206.6)
+song3.txt most resembles the work of Justin Bieber (log-probability=-1089.8)
+song4.txt most resembles the work of Leonard Cohen (log-probability=-493.8)
+
+The difference between your output(-) and the correct output(+) is:
+  song0.txt most resembles the work of Adele (log-probability=-352.4)
+- song1.txt most resembles the work of Adele (log-probability=-211.4)
++ song1.txt most resembles the work of Rihanna (log-probability=-254.9)
+  song3.txt most resembles the work of Justin Bieber (log-probability=-1089.8)
+- song4.txt most resembles the work of Adele (log-probability=-487.0)
++ song4.txt most resembles the work of Leonard Cohen (log-probability=-493.8)
+You can reproduce this test by executing these commands:
+./identify_artist.pl song?.txt
+3 tests passed 3 tests failed

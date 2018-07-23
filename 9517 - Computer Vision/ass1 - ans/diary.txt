@@ -1,0 +1,6 @@
+28/09/17	12:23	04:15	add git and solve print problem
+29/09/17	18:12	21:05	solve all subset 1 
+30/09/17	22:50	03:42	solve all subset 2 
+01/10/17	20:41	23:13	solve all subset 3
+02/10/17	21:09	02:24	solve one subset 4
+03/10/17	21:09	02:24	solve all subset 4
