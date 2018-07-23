@@ -8,7 +8,7 @@
 
 ### 6714 - Information Retrieval and Web Search ❌
 ---
-传说中王伟的课，以为是别人说的段子王，谁知道根本不是那么回事（实际是Raymond Wong）。巨坑无比，去confrence翘课，生病翘课。大多数人都不懂ww上课在讲什么，十分混乱。PPT都是拿其他权威学校的（斯坦福），感觉没出上课，他都在即兴发挥。研究方面我不敢评价，但是课程和💩一样。没有任何Tut和Lab，每次上完没法找地反馈一下。自己研究NLP方面，于是什么都往上靠，本来挺好的Topic，Asst写的是 Word2Vec，ww的课多认识人，抱大腿吧。都是玄学调参，人多力量大。不推荐！
+传说中王伟的课，以为是别人说的段子王，谁知道根本不是那么回事（实际是Raymond Wong）。巨坑无比，去confrence翘课，生病翘课。大多数人都不懂ww上课在讲什么，十分混乱。PPT都是拿其他权威学校的（斯坦福），感觉没出上课，他都在即兴发挥。研究方面我不敢评价，但是课程和💩一样。没有任何Tut和Lab，每次上完没法找地反馈一下。自己研究NLP方面，于是什么都往上靠，本来挺好的Topic，Asst写的是 Word2Vec。实名diss ww 👎, ww的课多认识人，抱大腿吧，都是玄学调参，人多力量大。不推荐！
 
 ### 9032 - Microprocessors and Interfacing 😕
 ---
@@ -32,3 +32,10 @@
 ### 9321 - Data Service Engineering 👍
 ---
 Helen 人很好，挺负责的，上课能把自己讲笑。Asst不难但是挺麻烦的，抱着简单课心情来的，写写后端和API，顺便又把 Flask 弄了弄。最后出分一般，都是期末考问题，都是概念。总之，这课可选，压力不大。[Project 链接](https://github.com/lmcmz/Junipy)
+
+## 2018 S2 (To be continued)
+---
+### 9444 - Neural Networks and Deep Learning
+### 9313 - Big Data Management
+### 9319 - Web Data Compression and Search
+### 9315 - Database Systems Implementation 
