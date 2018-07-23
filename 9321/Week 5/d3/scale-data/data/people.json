@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Tom",
+		"height": 138
+	},
+	{
+		"name": "Jessica",
+		"height": 153
+	},
+	{
+		"name": "Annie",
+		"height": 148
+	},
+	{
+		"name": "Richard",
+		"height": 164
+	},
+	{
+		"name": "John",
+		"height": 162
+	},
+    {
+		"name": "Andrew",
+		"height": 143
+	},    
+    {
+		"name": "Sean",
+		"height": 101
+	}
+]

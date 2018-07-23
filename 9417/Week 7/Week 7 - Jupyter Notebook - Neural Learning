@@ -1,0 +1,968 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "# Neural Network Learning"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "In this short lab we will go into some \"hands-on\" aspects of supervised learning for neural networks, based on the multi-layer perceptron trained by error back-propagation. \n",
+    "There are only questions as such in the first section, a review of perceptrons. For the second part on the multi-layer perceprton you are just supposed to step through the cells, running the code, understanding why it is doing what it does, and possibly adding your own cells to experiment.\n",
+    "\n",
+    "This code is for explanatory purposes only – for real neural networks you would use one of the many code libraries that exist. \n",
+    "\n",
+    "** Note: this notebook has only been tested using Python 2.**"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "### Acknowledgement"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "This lab is based on: the presentation and code accompanying Chapter 18 of \"Data Science from Scratch\" by J. Grus, O'Reilly Media, 2015 (all the code for the book is available [here](http://github.com/joelgrus/data-science-from-scratch))."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Overview"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "In this lab we will first build a multi-layer perceptron by hand for simple Boolean functions.\n",
+    "\n",
+    "The objective is to see the nuts and bolts of the representation and how the outputs of one layer are fed into the following layer.\n",
+    "\n",
+    "Then we will look at a basic implementation of the back-propagation learning algorithm for a simplified version of a real-world task, characted recognition. \n",
+    "\n",
+    "To start, recall the perceptron."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Perceptron revisited."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "We will need several libraries later so it is easiest to import them first."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "from collections import Counter\n",
+    "from functools import partial\n",
+    "import numpy as np\n",
+    "import math, random\n",
+    "import matplotlib\n",
+    "import matplotlib.pyplot as plt"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "To work with perceptrons, we will use these two functions:\n",
+    "\"step_function(x)\" which implements the thresholding, and \n",
+    "\"perceptron_output(weights, bias, x)\" which implements the whole thresholded linear unit by calling \"step_function(x)\"."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "def step_function(x):\n",
+    "    return 1 if x >= 0 else 0 # threshold the linear unit\n",
+    "\n",
+    "def perceptron_output(weights, bias, x):\n",
+    "    \"\"\"returns 1 if the perceptron 'fires', 0 if not\"\"\"\n",
+    "    return step_function(np.dot(weights, x) + bias) # call step_function"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Recall that the perceptron is a linear classifier with a hyperplane defined only by its weight vector. This \"decision space\" of this type of model is sometimes known as a *half-space*, since the classifier splits the space of points ```x``` into two half-spaces. So the model representation can just be a list of values for the weights. The perceptron implements this by a applying a step-function to the linear model ```dot(weights, x) + bias```. To illustrate, we define a two input AND gate (Boolean function)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# A Perceptron for two-input Boolean AND \n",
+    "\n",
+    "and_wts = # add your weights here\n",
+    "and_bias = # plus the bias weight\n",
+    "and_data = [[0,0],\n",
+    "            [0,1],\n",
+    "            [1,0],\n",
+    "            [1,1]\n",
+    "           ]\n",
+    "for inp in and_data:\n",
+    "    print perceptron_output(and_wts,and_bias,inp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "The logic of the combination of input weights and bias weight should be clear. Now go ahead and define an OR gate."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# A Perceptron for two-input Boolean OR \n",
+    "\n",
+    "or_wts = # add your weights here\n",
+    "or_bias = # plus the bias weight\n",
+    "or_data = [[0,0],\n",
+    "           [0,1],\n",
+    "           [1,0],\n",
+    "           [1,1]\n",
+    "           ]\n",
+    "for inp in or_data:\n",
+    "    print perceptron_output(or_wts,or_bias,inp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "What about negation ? Implement a single input NOT gate which flips a ```0``` to a ```1``` and vice versa."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "not_wt = # add your weight here\n",
+    "not_bias = # plus the bias weight\n",
+    "not_data = [[0],\n",
+    "           [1]]\n",
+    "for inp in not_data:\n",
+    "    print perceptron_output(not_wt,not_bias,inp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "All well and good, but these are simple linear threshold classifiers. However, from lectures we know that neural networks are motivated by trying to model non-linearly separable classification (as well as other more complex functions). And in the lecture we claim that the classic XOR function could be modelled by a multi-layer perceptron (MLP). Can you see how to combine our previous Boolean functions in some way to correctly model XOR ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# How can you represent multiple layers of perceptrons ? Stack lists of weights!\n",
+    "# Suppose the MLP has two layers stacked one after the other: one hidden layer,\n",
+    "# and one output layer (the input \"layer\" will just feed into the hidden layer).\n",
+    "# Let's say all perceptrons in the MLP have 2 inputs and 1 bias weight. \n",
+    "# We'll start by defining the input data as usual for XOR.\n",
+    "\n",
+    "xor_data = [[0,0],\n",
+    "           [0,1],\n",
+    "           [1,0],\n",
+    "           [1,1]]\n",
+    "\n",
+    "# Now we have to define the functions in each layer. Let's start with the hidden layer.\n",
+    "# Suppose we are told that the hidden layer will have one AND and one OR function.\n",
+    "# To see how these might be combined, print out the input followed by the output from \n",
+    "# the AND perceptron then the OR perceptron:\n",
+    "\n",
+    "for inp in xor_data:\n",
+    "    and_out = # perceptron_output for AND as above\n",
+    "    or_out = # perceptron_output for OR as above\n",
+    "    print inp, and_out, or_out"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "In terms of XOR, we can see that both AND and OR perceptrons are correct on the first input, both are incorrect on the last output, and only the OR perceptron is correct on the second and third inputs. Can you think of a Boolean function to correctly combine these for XOR ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# By inspection, this logical function will do the job: (NOT AND) AND (OR).\n",
+    "# So to implement our output layer perceptron we just have to come up with a set of weights.\n",
+    "# We can re-use some of the weight combination ideas from our previous Boolean functions:\n",
+    "\n",
+    "xor_output_wts = # add your weights for the hidden layer here\n",
+    "xor_output_bias = # plus the bias weight\n",
+    "\n",
+    "xor_hidden_data = [[0,0],\n",
+    "                  [0,1],\n",
+    "                  [0,1],\n",
+    "                  [1,1]]\n",
+    "\n",
+    "for inp in xor_hidden_data:\n",
+    "    print inp, perceptron_output(xor_output_wts,xor_output_bias,inp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Great! So, now we have all the components we need to implement multilayer perceptron for XOR, and it's just a matter of putting them all together. Go ahead and do that."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "for inp in xor_data:\n",
+    "    and_out = # perceptron_output for AND as above\n",
+    "    or_out = #  perceptron_output for OR as above\n",
+    "    xor_inp = [and_out,or_out] \n",
+    "    print inp, xor_inp, perceptron_output(xor_output_wts,xor_output_bias,xor_inp)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "That works, although it's pretty clunky, and it should now be very clear that you never want \n",
+    "to program a neural net by hand. So how can we set it up to learn ? Well, in the lecture we note that one necessary step is to move from the perceptron's step activation function to an alternative that will allow a differentiable error function of the output. For this we will use a ** sigmoid ** function. \n",
+    "\n",
+    "Now you should implement it in a function called \"neuron_output(weights, inputs)\" that will return the output of the sigmoid function applied to the dot product of the neuron's weight vector (plus bias) and the input vector."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "\n",
+    "def sigmoid(t):\n",
+    "    return 1 / (1 + math.exp(-t)) # a \"smoothed\" version of the perceptron's step-function\n",
+    "\n",
+    "def neuron_output(weights, inputs):\n",
+    "    return sigmoid(np.dot(weights, inputs)) # applying a sigmoid to a linear model"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "So now we can set up the layers of weights for the MLP to compute XOR.\n",
+    "This will be as a list of lists of lists of weights.\n",
+    "To simplify, we will combine the weights and the bias (as in homogeneous coordinates).\n",
+    "Let's set it up."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "# So now we can set up the layers of weights for the MLP to compute XOR.\n",
+    "# To simplify, combine the weights and the bias (as in homogeneous coordinates).\n",
+    "# Let's set it up. We will also make a cleaner representation of the weights.\n",
+    "\n",
+    "xor_network = [ # hidden layer \n",
+    "    [[20, 20, -30],\n",
+    "    [20, 20, -10]], \n",
+    "    # output layer\n",
+    "    [[-60, 60, -30]]]\n",
+    "\n",
+    "# Note: we boost the size of the weights to force outputs close to 0 or 1 from the sigmoid.\n",
+    "# But the functions are the same as before.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Now we can define the feedforward stage for the MLP. It should take a network as specified and an input vector, and return values for all nodes in the output layer."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "def feed_forward(neural_network, input_vector):\n",
+    "    \"\"\"takes in a neural network (represented as a list of lists of lists of weights) and returns the output from forward-propagating the input\"\"\"\n",
+    "\n",
+    "    outputs = []\n",
+    "\n",
+    "    for layer in neural_network:\n",
+    "\n",
+    "        input_with_bias = input_vector + [1]             # add a bias input\n",
+    "        output = [neuron_output(neuron, input_with_bias) # compute the output\n",
+    "                  for neuron in layer]                   # for this layer\n",
+    "        outputs.append(output)                           # and remember it\n",
+    "\n",
+    "        # the input to the next layer is the output of this one\n",
+    "        input_vector = output\n",
+    "\n",
+    "    return outputs"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Try running this on XOR:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "for x in[0,1]: \n",
+    "    for y in[0,1]:\n",
+    "        print x, y, feed_forward(xor_network,[x, y])[-1]\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Here we can finally implement the backpropagation algorithm. We could directly use the algorithm from the lecture here. However, this version is essentially identical, apart from some changes of sign. You can see the steps propagating error back from the outputs to through the hidden layer."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "def backpropagate(network, input_vector, target):\n",
+    "\n",
+    "    hidden_outputs, outputs = feed_forward(network, input_vector)\n",
+    "\n",
+    "    # the output * (1 - output) is from the derivative of sigmoid\n",
+    "    output_deltas = [output * (1 - output) * (output - target[i])\n",
+    "                     for i, output in enumerate(outputs)]\n",
+    "\n",
+    "    # adjust weights for output layer (network[-1])\n",
+    "    for i, output_neuron in enumerate(network[-1]):\n",
+    "        for j, hidden_output in enumerate(hidden_outputs + [1]):\n",
+    "            output_neuron[j] -= output_deltas[i] * hidden_output\n",
+    "\n",
+    "    # back-propagate errors to hidden layer\n",
+    "    hidden_deltas = [hidden_output * (1 - hidden_output) *\n",
+    "                      np.dot(output_deltas, [n[i] for n in network[-1]])\n",
+    "                     for i, hidden_output in enumerate(hidden_outputs)]\n",
+    "\n",
+    "    # adjust weights for hidden layer (network[0])\n",
+    "    for i, hidden_neuron in enumerate(network[0]):\n",
+    "        for j, input in enumerate(input_vector + [1]):\n",
+    "            hidden_neuron[j] -= hidden_deltas[i] * input\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Example application: simplified hand-written digit classification"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Below is the complete implementation of the algortihm. Now we will see how to apply it to some simplified \"hand-written\" digits for classification in to one of ten classes.\n",
+    "\n",
+    "The inputs will be a 5x5 matrix of binary pixels (0 or 1, represented pictorially as '.' or '1' for input and '.' or '@' for output).\n",
+    "\n",
+    "The network structure will be:\n",
+    "\n",
+    "25 inputs (pixels)\n",
+    "\n",
+    "5 hidden units\n",
+    "\n",
+    "10 output units.\n",
+    "\n",
+    "The output unit with the largest value will taken as the predicted digit.\n",
+    "\n",
+    "Run the network for 10000 iterations (** this can take a few minutes**). What do you see on the output?\n",
+    "\n",
+    "What about the two example inputs?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "from collections import Counter\n",
+    "from functools import partial\n",
+    "import numpy as np\n",
+    "import math, random\n",
+    "import matplotlib\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "def step_function(x):\n",
+    "    return 1 if x >= 0 else 0\n",
+    "\n",
+    "def perceptron_output(weights, bias, x):\n",
+    "    \"\"\"returns 1 if the perceptron 'fires', 0 if not\"\"\"\n",
+    "    return step_function(np.dot(weights, x) + bias)\n",
+    "\n",
+    "def sigmoid(t):\n",
+    "    return 1 / (1 + math.exp(-t))\n",
+    "\n",
+    "def neuron_output(weights, inputs):\n",
+    "    return sigmoid(np.dot(weights, inputs))\n",
+    "\n",
+    "def feed_forward(neural_network, input_vector):\n",
+    "    \"\"\"takes in a neural network (represented as a list of lists of lists of weights) and returns the output from forward-propagating the input\"\"\"\n",
+    "\n",
+    "    outputs = []\n",
+    "\n",
+    "    for layer in neural_network:\n",
+    "\n",
+    "        input_with_bias = input_vector + [1]             # add a bias input\n",
+    "        output = [neuron_output(neuron, input_with_bias) # compute the output\n",
+    "                  for neuron in layer]                   # for this layer\n",
+    "        outputs.append(output)                           # and remember it\n",
+    "\n",
+    "        # the input to the next layer is the output of this one\n",
+    "        input_vector = output\n",
+    "\n",
+    "    return outputs\n",
+    "\n",
+    "def backpropagate(network, input_vector, target):\n",
+    "\n",
+    "    hidden_outputs, outputs = feed_forward(network, input_vector)\n",
+    "\n",
+    "    # the output * (1 - output) is from the derivative of sigmoid\n",
+    "    output_deltas = [output * (1 - output) * (output - target[i])\n",
+    "                     for i, output in enumerate(outputs)]\n",
+    "\n",
+    "    # adjust weights for output layer (network[-1])\n",
+    "    for i, output_neuron in enumerate(network[-1]):\n",
+    "        for j, hidden_output in enumerate(hidden_outputs + [1]):\n",
+    "            output_neuron[j] -= output_deltas[i] * hidden_output\n",
+    "\n",
+    "    # back-propagate errors to hidden layer\n",
+    "    hidden_deltas = [hidden_output * (1 - hidden_output) *\n",
+    "                      np.dot(output_deltas, [n[i] for n in network[-1]])\n",
+    "                     for i, hidden_output in enumerate(hidden_outputs)]\n",
+    "\n",
+    "    # adjust weights for hidden layer (network[0])\n",
+    "    for i, hidden_neuron in enumerate(network[0]):\n",
+    "        for j, input in enumerate(input_vector + [1]):\n",
+    "            hidden_neuron[j] -= hidden_deltas[i] * input\n",
+    "\n",
+    "def patch(x, y, hatch, color):\n",
+    "    \"\"\"return a matplotlib 'patch' object with the specified location, crosshatch pattern, and color\"\"\"\n",
+    "    return matplotlib.patches.Rectangle((x - 0.5, y - 0.5), 1, 1,\n",
+    "                                        hatch=hatch, fill=False,\n",
+    "color=color)\n",
+    "\n",
+    "\n",
+    "def show_weights(neuron_idx):\n",
+    "    weights = network[0][neuron_idx]\n",
+    "    abs_weights = map(abs, weights)\n",
+    "\n",
+    "    grid = [abs_weights[row:(row+5)] # turn the weights into a 5x5 grid\n",
+    "            for row in range(0,25,5)] # [weights[0:5], ..., weights[20:25]]\n",
+    "\n",
+    "    ax = plt.gca() # to use hatching, we'll need the axis\n",
+    "\n",
+    "    ax.imshow(grid, # here same as plt.imshow\n",
+    "              cmap=matplotlib.cm.binary, # use white-black color scale\n",
+    "              interpolation='none') # plot blocks as blocks\n",
+    "\n",
+    "    # cross-hatch the negative weights\n",
+    "    for i in range(5): # row\n",
+    "        for j in range(5): # column\n",
+    "            if weights[5*i + j] < 0: # row i, column j = weights[5*i + j]\n",
+    "                # add black and white hatches, so visible whether dark or\n",
+    "                # light\n",
+    "                ax.add_patch(patch(j, i, '/', \"white\"))\n",
+    "                ax.add_patch(patch(j, i, '\\\\', \"black\"))\n",
+    "    plt.show()\n",
+    "    \n",
+    "    # following is a list of input \"images\" of digits, from '0' to '9'\n",
+    "\n",
+    "if __name__ == \"__main__\":\n",
+    "\n",
+    "    raw_digits = [\n",
+    "          \"\"\"11111\n",
+    "             1...1\n",
+    "             1...1\n",
+    "             1...1\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"..1..\n",
+    "             ..1..\n",
+    "             ..1..\n",
+    "             ..1..\n",
+    "             ..1..\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             ....1\n",
+    "             11111\n",
+    "             1....\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             ....1\n",
+    "             11111\n",
+    "             ....1\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"1...1\n",
+    "             1...1\n",
+    "             11111\n",
+    "             ....1\n",
+    "             ....1\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             1....\n",
+    "             11111\n",
+    "             ....1\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             1....\n",
+    "             11111\n",
+    "             1...1\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             ....1\n",
+    "             ....1\n",
+    "             ....1\n",
+    "             ....1\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             1...1\n",
+    "             11111\n",
+    "             1...1\n",
+    "             11111\"\"\",\n",
+    "\n",
+    "          \"\"\"11111\n",
+    "             1...1\n",
+    "             11111\n",
+    "             ....1\n",
+    "             11111\"\"\"]\n",
+    "    \n",
+    "    def make_digit(raw_digit):\n",
+    "        return [1 if c == '1' else 0\n",
+    "                for row in raw_digit.split(\"\\n\")\n",
+    "                for c in row.strip()]\n",
+    "\n",
+    "    inputs = map(make_digit, raw_digits)\n",
+    "\n",
+    "    targets = [[1 if i == j else 0 for i in range(10)]\n",
+    "               for j in range(10)]\n",
+    "\n",
+    "    random.seed(0)   # to get repeatable results\n",
+    "    input_size = 25  # each input is a vector of length 25\n",
+    "    num_hidden = 5   # we'll have 5 neurons in the hidden layer\n",
+    "    output_size = 10 # we need 10 outputs for each input\n",
+    "\n",
+    "    # each hidden neuron has one weight per input, plus a bias weight\n",
+    "    hidden_layer = [[random.random() for __ in range(input_size + 1)]\n",
+    "                    for __ in range(num_hidden)]\n",
+    "\n",
+    "    # each output neuron has one weight per hidden neuron, plus a bias\n",
+    "    # weight\n",
+    "    output_layer = [[random.random() for __ in range(num_hidden + 1)]\n",
+    "                    for __ in range(output_size)]\n",
+    "\n",
+    "    # the network starts out with random weights\n",
+    "    network = [hidden_layer, output_layer]\n",
+    "\n",
+    "    # 10,000 iterations seems enough to converge\n",
+    "    for __ in range(10000):\n",
+    "        for input_vector, target_vector in zip(inputs, targets):\n",
+    "            backpropagate(network, input_vector, target_vector)\n",
+    "\n",
+    "    def predict(input):\n",
+    "        return feed_forward(network, input)[-1]    # last element of outputs\n",
+    "\n",
+    "    for i, input in enumerate(inputs):\n",
+    "        outputs = predict(input)\n",
+    "        print i, [round(p,2) for p in outputs]\n",
+    "\n",
+    "    print\n",
+    "    \n",
+    "    print \"\"\".@@@.\n",
+    "...@@\n",
+    "..@@.\n",
+    "...@@\n",
+    ".@@@.\"\"\"\n",
+    "    # This is supposed to be a '3' - check the predicted output: is it 3 ? \n",
+    "    print [round(x, 2) for x in\n",
+    "          predict(  [0,1,1,1,0,  # .@@@.\n",
+    "                     0,0,0,1,1,  # ...@@\n",
+    "                     0,0,1,1,0,  # ..@@.\n",
+    "                     0,0,0,1,1,  # ...@@\n",
+    "                     0,1,1,1,0]) # .@@@.\n",
+    "          ]\n",
+    "    print\n",
+    "\n",
+    "    print \"\"\".@@@.\n",
+    "@..@@\n",
+    ".@@@.\n",
+    "@..@@\n",
+    ".@@@.\"\"\"\n",
+    "    # This is supposed to be an '8' - check the output: what is the prediction ?\n",
+    "    print [round(x, 2) for x in\n",
+    "          predict(  [0,1,1,1,0,  # .@@@.\n",
+    "                     1,0,0,1,1,  # @..@@\n",
+    "                     0,1,1,1,0,  # .@@@.\n",
+    "                     1,0,0,1,1,  # @..@@\n",
+    "                     0,1,1,1,0]) # .@@@.\n",
+    "          ]\n",
+    "    print\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Above you can see the 10 outputs of the network for each of the digit images. Since this is the training data, you should not be surprised to see perfect classification.\n",
+    "\n",
+    "You can also look at the output that would be generated by digits that are not close to the original training data, specifically the output for the images of the '3' and the '8' that are varied from the inputs. Although the 3 is correctly classified, the network has some doubt about the '8'!"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "You can inspect the network weights for the hidden layer by plotting a mapping of their values onto a 5x5 input grid, representing the strength of connection on the edges from the input pixels to the output of this hidden unit. In this representation:\n",
+    "\n",
+    "dark pixels $\\rightarrow$ weights far from zero\n",
+    "\n",
+    "white pixels $\\rightarrow$ weights are zero\n",
+    "\n",
+    "cross-hatching represents negative weights\n",
+    "\n",
+    "In this way we can check the hidden neurons to see if they have learned any possibly useful features.\n",
+    "\n",
+    "Call ```show_weights(Index)```, where ```Index``` picks out the neuron. \n",
+    "\n",
+    "You can also check the \"bias\" weight for each set of connections of inputs to the hidden neuron by printing out the actual value of the network weight.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "show_weights(0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "The first hidden neuron has some large positive weights in the leftmost column, and the middle row."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "print network[0][0][25]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "This looks like quite a large *negative* bias weight value, which can be interpreted as the network needing to see most or all of the inputs for which it has positive weights present in the input image before this hidden neuron will fire. \n",
+    "\n",
+    "See for yourself what the other four hidden neurons seem to be \"looking for\" in the input."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "show_weights(1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "show_weights(2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "show_weights(3)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": [
+    "show_weights(4)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}

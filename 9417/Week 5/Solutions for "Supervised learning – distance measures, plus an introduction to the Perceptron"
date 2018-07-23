@@ -1,0 +1,861 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "# Supervised learning – an issue with distance measures, and an introduction to linear classification with the Perceptron"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "_ Last revision: Wed Jun  6 11:20:34 AEDT 2018 _"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Introduction"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "In this lab we will expand on some of the concepts of linear\n",
+    "classification, starting with an experiment with distance measures on data, then looking into the perceptron. Initially we understand the representational capacity of a perceptron, then how to implement learning for elementary Boolean functions, i.e., concept learning, and finally look at a perceptron learning a linear classifier on a real-world dataset."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "### Acknowledgement"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "The perceptron implementation for this lab is based on the presentation and code in Chapter 3 of ``Machine Learning'' by Stephen Marsland, CRC Press, 2015."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Distance measures for high-dimensionality data\n",
+    "\n",
+    "Algorithms such as $k$-Nearest Neighbour are conceptually very simple -- we predict the class value of an unlabelled *query* data point we are given by looking at all the labelled data point(s) in our data set, and predicting that our query will have the same class as the most similar data point(s) in the training set. So, all we need is a way of measuring similarity. The well-known *Euclidean distance measure* would seem to be a good choice. However, while we are very familiar with Euclideam distance in 2 and 3-dimensions, there was a warning (Slide 33 of the \"Classification\" lecture) that in high-dimensions there is a problem – what was this problem ? "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "### Pairwise distances in high-dimensional spaces \n",
+    "\n",
+    "Answer: in high-dimensional spaces everything is far away from everything else, and so pairwise distances become uninformative."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "But what does this actually mean ? There is a mathematical argument to show that this is a true statement, but an alternative approach is simply to simulate what happens. One approach is to randomly generate $N$ points inside a $d$-dimensional cube centred around zero, such as $[-0.5, 0.5]^{d}$. Now take all $N^2$ pairwise distances between these points and plot them. Try setting $N=50$ and do this for at least 3 settings for $d$, such as $d=3$, $100$ and $1000$. Plot the pairwise distances using a histogram from the [```matplotlib```](http://matplotlib.org/api/_as_gen/matplotlib.pyplot.hist.html) library. What do you observe as $d$ is increased ? Does this support the statement above ?\n",
+    "\n",
+    "You should use the ```numpy``` library for this, and in particular the linear algebra methods to calculate the distance as the [L2 norm](https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.linalg.norm.html#numpy.linalg.norm). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/Users/mike/anaconda2/envs/mskl/lib/python2.7/site-packages/matplotlib/font_manager.py:273: UserWarning: Matplotlib is building the font cache using fc-list. This may take a moment.\n",
+      "  warnings.warn('Matplotlib is building the font cache using fc-list. This may take a moment.')\n"
+     ]
+    },
+    {
+     "data": {
+      "image/png": "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\nwsCXpEb8Pzruz9jf+6LHAAAAAElFTkSuQmCC\n",
+      "text/plain": [
+       "<matplotlib.figure.Figure at 0x10f3300d0>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "my_dim = 3\n",
+    "# my_dim = 100\n",
+    "# my_dim = 1000\n",
+    "my_pts = 50\n",
+    "my_dts = my_pts * my_pts\n",
+    "my_a = np.zeros((my_pts,my_dim))\n",
+    "my_d = np.zeros(my_dts)\n",
+    "\n",
+    "for i in range(0, my_pts):\n",
+    "    my_a[i] = np.random.rand(1,my_dim)\n",
+    "    my_a[i] -= 0.5\n",
+    "    \n",
+    "for i in range(0, my_pts):\n",
+    "    for j in range (0, my_pts):\n",
+    "        my_pair_idx = (i*my_pts)+j\n",
+    "        # L2 norm (Euclidean distance)\n",
+    "        dist = np.linalg.norm(my_a[i]-my_a[j])\n",
+    "        # You could also try the L1 norm – does it change anything ?\n",
+    "        # L1 norm (Manhattan or city-block distance)\n",
+    "        # dist = np.linalg.norm(my_a[i]-my_a[j], 1)\n",
+    "        my_d[my_pair_idx] = dist\n",
+    "\n",
+    "plt.hist(my_d, 20)\n",
+    "plt.show()\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Linear classification with the Perceptron"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "### Getting started"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "In this lab we will use a slight variant on the notation and setup\n",
+    "used in the lectures.\n",
+    "These changes are not going to affect the capabilities of the perceptron.\n",
+    "\n",
+    "For a given set of $m$ inputs, the first stage of the computation is when the perceptron  multiplies each of the input values with its corresponding weight and adds these together:\n",
+    "\n",
+    "$$ h = \\sum_{i}^{m} w_{i} x_{i} $$\n",
+    "\n",
+    "The second stage is to apply the thresholding output rule or activation function of the perceptron to produce the classification output.\n",
+    "\n",
+    "For this lab we will slightly change the activation function to map to either $0$ or $1$ rather than the $-1$ or $+1$ we had in the lecture notes.\n",
+    "\n",
+    "The value set for the bias or threshold input will also be changed from $1$ to $-1$.\n",
+    "\n",
+    "$$ o = g(h) = \\left\\{\n",
+    "                \\begin{array}{lll}\n",
+    "                        1 & \\mbox{if}           & h > 0 \\\\\n",
+    "                        0 & \\mbox{otherwise if} & h \\leq 0 \\\\\n",
+    "                \\end{array}\n",
+    "              \\right. $$\n",
+    "\n",
+    "Let's go ahead and implement a Perceptron in Python."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Representing simple Boolean functions as a linear classifier"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "We will first look at modelling a simple two-input Boolean function as linear classifier. This is a Perceptron WITHOUT any learning! To get started we will use the OR function, for which the truth table will be familiar to you all. Note that you will need to pick some weights for the function to output the correct values given the input. There are many possible values that could do the job. Also, remember to take care with the dimension of the weight vector."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "For Input [0, 0] with Class 0 Predict  0\n",
+      "For Input [0, 1] with Class 1 Predict  1\n",
+      "For Input [1, 0] with Class 1 Predict  1\n",
+      "For Input [1, 1] with Class 1 Predict  1\n"
+     ]
+    }
+   ],
+   "source": [
+    "# set up the data, i.e., all the cases in the truth table \n",
+    "x=[[0,0],[0,1],[1,0],[1,1]]\n",
+    "y=[0,1,1,1]\n",
+    "# number of data points\n",
+    "n=4\n",
+    "# number of inputs to the perceptron\n",
+    "m=3\n",
+    "# what weights should be assigned to correctly compute the OR function ?\n",
+    "w=[0.02,0.03,0.03]\n",
+    "# loop over the data\n",
+    "for i in range(n):\n",
+    "    h=w[0]*(-1)# this is the bias weight and input\n",
+    "    for j in range(1,m):\n",
+    "        # print 'J is ', j\n",
+    "        # print 'Data is ', x[i][j-1]\n",
+    "        h+=w[j]*x[i][j-1]\n",
+    "        # print 'H is ', h\n",
+    "    if(h>0):\n",
+    "        output=1\n",
+    "    else:\n",
+    "        output=0\n",
+    "    print 'For Input', x[i], 'with Class', y[i], 'Predict ', output"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Now change your code to model the AND function (again restricted to two inputs)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "For Input [0, 0] with Class 0 Predict  0\n",
+      "For Input [0, 1] with Class 0 Predict  0\n",
+      "For Input [1, 0] with Class 0 Predict  0\n",
+      "For Input [1, 1] with Class 1 Predict  1\n"
+     ]
+    }
+   ],
+   "source": [
+    "# set up the data, i.e., all the cases in the truth table \n",
+    "x=[[0,0],[0,1],[1,0],[1,1]]\n",
+    "y=[0,0,0,1]\n",
+    "# number of data points\n",
+    "n=4\n",
+    "# number of inputs to the perceptron\n",
+    "m=3\n",
+    "# what weights should be assigned to correctly compute the AND function ?\n",
+    "w=[0.05,0.03,0.03]\n",
+    "# loop over the data\n",
+    "for i in range(n):\n",
+    "    h=w[0]*(-1)# this is the bias weight and input\n",
+    "    for j in range(1,m):\n",
+    "        h+=w[j]*x[i][j-1]\n",
+    "    if(h>0):\n",
+    "        output=1\n",
+    "    else:\n",
+    "        output=0\n",
+    "    print 'For Input', x[i], 'with Class', y[i], 'Predict ', output"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Changing the data structures for machine learning"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "We got right down to the details of how a linear classifier works. Now this being a perceptron, you probably recall that rather than using a fixed set of weights to do the prediction each time, there is a simple training rule that updates the weights on the basis of discrepancies between the classifier's prediction on the data and the actual class. So we could extend our previous code to implement that training rule, but the code is a little fiddly and you're probably thinking there should be a simpler way to do this. If so, you are correct, but it is based on moving towards coding with matrix and vector operations, rather than directly using Python arrays. To do this we need to import the NumPy library (there is a tutorial at: <href <a>https://docs.scipy.org/doc/numpy-dev/user/quickstart.html</a>>)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "For example, when we need to predict a class for an instance $\\mathbf{x}$ given the current weights $\\mathbf{w}$ we can use the inner product operation $\\mathbf{x} \\cdot \\mathbf{w}$. To get this functionality using NumPy we just do the following:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.06\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "x=np.array([0,1,1])\n",
+    "w=np.array([0.02,0.03,0.03])\n",
+    "\n",
+    "h=np.dot(x,w)\n",
+    "print h"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "But wait, there's more! Since $\\mathbf{x}$ and $\\mathbf{w}$ are both actually matrices, the same operation will enable us to apply the inner product of the weight vector $\\mathbf{w}$ to ALL the data instances at once. In this case we write the matrix of data instances $\\mathbf{X}$. Just note that we need to take care that the data matrix and weight vector are properly initialised to make this operation work correctly. Now the code for predicting the class values of all of our data given the weight vector is as follows: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Activations:\n",
+      "[[-0.02]\n",
+      " [ 0.01]\n",
+      " [ 0.01]\n",
+      " [ 0.04]]\n",
+      "Predictions:\n",
+      "[[0]\n",
+      " [1]\n",
+      " [1]\n",
+      " [1]]\n",
+      "Misclassifications\n",
+      "[[0]\n",
+      " [0]\n",
+      " [0]\n",
+      " [0]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "# Data set with class values in last column\n",
+    "dataset = np.array([[0,0,0],[0,1,1],[1,0,1],[1,1,1]]) # OR function\n",
+    "X=dataset[:,0:2]\n",
+    "y = dataset[:,2:]\n",
+    "# Note: the bias weight is now the last!\n",
+    "w = np.array([[0.03],[0.03],[0.02]])\n",
+    "# Add the values for the bias weights (-1) to the data matrix\n",
+    "nData = np.shape(X)[0]\n",
+    "X = np.concatenate((X,-np.ones((nData,1))),axis=1)\n",
+    "# get the value of the activation function\n",
+    "h = np.dot(X,w)\n",
+    "yhat = np.where(h>0,1,0)\n",
+    "err = yhat-y\n",
+    "\n",
+    "print 'Activations:\\n', h\n",
+    "print 'Predictions:\\n', yhat\n",
+    "print 'Misclassifications\\n', err"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "This code uses some more NumPy built-ins. Check the documentation to be sure you know what is going on. One of these, np.where(), is useful here. It takes 3 arguments and returns an array. The first argument is a predicate on an array that is either evaluates to true, returning the second argument at the corresponding index in the array or false, returning the third argument instead. Now see how you get on re-implementing the code to do the prediction for the two-input Boolean AND function, as above."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Activations:\n",
+      "[[-0.05]\n",
+      " [-0.02]\n",
+      " [-0.02]\n",
+      " [ 0.01]]\n",
+      "Predictions:\n",
+      "[[0]\n",
+      " [0]\n",
+      " [0]\n",
+      " [1]]\n",
+      "Misclassifications\n",
+      "[[0]\n",
+      " [0]\n",
+      " [0]\n",
+      " [0]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "# Data set with class values in last column\n",
+    "dataset = np.array([[0,0,0],[0,1,0],[1,0,0],[1,1,1]]) # AND function\n",
+    "X=dataset[:,0:2]\n",
+    "y = dataset[:,2:]\n",
+    "# Note: the bias weight is now the last!\n",
+    "w = np.array([[0.03],[0.03],[0.05]])\n",
+    "# Add the values for the bias weights (-1) to the data matrix\n",
+    "nData = np.shape(X)[0]\n",
+    "X = np.concatenate((X,-np.ones((nData,1))),axis=1)\n",
+    "# get the value of the activation function\n",
+    "h = np.dot(X,w)\n",
+    "yhat = np.where(h>0,1,0)\n",
+    "err = yhat-y\n",
+    "\n",
+    "print 'Activations:\\n', h\n",
+    "print 'Predictions:\\n', yhat\n",
+    "print 'Misclassifications\\n', err"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Adding in weight updates to make the learning work"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "We have spent some time just getting the weights and data in the right vector-matrix format to be able to do the prediction. What else do we need to get this thing to learn ?\n",
+    "\n",
+    "One thing we will need is some random initialisation for the weight vector. What sort of values would be appropriate for this initialisation?\n",
+    "\n",
+    "The initialisation will be done using a NumPy built-in. Note that we need weights for each of the inputs \"nIn\", plus one for the bias. Also, the \"nOut\" parameter is just a placeholder in case you want your Perceptron to predict more than one output at a time. Here we will just use one."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[ 0.04918052]\n",
+      " [ 0.04799725]\n",
+      " [-0.04857676]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "nIn = 2    # still working with 2-input Boolean functions\n",
+    "nOut = 1   # so a true/false classification output\n",
+    "w = np.random.rand(nIn+1,nOut)*0.1-0.05 # Check: does this return a column vector?\n",
+    "print w"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "The other main thing we need is to see how the Perceptron training rule is implemented to update the weights for each attribute given all the information in the data matrix plus the misclassifications. Note that this implementation is a batch version, unlike the version in the lecture notes which is incremental. Both approaches have their place. Here we go for simplicity of implementation."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "What must the inner dimensions of the matrix multiplcation be for the weight update ? Check with the lecture notes to see what terms we will need. Recall that the augmented data matrix has $m+1$ columns, where $m$ is the number of inputs. However, the misclassifications, or errors, are of dimensionality $n$, because there is potentially one misclassification for every example in the dataset. What has to happen ?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Correct: you need to transpose the augmented data matrix to ensure the inner dimensions match (they both must be of size $n$). Check you are sure before inspecting the code (it's just a one-liner). Here the parameter \"eta\" is the learning rate $\\eta$, which for this code is set to $0.25$. Once more $\\hat{y} - y$ will be our misclassification vector. Can you see why the updated weight vector $w$ has the values it does ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[ 0.04918052]\n",
+      " [ 0.04799725]\n",
+      " [-0.04857676]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "eta=0.25\n",
+    "w -= eta*np.dot(np.transpose(X),yhat-y)   # this is it - learning in one line of code!\n",
+    "print w"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Now we can put all the above together. Note that we need to set an upper limit for the number of iterations (T). Play with this code and run it as above for our Boolean functions. See what happens to the weights for \"OR\". Does the Perceptron learn this function. Now try \"AND\". Then try \"XOR\" (exclusive or). Now go back and experiment with the learning rate. Does anything change ?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Iteration: 0  Error: 0.25\n",
+      "Iteration: 1  Error: 0.75\n",
+      "Iteration: 2  Error: 0.25\n",
+      "Iteration: 3  Error: 0.25\n",
+      "Iteration: 4  Error: 0.25\n",
+      "Iteration: 5  Error: 0.0\n",
+      "Iteration: 6  Error: 0.0\n",
+      "Iteration: 7  Error: 0.0\n",
+      "Iteration: 8  Error: 0.0\n",
+      "Iteration: 9  Error: 0.0\n",
+      "Iteration: 10  Error: 0.0\n",
+      "Iteration: 11  Error: 0.0\n",
+      "Iteration: 12  Error: 0.0\n",
+      "Iteration: 13  Error: 0.0\n",
+      "Iteration: 14  Error: 0.0\n",
+      "Iteration: 15  Error: 0.0\n",
+      "Iteration: 16  Error: 0.0\n",
+      "Iteration: 17  Error: 0.0\n",
+      "Iteration: 18  Error: 0.0\n",
+      "Iteration: 19  Error: 0.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "from __future__ import division\n",
+    "import numpy as np\n",
+    "\n",
+    "# Dataset with class values in last column\n",
+    "dataset = np.array([[0,0,0],[0,1,1],[1,0,1],[1,1,1]])   # OR function\n",
+    "# dataset = np.array([[0,0,0],[0,1,0],[1,0,0],[1,1,1]]) # AND function\n",
+    "# dataset = np.array([[0,0,0],[0,1,1],[1,0,1],[1,1,0]]) # XOR function\n",
+    "X = dataset[:,0:2]\n",
+    "y = dataset[:,2:]\n",
+    "nIn = np.shape(X)[1]    # no. of columns of data matrix\n",
+    "nOut = np.shape(y)[1]   # no. of columns of class values -- just 1 here\n",
+    "nData = np.shape(X)[0]  # no. of rows of data matrix\n",
+    "w = np.random.rand(nIn+1,nOut)*0.1-0.05\n",
+    "X = np.concatenate((X,-np.ones((nData,1))),axis=1)\n",
+    "eta=0.25\n",
+    "T=20\n",
+    "# Train for T iterations\n",
+    "for t in range(T):\n",
+    "        # Predict outputs given current weights\n",
+    "        h = np.dot(X,w)\n",
+    "        yhat = np.where(h>0,1,0)\n",
+    "        # Update weights for all incorrect classifications\n",
+    "        w -= eta*np.dot(np.transpose(X),yhat-y)\n",
+    "        # Output current performance\n",
+    "        errors=yhat-y\n",
+    "        perrors=((nData - np.sum(np.where(errors==0,1,0)))/nData)\n",
+    "        #print perrors, 'is Error on iteration:', t\n",
+    "        print 'Iteration:', t, ' Error:', perrors"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "## Perceptron training on real data"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Finally, try this out on a real dataset, the Pima diabetes dataset. You can download this from within your program. The rest of your program should work the same. Replace the lines defining the dataset, X and y variables with the code below. You might want to increase the number of iterations from 20 as well. Unfortunately, this basic implementation of neural learning is not likely to find a very good model. You could try transforming the data, for example, by making all attribute values lie in the same range. Search for methods of normalisation using the NumPy built-in functions \"np.mean()\" and \"np.var()\". For example, you could transform dataset ```X``` with this normalisation:\n",
+    "```Z = (X - np.mean(X,axis = 0))/(np.var(X,axis = 0)**0.5)```."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(768, 9)\n"
+     ]
+    }
+   ],
+   "source": [
+    "import urllib\n",
+    "# URL for a copy of the Pima Indians Diabetes dataset (UCI Machine Learning Repository)\n",
+    "url = \"http://cse.unsw.edu.au/~mike/comp9417/data/uci_pima_indians_diabetes.csv\"\n",
+    "# download the file\n",
+    "raw_data = urllib.urlopen(url)\n",
+    "# load the CSV file as a numpy matrix\n",
+    "dataset = np.loadtxt(raw_data, delimiter=\",\")\n",
+    "print(dataset.shape) # 8 attributes, 1 class, 768 examples\n",
+    "X = dataset[:,0:8]\n",
+    "y = dataset[:,8:9]\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "deletable": true,
+    "editable": true
+   },
+   "source": [
+    "Here is the full code"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "collapsed": false,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "(768, 9)\n",
+      "Iteration: 0  Error: 0.350260416667\n",
+      "Iteration: 1  Error: 0.651041666667\n",
+      "Iteration: 2  Error: 0.348958333333\n",
+      "Iteration: 3  Error: 0.651041666667\n",
+      "Iteration: 4  Error: 0.348958333333\n",
+      "Iteration: 5  Error: 0.477864583333\n",
+      "Iteration: 6  Error: 0.348958333333\n",
+      "Iteration: 7  Error: 0.651041666667\n",
+      "Iteration: 8  Error: 0.348958333333\n",
+      "Iteration: 9  Error: 0.604166666667\n",
+      "Iteration: 10  Error: 0.348958333333\n",
+      "Iteration: 11  Error: 0.348958333333\n",
+      "Iteration: 12  Error: 0.651041666667\n",
+      "Iteration: 13  Error: 0.348958333333\n",
+      "Iteration: 14  Error: 0.630208333333\n",
+      "Iteration: 15  Error: 0.348958333333\n",
+      "Iteration: 16  Error: 0.337239583333\n",
+      "Iteration: 17  Error: 0.649739583333\n",
+      "Iteration: 18  Error: 0.348958333333\n",
+      "Iteration: 19  Error: 0.360677083333\n"
+     ]
+    }
+   ],
+   "source": [
+    "from __future__ import division\n",
+    "import numpy as np\n",
+    "\n",
+    "import urllib\n",
+    "# URL for a copy of the Pima Indians Diabetes dataset (UCI Machine Learning Repository)\n",
+    "url = \"http://cse.unsw.edu.au/~mike/comp9417/data/uci_pima_indians_diabetes.csv\"\n",
+    "# download the file\n",
+    "raw_data = urllib.urlopen(url)\n",
+    "# load the CSV file as a numpy matrix\n",
+    "dataset = np.loadtxt(raw_data, delimiter=\",\")\n",
+    "print(dataset.shape) \n",
+    "X = dataset[:,0:8]\n",
+    "y = dataset[:,8:9]\n",
+    "\n",
+    "nIn = np.shape(X)[1]    # no. of columns of data matrix\n",
+    "nOut = np.shape(y)[1]   # no. of columns of class values -- just 1 here\n",
+    "nData = np.shape(X)[0]  # no. of rows of data matrix\n",
+    "w = np.random.rand(nIn+1,nOut)*0.1-0.05\n",
+    "X = np.concatenate((X,-np.ones((nData,1))),axis=1)\n",
+    "eta=0.25\n",
+    "T=20\n",
+    "# Train for T iterations\n",
+    "for t in range(T):\n",
+    "        # Predict outputs given current weights\n",
+    "        h = np.dot(X,w)\n",
+    "        yhat = np.where(h>0,1,0)\n",
+    "        # Update weights for all incorrect classifications\n",
+    "        w -= eta*np.dot(np.transpose(X),yhat-y)\n",
+    "        # Output current performance\n",
+    "        errors=yhat-y\n",
+    "        perrors=((nData - np.sum(np.where(errors==0,1,0)))/nData)\n",
+    "        #print perrors, 'is Error on iteration:', t\n",
+    "        print 'Iteration:', t, ' Error:', perrors"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": true,
+    "deletable": true,
+    "editable": true
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 1
+}
