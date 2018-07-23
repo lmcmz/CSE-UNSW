@@ -1,0 +1,7 @@
+pymongo==3.6.1
+Flask_RESTful==0.3.6
+requests==2.18.4
+xlrd==1.1.0
+Flask==0.12.2
+atlas==0.27.0
+json2xml==2.2.0

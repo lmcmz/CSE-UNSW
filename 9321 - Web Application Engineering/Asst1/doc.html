@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="api-documentation-memo">API Documentation 📝</h1>
+<p>This documentation covers the coffe shop order web API.</p>
+<h4 id="media-type-support">Media Type support</h4>
+<hr>
+<p>All server response bodies and request bodies MUST be valid <strong><a href="https://tools.ietf.org/search/rfc4627">JSON</a></strong> messages.</p>
+<h3 id="orders-coffee">Orders ☕️</h3>
+<hr>
+<p>The <strong>Orders</strong> URL (/orders/) is the base URL for reading and updating Order objects The table below shows all the Task-related operations, their URLs, methods, and payloads.</p>
+<h4 id="table-1.-order-operations">Table 1. Order operations</h4>
+
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>URL</th>
+<th>Method</th>
+<th>Returns</th>
+<th>Inputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CreateOrder</td>
+<td>/orders</td>
+<td>POST</td>
+<td>PaymentURI, <a href="#Order">order</a></td>
+<td><a href="#Order">order</a></td>
+</tr>
+<tr>
+<td>UpdateOrder</td>
+<td>/orders/&lt;id&gt;/</td>
+<td>PUT</td>
+<td><a href="#Order">order</a></td>
+<td><a href="#Order">order</a></td>
+</tr>
+<tr>
+<td>GetOrder</td>
+<td>/orders/&lt;id&gt;</td>
+<td>GET</td>
+<td><a href="#Order">order</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>CancelOrder</td>
+<td>/orders/&lt;id&gt;</td>
+<td>DELETE</td>
+<td><a href="#Msg">msg</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>ReleaseOrder</td>
+<td>/orders/release/&lt;id&gt;</td>
+<td>POST</td>
+<td><a href="#Msg">msg</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>PreparedOreder</td>
+<td>/orders/prepare/&lt;id&gt;</td>
+<td>PATCH</td>
+<td><a href="#Order">order</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>CheckOrderPaied</td>
+<td>/orders/paied/&lt;id&gt;</td>
+<td>GET</td>
+<td>ture/false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>GetAllOrders</td>
+<td>/orders</td>
+<td>GET</td>
+<td><a href="#OrderList">orderList</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>GetOpenOrders</td>
+<td>/orders/open/</td>
+<td>GET</td>
+<td><a href="#OrderList">orderList</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>GetPaidOrders</td>
+<td>/orders/paied/</td>
+<td>GET</td>
+<td><a href="#OrderList">orderList</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>GetUnPaidOrders</td>
+<td>/orders/unpaied/</td>
+<td>GET</td>
+<td><a href="#OrderList">orderList</a></td>
+<td>none</td>
+</tr>
+<tr>
+<td>GetReleaseOrders</td>
+<td>/orders/release/</td>
+<td>GET</td>
+<td><a href="#OrderList">orderList</a></td>
+<td>none</td>
+</tr>
+</tbody>
+</table><h3 id="payment-dollar">Payment 💵</h3>
+<p>The <strong>Payment</strong> URL (/payments/) is the base URL for reading and updating User objects and supports the following operations:</p>
+<h4 id="table-2.-payment-operations">Table 2. Payment operations</h4>
+
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>URL</th>
+<th>Method</th>
+<th>Returns</th>
+<th>Inputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CreatePayment</td>
+<td>/payments/&lt;id&gt;/</td>
+<td>POST</td>
+<td><a href="#Order">order</a></td>
+<td><a href="#Payment">Payment</a></td>
+</tr>
+<tr>
+<td>GetPayment</td>
+<td>/payments/&lt;id&gt;</td>
+<td>GET</td>
+<td><a href="#Payment">payment</a></td>
+<td>none</td>
+</tr>
+</tbody>
+</table><h2 id="responses-eyes">Responses 👀</h2>
+<p>The Order API returns four possible payloads (as JSON object):</p>
+<ul>
+<li><a href="#OrderList">Order List</a></li>
+<li><a href="#Order">Order</a></li>
+<li><a href="#Payment">Payment</a></li>
+<li><a href="#MSG">Message</a></li>
+</ul>
+<p>See below for details.</p>
+<h3 id="a-nameorderlista-order-list-json"><a></a> Order List Json</h3>
+<p>A <strong>order list</strong> looks like this:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"cost"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    <span class="token string">"coffeType"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"isPaied"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"orderID"</span><span class="token punctuation">:</span> <span class="token string">"201802180001"</span><span class="token punctuation">,</span>
+    <span class="token string">"isPrepared"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"date"</span><span class="token punctuation">:</span> <span class="token string">"2018-02-30T20:40:30"</span><span class="token punctuation">,</span>
+    <span class="token string">"addition"</span><span class="token punctuation">:</span> <span class="token string">"no milk"</span><span class="token punctuation">,</span>
+    <span class="token string">"payment"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">"5037234512344321"</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">"Josh Smith"</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">"03/20"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"cost"</span><span class="token punctuation">:</span> <span class="token number">6.5</span><span class="token punctuation">,</span>
+    <span class="token string">"coffeType"</span><span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+    <span class="token string">"isPaied"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"orderID"</span><span class="token punctuation">:</span> <span class="token string">"201802180041"</span><span class="token punctuation">,</span>
+    <span class="token string">"isPrepared"</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string">"date"</span><span class="token punctuation">:</span> <span class="token string">"2018-03-1T11:20:10"</span><span class="token punctuation">,</span>
+    <span class="token string">"addition"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token string">"payment"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">6.5</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+
+</code></pre>
+<p>See <strong><a href="#Data">Data Elements</a></strong> for more information on each property.</p>
+<hr>
+<h4 id="a-nameordera-order-json"><a></a> Order Json</h4>
+<p>A <strong>order</strong> looks like this:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+    <span class="token string">"cost"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    <span class="token string">"coffeType"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"isPaied"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"orderID"</span><span class="token punctuation">:</span> <span class="token string">"201802180001"</span><span class="token punctuation">,</span>
+    <span class="token string">"isPrepared"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"date"</span><span class="token punctuation">:</span> <span class="token string">"2018-02-30T20:40:30"</span><span class="token punctuation">,</span>
+    <span class="token string">"addition"</span><span class="token punctuation">:</span> <span class="token string">"no milk"</span><span class="token punctuation">,</span>
+    <span class="token string">"payment"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">"5037234512344321"</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">"Josh Smith"</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">"03/20"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>See <strong><a href="#Data">Data Elements</a></strong> for more information on each property.</p>
+<hr>
+<h3 id="a-namepaymenta-payment-json"><a></a> Payment Json</h3>
+<p>A <strong>payment</strong> looks like this:</p>
+<pre class=" language-json"><code class="prism  language-json">   <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span><span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>See <strong><a href="#Data">Data Elements</a></strong> for more information on each property.</p>
+<hr>
+<h3 id="a-namemsga-error-msg"><a></a> Error Msg</h3>
+<p>A <strong>msg</strong> example looks like this:</p>
+<pre class=" language-json"><code class="prism  language-json">   <span class="token punctuation">{</span>
+      <span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Repeat order ID"</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>See <strong><a href="#Data">Data Elements</a></strong> for more information on each property.</p>
+<h2 id="a-namerequesta-request-icecream"><a></a> Request 🍦</h2>
+<p>All payloads sent from the client to the server MUST be valid <a href="https://tools.ietf.org/search/rfc4627">JSON Media Type</a> messages. The messages <strong>SHOULD</strong> be in simple name-value dictionary format based on the <strong>INPUT</strong> arguments from the <a href="#Order">Order</a> Operations and the <a href="#payment">Payment</a> Operations tables.</p>
+<ul>
+<li><a href="#Order">Order</a></li>
+<li><a href="#Payment">Payment</a></li>
+</ul>
+<h4 id="a-namecreatea-create-order"><a></a> Create order</h4>
+<hr>
+<p>When the order was create, the <em>Payment</em> in Order Json must be <strong>empty</strong> and the <em>isPaid</em> should be <strong>false</strong> as well as <em>isPrepared</em>.</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+    <span class="token string">"cost"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    <span class="token string">"coffeType"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token string">"isPaied"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"orderID"</span><span class="token punctuation">:</span> <span class="token string">"201802180001"</span><span class="token punctuation">,</span>
+    <span class="token string">"isPrepared"</span><span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token string">"date"</span><span class="token punctuation">:</span> <span class="token string">"2018-02-30T20:40:30"</span><span class="token punctuation">,</span>
+    <span class="token string">"addition"</span><span class="token punctuation">:</span> <span class="token string">"no milk"</span><span class="token punctuation">,</span>
+    <span class="token string">"payment"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="a-namecreate-acreate-payment"><a> </a>Create payment</h4>
+<hr>
+<p>When the payment was create, the <strong>type</strong> should be <strong>1</strong> or <strong>2</strong>. If the type is 2, then <em>cardNumber</em> , <em>cardName</em> and <em>expireDate</em> are required parameters.</p>
+<h5 id="cash-payment">Cash payment</h5>
+<pre class=" language-json"><code class="prism  language-json">  <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">5.2</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h5 id="card-payment">Card payment</h5>
+<pre class=" language-json"><code class="prism  language-json">    <span class="token punctuation">{</span>
+    	<span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    	<span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">6.0</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardNumber"</span><span class="token punctuation">:</span> <span class="token string">"5037234512344321"</span><span class="token punctuation">,</span>
+    	<span class="token string">"cardName"</span><span class="token punctuation">:</span> <span class="token string">"Josh Smith"</span><span class="token punctuation">,</span>
+    	<span class="token string">"expireDate"</span><span class="token punctuation">:</span> <span class="token string">"03/20"</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="a-namedataa-data-elements-sushi"><a></a> Data Elements 🍣</h2>
+<p>There is all the parameters describtion</p>
+<h5 id="a-nameorderdetaila-order-detail"><a></a> Order detail</h5>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Meaning</th>
+<th>Type</th>
+<th align="center">Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cost</td>
+<td>Cost of coffee</td>
+<td>Int</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td><a href="#CoffeeType">coffeeType</a></td>
+<td>The type of coffee</td>
+<td>Int</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>isPaied</td>
+<td>The order is paied or not</td>
+<td>Bool</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>orderID</td>
+<td>Order id</td>
+<td>String</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>isPrepared</td>
+<td>Coffee is already to release</td>
+<td>Bool</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>date</td>
+<td>Order create time</td>
+<td>String</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>addition</td>
+<td>addition of Order</td>
+<td>String</td>
+<td align="center">✔️</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>Payment detail</td>
+<td><a href="#Payment">Payment</a></td>
+<td align="center">✔️</td>
+</tr>
+</tbody>
+</table><h5 id="a-namepaymenrdetaila-payment-detail"><a></a> Payment detail</h5>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Meaning</th>
+<th>Type</th>
+<th align="center">Optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#PaymentType">type</a></td>
+<td>Type of payment</td>
+<td>Int</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>The amount of bill</td>
+<td>Int</td>
+<td align="center">✖️</td>
+</tr>
+<tr>
+<td>cardName</td>
+<td>Name on credit card</td>
+<td>String</td>
+<td align="center">✔️</td>
+</tr>
+<tr>
+<td>cardNumber</td>
+<td>Credit card number</td>
+<td>String</td>
+<td align="center">✔️</td>
+</tr>
+<tr>
+<td>expireDate</td>
+<td>Credit expire date</td>
+<td>String</td>
+<td align="center">✔️</td>
+</tr>
+</tbody>
+</table><h4 id="a-namecoffeetypea--coffe-type-coffee"><a></a>  Coffe Type ☕️</h4>
+<pre class=" language-python"><code class="prism  language-python">	Espresso <span class="token operator">=</span> <span class="token number">0</span>
+	Double_Espresso <span class="token operator">=</span> <span class="token number">1</span>
+	Short_Macchiato <span class="token operator">=</span> <span class="token number">2</span>
+	Long_Macchiato <span class="token operator">=</span> <span class="token number">3</span>
+	Ristretto <span class="token operator">=</span> <span class="token number">4</span>
+	Long_Black <span class="token operator">=</span> <span class="token number">5</span>
+	Latte <span class="token operator">=</span> <span class="token number">6</span>
+	Cappuccino <span class="token operator">=</span> <span class="token number">7</span>
+	Flat_White <span class="token operator">=</span> <span class="token number">8</span>
+	Piccolo_Latte <span class="token operator">=</span> <span class="token number">9</span>
+	Mocha <span class="token operator">=</span> <span class="token number">10</span>
+	Affogato <span class="token operator">=</span> <span class="token number">11</span>
+</code></pre>
+<h4 id="a-namepaymenttypea-payment-type-dollar"><a></a> Payment Type 💵</h4>
+<pre class=" language-python"><code class="prism  language-python">	Invailed <span class="token operator">=</span> <span class="token number">0</span>
+	Cash <span class="token operator">=</span> <span class="token number">1</span>
+	Card <span class="token operator">=</span> <span class="token number">2</span>
+</code></pre>
+</div>
+</body>
+
+</html>

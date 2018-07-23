@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed>
+{% for sub in suburbs %}
+	<entry>       
+		<id>/{{suburbs[sub]['collection']}}/{{suburbs[sub]['id']}}</id>    
+		<title> {{suburbs[sub]['title']}}</title>
+		<updated>{{suburbs[sub]['time']}}</updated>
+		<author>
+			<name {{suburbs[sub]['name']}}/> 
+		</author>
+	</entry>
+{% endfor %}
+</feed>

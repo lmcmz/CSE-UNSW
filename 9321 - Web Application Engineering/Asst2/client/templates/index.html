@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>lmcmz's asst2 </title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<!--===============================================================================================-->
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+	<link rel="stylesheet" href="/static/styles/atom-one-dark.css">
+	<script src="/static/js/highlight.pack.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad();
+	</script>
+	<!--===============================================================================================-->
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script src="/static/js/jquery.min.js"></script>
+	<script>
+		$('.contact100-form-btn').on('click', function() {
+			var $this = $(this);
+			$this.button('loading');
+			setTimeout(function() {
+				$this.button('reset');
+			}, 8000);
+		});
+	</script>
+</head>
+
+<body>
+	<div class="container-contact100">
+		<div class="contact100-map  p-3 mb-2 bg-dark text-white" style="overflow">
+			<div class="container pre-scrollable">
+				<pre class="p-3 mb-2 bg-dark text-white">
+				<code>{{code|safe}}</code>
+	</pre>
+			</div>
+
+		</div>
+
+		<div class="wrap-contact100">
+			<form class="contact100-form" id="my_form" action='/' method="post">
+				<span class="contact100-form-title">
+				    COMP9321 ASST2
+				</span>
+
+
+				<div class="resultsTable">
+					<span class="contact100-form-title-2">
+				    Authentication
+				</span>
+
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<input class="input100" type="text" id="name" name="name" placeholder="Name" value={{form[ 'name']}}>
+						<span class="focus-input100"></span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" id="password" name="password" placeholder="Password" value={{form[ 'password']}}>
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+
+
+				<div class="resultsTable">
+
+					<div style="display: inline;">
+						<span class="new_contact100-form-title-2-inline">
+				    LGA
+				</span>
+						<input name="all" class="btn btn-info ml-auto" type="submit" style="display: inline; width: auto; border-radius: 30px; height: 50px; text-align: center;" value="Get all data" />
+					</div>
+
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" style="width: 80%;" name="lga" placeholder="Suburb or Postcode" value={{form[ 'lga']}}>
+						<span class="focus-input100"></span>
+
+					</div>
+				</div>
+
+				<div class="resultsTable">
+					<span class="contact100-form-title-2">
+				    Filter
+				</span>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" id="filter" name="filter" placeholder="BNF">
+						<span class="focus-input100"></span>
+					</div>
+				</div>
+
+
+				<div style="width: 48%;">
+					<div class="btn-group" data-toggle="buttons" role="group" style="width: 100%;" id="format">
+						<label class="btn btn-lg btn-info segementButton-left active">
+                        <input type="radio" name="format" autocomplete="off" value="xml" checked />
+                        <i class="icon wb-check text-active" aria-hidden="true"></i>                        XML
+                      </label>
+						<label class="btn btn-lg btn-info segementButton-right">
+                        <input type="radio" name="format" autocomplete="off" value="json" />
+                        <i class="icon wb-check text-active" aria-hidden="true"></i>                        JSON
+                      </label>
+					</div>
+				</div>
+
+				<div style="width: 48%;">
+					<select name="method" class="custom-select btn-info" data-style="btn-info">
+  					<option>Retrieve</option>
+  					<option>Create</option>
+  					<option>Delete</option>       
+					</select>
+				</div>
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order">
+							Run
+						</button>
+						</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+	<!--===============================================================================================-->
+	<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/static/vendor/animsition/js/animsition.min.js"></script>
+	<!--	===============================================================================================-->
+	<script src="/static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/static/vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="/static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="/static/vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+	<!--	<script src="js/map-custom.js"></script>-->
+	<!--===============================================================================================-->
+	<!--	<script src="/static/js/main.js"></script>-->
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<!--	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>-->
+	<!--
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-23581568-13');
+	</script>
+-->
+
+</body>
+
+</html>

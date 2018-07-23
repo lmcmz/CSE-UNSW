@@ -1,0 +1,619 @@
+<html>
+<head>
+<title>COMP9417 17s1</title>
+</head>
+<body>
+<h3 align=center>COMP9417 17s1 Assignment 2 - project topics</h3>
+<hr>
+
+<p>
+Assignment <a href="./criteria.pdf">criteria</a>.
+
+<p>
+Brief <a href="./reportguide.html">guide</a> to writing the report.
+
+<p>
+<a href="./reportsample.txt">Sample</a> of a report.
+
+<hr>
+
+<p>
+Here are the topics (more may become available, so ask me if there is
+nothing of interest here or you don't want to develop your own project):
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 0: Propose your own topic</b>
+<p>
+<b>Task description</b><br>
+Up to you. The basic conditions are:
+<ul>
+<li> it must involve some practical work with some implementation of machine
+	learning
+<li> you must send me an email with a description of what you are planning
+	(a couple of paragraphs would usually be enough) that I need to
+	approve before you start
+<li> it must not involve double-dipping, i.e., be part of project for another
+	course, or for research postgrads it must include a statement to the
+	effect that it
+        is not part of the main work planned for the thesis (although it can
+	be related, e.g. if your research is on behavioural cloning, it could
+	be on reinforcement learning, which is a related but different approach)
+</ul>
+
+<p>
+<b>Team</b> 1 to 4 person team</b>
+<p>
+<b>Difficulty</b> assigned per topic (often 5/5).
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 1: Machine learning and data mining competitions</b>
+<p>
+<b>Task description</b><br>
+A number of sites now host regular competitions. You can enter a live
+competition or work on the dataset from a past competition. The main site
+hosting machine learning competitions is Kaggle. Current competitions are 
+<a href="http://www.kaggle.com/competitions">here</a>. Two others that
+appear currently not very active are 
+<a href="http://tunedit.org/">TunedIT</a> and 
+<a href="http://mlcomp.org/">MLcomp</a>,
+but they might have interesting datasets for you.
+
+<p>
+Some of the past competitions could be of interest,
+e.g., the Million Song Dataset
+<a href="http://www.kaggle.com/c/msdchallenge">Challenge</a>.
+See also Topic 8 below.
+The choice of competition is up to you. The basic conditions are:
+<ul>
+<li> assess carefully the time you will need to understand the competition
+	requirements, get familiar with the data and run the algorithm(s)
+	you plan to use
+<li> you must send me an email with a description of what you are planning
+        (a couple of paragraphs would usually be enough) that I need to
+        approve before you start
+<li> your report and software must be submitted as for the other topics;
+	for live competitions you can include your submission's placing on
+	the leaderboard at submission time!
+<!-- (but if you win the competition you can keep the prize money!) --> 
+</ul>
+
+<p>
+<b>Team</b> 1 to 4 person team</b>
+<p>
+<b>Difficulty</b> assigned per topic (often 5/5).
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 2: Data repositories</b>
+<p>
+<b>Task description</b><br>
+As an alternative to following the rules of past competitions you can
+choose to apply machine learning to the datasets in new and interesting
+ways, or you could do the same with datasets from some of the many
+repositories now on the Web. The original such repository is the 
+UC Irvine Machine Learning Repository
+<a href="http://archive.ics.uci.edu/ml/index.html">here</a>.
+These datasets are usually formatted for easy import into machine learning
+software.
+
+<p>
+MIT's Reality Commons
+<a href="http://realitycommons.media.mit.edu/">project</a>
+has some datasets on human behaviour obtained from
+mobile phones and other devices, such as the one on
+Human Activity Recognition Using Smartphones
+<a href="http://realitycommons.media.mit.edu/realitymining.html">here</a>.
+
+<p>
+The U.S. Government's open data initiative
+<a href="https://explore.data.gov/">Data.gov</a> contains many data sets.
+The problem is that many are simply raw data and individual data sets do
+not represent a well-defined learning problem; however, the hope is that
+by linking several data sets some interesting mining may be possible.
+Other governments doing similar things are in the
+<a href="http://data.gov.uk/">U.K.</a>,
+<a href="https://data.govt.nz/">N.Z</a> and 
+<a href="http://data.gov.au/">Australia</a>. A more complete list is available
+<a href="http://en.wikipedia.org/wiki/Open_data">here</a>.
+
+<p>
+Many of the above, plus more, are included in the list of repositories at
+<a href="http://www.kdnuggets.com/datasets/">KDnuggets</a>.
+
+<p>
+Pick a data set, review its publication history (if any) and see if you
+can think of an interesting angle to explore to make a project.
+The basic conditions are
+<ul>
+<li> assess carefully the time you will need to specify a well-posed
+	problem and set up the dataset(s) and algorithm(s)
+<li> give particular attention to defining a target function and ways in
+	which you can evaluate the learning
+<li> you must send me an email with a description of what you are planning
+        (a couple of paragraphs would usually be enough) that I need to
+        approve before you start
+</ul>
+
+<p>
+<b>Team</b> 1 to 4 person team</b>
+<p>
+<b>Difficulty</b> assigned per topic (often 5/5).
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 3: Perceptron / Linear Unit</b>
+<p>
+<b>Task description</b><br>
+Write a program to implement learning for numeric prediction / classification
+based on an <i>n</i>-input linear unit / perceptron architecture.
+
+First, implement the linear unit architecture
+and the gradient descent learning method.
+Test your system on the standard UCI data set
+<a href="./data/autoMpg.arff"> autoMpg</a>.
+Note that you will have to think about the representation
+of input data for this task: some of the attributes
+are real-valued, but others have discrete, ordered values.
+One possibility is to use a Boolean variable (an "indicator" variable)
+for each discrete value for such attributes, where the value is
+1 if the instance has that value for the attribute, and 0 otherwise.
+
+<p>
+Second, implement the perceptron training rule to
+learn <i>n</i>-input perceptron classifiers for Boolean
+functions.
+Test on examples from at least two different <b>8-input</b> Boolean functions
+(note: should include linearly-separable and non-linearly-separable functions).
+
+<p>
+There is an option in this project to add graphical output showing
+how the system is learning. This requires adding an extra person to
+the team (from 2 to 3 people). The graphics do not have to be very
+complicated, but should show key features of the learning algorithms,
+such as weight update.
+
+<p>
+<b>Team</b> 2 or 3 person team<p>
+<b>Difficulty</b> 3/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 4: Nearest Neighbour</b>
+<p>
+<b>Task description</b><br>
+Implement <i>k</i>-Nearest Neighbour (kNN) for both classification
+and numeric prediction.
+
+<p>
+For classification, test your version of kNN for range of values of k
+on the standard UCI data set <a href="./data/ionosphere.arff"> ionosphere</a>.
+Evaluate your system by leave-one-out cross-validation.
+
+<p>
+For numeric prediction, test your version of kNN for range of values of k
+on the standard UCI data set <a href="./data/autos.arff"> autos</a>.
+For this data set you can remove examples with missing attribute values,
+which will reduce the number of examples to 159.
+The task is to predict the price given the 14 continuous and 1
+integer attributes.
+You can also experiment with encoding the other attributes to
+allow their use in the distance function to see if this affects
+predictive accuracy.
+Evaluate your system by leave-one-out cross-validation.
+
+<p>
+If time permits you can extend your methods to 
+implement distance-weighted Nearest Neighbour (WNN).
+
+<p>
+There is an option in this project to add graphical output showing
+what the system &quot;learns&quot;. This requires adding an extra person to
+the team (from 2 to 3 people). The graphics does not have to be very
+complicated, but needs to show key features of the algorithms,
+such as the effect of varying the <i>k</i> parameter.
+
+
+<p>
+<b>Team</b> 2 or 3 person team<p>
+<b>Difficulty</b> 3/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 5: Genetic Algorithm</b>
+<p>
+<b>Task description</b><br>
+Implement the basic Genetic Algorithm method as described
+<a href="./ga.pdf"> here</a>, including the point mutation
+rule and at least two of these crossover rules - single-point, two-point and
+uniform. Test on the standard UCI data sets
+<a href="./data/balance-scale.arff">
+balance-scale</a>
+and
+<a href="./data/mushroom.arff">
+mushroom</a>.
+
+<p>
+You will need to consider carefully the representations you use for the
+classifiers to be learned for both data sets.
+Also note that the mushroom data set is quite large.
+
+<p>
+There is an option in this project to add graphical output showing
+how the system is learning. This requires adding an extra person to
+the team (from 2 to 3 people). The graphics does not have to be very
+complicated, but needs to show key features of the algorithm,
+for example, the selection process to construct a new generation
+of hypotheses.
+
+<p>
+<b>Team</b> 2 or 3 person team<p>
+<b>Difficulty</b> 3/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 6: Sequential Covering</b>
+<p>
+<b>Task description</b><br>
+Implement a Sequential Covering rule learning algorithm.
+Base it on the FOIL algorithm in Table 10.4, p. 286 of Mitchell's
+book but use an attribute-value constraints representation for
+the rules, i.e., propositional logic, as in
+Table 10.2, p. 278 of Mitchell's book.
+You will also need to implement a version of
+information gain for this representation, rather than the first-order
+version used in FOIL, or an alternative of your own.
+
+<p>
+Test on these versions of the UCI data sets 
+<a href="./data/mushroom.arff">
+mushroom</a>
+and
+<a href="./data/splice2class.arff">
+splice</a>.
+
+<p>
+Note that you do not need the instance name (first attribute) in the
+splice data set, and that the mushroom data set is quite large !
+
+<p>
+There is an option in this project to add graphical output showing
+how the system is learning. This requires adding an extra person to
+the team (from 1 to 2  people). The graphics does not have to be very
+complicated, but needs to show key features of the algorithm,
+for example, the coverage and accuracy of the process of learning
+a rule.
+
+<p>
+<b>Team</b> 1 or 2 person team<p>
+<b>Difficulty</b> 3/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 7: Inductive Logic Programming</b>
+<p>
+<b>Task description</b><br>
+Implement an algorithm to compute the Relative Least General Generalization
+(RLGG) of pairs of ground instances of the target predicate, as outlined
+in the lecture notes.
+
+
+<p>
+Data set: In a typical 
+<a href="http://en.wikipedia.org/wiki/Bongard_problem">Bongard problem</a>
+there are 6 positive and 6 negative examples
+of the hidden rule that correctly classifies a scene.
+Select a small number (at least 2) of the Bongard problems from 
+<a href="http://www.foundalis.com/res/bps/bpidx.htm">here</a>
+(you could also make your own, or contact me if you need more information).
+
+<p>
+You will need to represent the scenes in such a way that the RLGG can be
+represented as a single clause.
+The RLGG is constructed from a pair of positive examples, so in a
+typical Bongard problem there would be 15 possible pairs to choose
+to initialize RLGG construction.
+
+<p>
+Once constructed, the RLGG clause (which is unique for a pair of positive
+examples and fixed set of background clauses) can be further generalized
+to ensure it covers all the positive examples and none of the negative
+examples by dropping literals or turning constants to variables.
+
+<p>
+Represent the examples (pos and neg) and the background knowledge
+in Prolog.
+It may be easiest to implement the algorithm in Prolog too.
+
+There are several high-quality open-source Prologs.
+<a href="http://www.swi-prolog.org">SWI Prolog</a>
+has the best documentation, with built-in help, whereas in general
+<a href="http://www.dcc.fc.up.pt/~vsc/Yap">YAP Prolog</a>
+enables faster running compiled programs.
+
+<p>
+<b>Team</b> 1 or 2 person team<p>
+<b>Difficulty</b> 4/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 8: Work on a past KDD Cup competition task</b>
+<p>
+<b>Task description</b><br>
+The ACM KDD Cup competitions have been running annually since 1997.  These
+are challenging machine learning tasks, and are chosen to be
+representative of problems faced in industry and academia. However, note
+that in these competitions it is often the case that, as in many
+real-world data mining applications, it is usually as important to get to
+know the data, deal with issues in setting up the problem, etc. as it is
+to work out how to actually do the learning.
+
+<p>
+Data set: select <b>one</b> of the following tasks from past competitions:
+
+<p>
+<table border="1">
+<tr>
+<th>Year</th>
+<th>Task description</th>
+</tr>
+<tr>
+<td>1999</td>
+<td>Network intrusion detection as a 
+<a href="http://cseweb.ucsd.edu/~elkan/clresults.html"> classification
+task</a></td>
+</tr>
+<tr>
+<td>2002</td>
+<td>Text-based categorization of gene activity in yeast -
+<a href="http://www.biostat.wisc.edu/~craven/kddcup/tasks.html"> Task 2</a></td>
+</tr>
+<tr>
+<td>2003</td>
+<td>Predicting paper citations in the arXiv network -
+<a href="http://www.cs.cornell.edu/projects/kddcup"> Task 1</a></td>
+</tr>
+<tr>
+<td>2004</td>
+<td>Scientific prediction tasks in 
+<a href="http://osmot.cs.cornell.edu/kddcup/"> protein homology or
+particle physics</a></td>
+</tr>
+<tr>
+<td>2009</td>
+<td>Prediction tasks in a telecommunications company, such as churn,
+appetency or up-sell -
+<!-- <a href="http://www.kddcup-orange.com/index.php"> Small
+dataset</a></td> -->
+<a
+href="http://www.kdd.org/kdd-cup-2009-customer-relationship-prediction">
+Use small dataset</a></td>
+</tr>
+</table>
+
+<p>
+You must follow the task description as closely as possible. Since the
+competitions have closed, the test data are available, but you should
+avoid testing against these until you are really sure you understand the
+performance of your method(s). Test set performance should be evaluated
+and appear in your report, as well as an indication of how your team's
+performance matches those in the original competition.
+cases, 
+
+<p>
+<b>Team</b> 1 to 4 person team<p>
+<b>Difficulty</b> 5/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 9: Recommender system using collaborative filtering</b>
+<p>
+<b>Task description</b><br>
+Pick <b>one</b> of the the following problems for recommendation and apply
+collaborative filtering (or an alternative). 
+The data is from a collection collected by the GroupLens research
+<a href="http://www.grouplens.org/node/12"> group<a>.
+
+<p> 
+The suggested problems are either: learning to predict the ratings of books
+on the 
+<a href="http://www.grouplens.org/node/74"> BookCrossing dataset</a>, or
+movie ratings on the 
+<a href="http://www.grouplens.org/node/73"> MovieLens Data Sets</a> (these
+are of different sizes, so start with the 100K).
+However, other options are also available from the GroupLens site.
+
+<p>
+<b>Team</b> 1 or 4 person team<p>
+<b>Difficulty</b> 5/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 10: Neural networks</b>
+<p>
+<b>Task description</b><br>
+This is Mitchell's face recognition task using neural networks.
+The task is explained
+<a href="http://www-2.cs.cmu.edu/afs/cs.cmu.edu/user/mitchell/ftp/faces.html">
+here</a>.
+See also Chapter 4 in Mitchell's book.
+
+<p> Note that although the task description is clearly dated, the problem
+remains an interesting one. You need to complete the second part of the
+task as well (ignore the ``optional'' heading !). This is an open-ended
+assignment, so you will need to consider how far you can take this this.
+
+<p>
+<b>Team</b> 2 or 3 person team<p>
+<b>Difficulty</b> 3/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 11: Text categorization</b>
+<p>
+<b>Task description</b><br>
+Implement a version of the Naive Bayes classifier and apply it to the text
+documents in the 20 newgroups data set.
+Adopt the same approach as described in Chapter 6 of Mitchell's book.
+The data set is available 
+<a href="http://people.csail.mit.edu/jrennie/20Newsgroups/"> here</a>.
+
+<p>
+<b>Team</b> 1 person team<p>
+<b>Difficulty</b> 2/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 12: Reinforcement Learning</b>
+<p>
+<b>Task description</b><br>
+Implement a traffic light simulator for a single intersection and a
+reinforcement learning system to learn how to switch the traffic lights
+to reduce the delay for vehicles at the intersection.
+
+<p>
+The details are explained
+<a href="./data/traffic.txt">
+here</a>
+and there is a short movie showing the traffic light controller in
+operation
+<a href="./data/videoclip.avi">
+here</a>.
+
+<p>
+Implementing graphics will help considerably in debugging this project.
+
+<p>
+<b>Team</b> 3 or 4 person team</b>
+<p>
+<b>Difficulty</b> 4/5 to 5/5 depending on extensions.
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+<p>
+<b>Topic 13: Reinforcement Learning - BOXES pole-balancing challenge</b>
+<p>
+<b>Task description</b><br>
+BOXES was an early reinforcement learning algorithm which is easy to
+implement and still gives quite reasonable performance on some benchmark
+problems such as the pole-and-cart.
+The challenge is to implement a reinforcement learning method that
+beats BOXES on the pole-and-cart.
+One candidate would be to try Q-learning.
+
+<p>
+<a href=http://www.cse.unsw.edu.au/~claude/research/machine_learning/reinforcement_learning/boxes_learning_to_control_a.html>BOXES</a> is introduced
+here with some sample code in Java.
+A version of the pole-and-cart simulator you will need is also downloadable
+from the same location.
+I can probably also provide a version of the simulator in C if you prefer.
+
+<p>
+Implementing graphics will help considerably in debugging this project.
+
+<p>
+<b>Team</b> 3 or 4 person team</b>
+<p>
+<b>Difficulty</b> 4/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+<p>
+<b>Topic 14: Bioinformatics</b>
+<p>
+<b>Task description</b><br>
+Since these can depend on domain knowledge you will need to contact me
+for details.
+
+<p>
+<b>Team</b> 1 to 4 person team</b>
+<p>
+<b>Difficulty</b> assigned per topic (probably 5/5).
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<p>
+<b>Topic 15: Learning to play "20 Questions"</b>
+<p>
+<b>Task description</b><br>
+The traditional game often called "20 Questions" has been implemented in
+at least two online versions that learn from user interaction, 
+<a href=http://www.20q.net>20Q</a> and
+<a href=http://en.akinator.com>Akinator</a>.
+It is not clear how the learning is implemented for either of these
+systems, but there appears to be a
+<a href=http://www.google.com/patents/US20060230008?dq=Artificial%20neural%20network%20guessing%20method%20and%20game>patent application</a>
+on the technology behind 20Q by its author, Robin Burgener, which outlines a form of neural network.
+
+In this project, which is very open-ended, the objective is to implement a simple version of the twenty questions game that can interact with users and learn which questions to ask, thereby (hopefully) improving with experience.
+Some general background and information about radio and TV versions is available on
+<a href=https://en.wikipedia.org/wiki/Twenty_Questions>Wikipedia</a>.
+There are various pointers on the web to different implementations, for example, in
+<a href=http://openbookproject.net/py4fun/animal/animal.html>Python</a>, or
+suggestions about the way in which this kind of system could use
+<a href=http://stats.stackexchange.com/questions/6074/akinator-com-and-naive-bayes-classifier>machine learning</a>, but these should be treated with caution.
+This project is only for those with experience in the rapid development of
+interactive systems who are looking for a challenging application of
+machine learning in this context.
+
+<p>
+<b>Team</b> 1 to 4 person team</b>
+<p>
+<b>Difficulty</b> 5/5
+
+<hr>
+
+<!----------------------------------------------------------------------------->
+
+<table align=right>
+<tr><td><font size=-1>Last modified
+Wed Apr 20 22:18:29 AEST 2016
+</font></td></tr>
+</table>
+
+</body>
+</html>
