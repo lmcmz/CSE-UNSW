@@ -1,0 +1,225 @@
+;
+; lab06.asm
+;
+; Created: 18/09/2017 3:16:36 PM
+; Author : lmcmz
+;
+
+
+; Replace with your application code
+
+
+.include "m2560def.inc"
+
+.def row = r16		; current row number
+.def col = r17		; current column number
+.def rmask = r18	; mask for current row during scan
+.def cmask = r19	; mask for current column during scan
+.def temp1 = r20 
+.def temp2 = r21
+.def flag = r22
+.def n1 = r23
+.def n2 = r24
+.def	n2_2=r25
+.def	n2_3=r26
+
+.equ PORTLDIR = 0xF0		; PF7-4: output, PF3-0, input
+.equ INITCOLMASK = 0xEF		; scan from the leftmost column,
+.equ INITROWMASK = 0x01		; scan from the top row
+.equ ROWMASK =0x0F			; for obtaining input from Port F
+
+.equ loop_count = 65530			//0xFFFF
+
+.macro oneSecondDelay		
+ser		row
+ser		col
+clr		n2_2
+clr		n2
+
+loop:
+cp		n2, row 
+cpc		n2_2, col 
+brsh	done 
+adiw	n2_2:n2, 1		//counter+1
+
+clr		temp2
+loop_in:		//add	more	loop	to	reach	16M	cycles
+cpi		temp2,30
+brge	out
+inc		temp2
+nop
+nop
+rjmp	loop_in
+
+out:
+
+rjmp loop
+done:
+	nop
+.endmacro
+
+
+.macro	flash
+	ser	temp1
+	out	PORTC,temp1
+	oneSecondDelay
+	clr	temp1
+	out	PORTC,temp1
+	oneSecondDelay
+.endmacro
+
+
+.macro	decimal_shift		;@0*10+@1	with	decimal	shift
+	ldi		temp2,10
+	mul		@0,temp2
+	mov		@0,r0
+	add		@0,@1
+	subi	@0,'0'
+	mov		temp2,r1
+	cpi		temp2,1
+	brge	overflow
+.endmacro
+
+.macro	display				;show	value	@0	in	PortC
+	out		PORTC,@0
+	rjmp	main
+.endmacro
+
+.macro	verify				;check	the	input	is	varify
+	cp		temp1,flag
+	breq	back
+	mov		flag,temp1
+.endmacro
+
+Reset:
+	ldi temp1, PORTLDIR		; PF7:4/PF3:0, out/in
+	sts DDRL, temp1
+	ser temp1
+	out DDRC, temp1			; PORTC is output
+	out PORTC, temp1
+	
+	clr	n1
+	clr	n2
+
+main:
+	ldi cmask, INITCOLMASK		; initial column mask
+	clr col						; initial column
+	;clr	flag
+
+colloop:
+	cpi col, 4
+	breq main				; if all keys are scanned, repeat.
+	sts PORTL,cmask			; otherwise, scan a column
+
+	ldi temp1,0xFF			; otherwise, scan a column
+delay: 
+	dec	temp1
+	brne delay
+
+	lds temp1, PINL			; read PORTL
+	andi temp1, ROWMASK		; get the keypad output value
+	cpi temp1, 0xF			; check if any row is low
+	breq nextcol			; if yes, find which row is low
+	ldi rmask, INITROWMASK	; initialize for row check
+	clr row
+
+rowloop:
+	cpi		row, 4
+	breq	nextcol			; the row scan is over.
+	mov		temp2, temp1 
+	and		temp2, rmask	; check un-masked bit
+	;breq	check			; if bit is clear, the key is pressed
+	
+	breq	convert
+	;cpi		n2_3,1
+	;breq	convert
+
+	inc		row				; else move to the next row
+	lsl		rmask
+	jmp		rowloop
+
+nextcol:					; if row scan is over
+	lsl cmask 
+	inc col					; increase column value
+	jmp colloop				; go to the next column
+
+	/*
+check:
+	mov		n2_2,col
+	mov		flag,row
+	ldi		n2_3,1
+
+	inc		row				
+	lsl		rmask
+	jmp		rowloop
+	*/
+
+convert:
+
+/*
+	mov		col,n2_2
+	mov		row,flag
+	;display	row
+	clr		n2_3
+	*/
+	
+	cpi col, 3				; If the pressed key is in col. 3
+	breq letters			; we have a letter
+							; If the key is not in col. 3 and
+	cpi row,3				; if the key is in row3,
+	breq symbols			; we have a symbol or 0
+	mov temp1, row			;Otherwise	1-9
+	lsl temp1
+	add temp1, row			; temp1 = row*3 + col
+	add temp1, col 
+	subi temp1, -'1'		; Add the value of character ‘1’
+
+	verify						;check	input
+	decimal_shift	n2,temp1	;n2=n2*10+temp1
+	display	n2					;show	n2	in	LED
+
+symbols:		
+	cpi col, 0				
+	breq star			;input	is	star
+	cpi col, 1			
+	breq zero			;input	is	0	
+	ldi temp1, '#'		;Otherwise	input	is	#
+
+	verify				;check	input
+	mul	n2,n1			;n2*n1
+	clr	n2				;n2=0
+	clr	n1				;n1=0
+	mov		temp2,r1	;Overflow	check
+	cpi		temp2,1
+	brge	overflow
+	display	r0			;show	result	in	LED
+
+letters:
+	rjmp	main	;ignore	letter
+
+back:
+	jmp	main		;ignore	input
+
+star:				;move	n2	to	n1
+	ldi temp1, '*'
+	verify
+	mov	n1,n2
+	clr	temp1		;temp1=0
+	clr	n2			;n2=0
+	jmp convert_end
+
+zero: 
+	ldi temp1, '0'
+	verify			;check	input
+	decimal_shift	n2,temp1	;n2=n2*10
+	display	n2		;show	n2	on	LED
+
+convert_end:		;show	temp1	on	PortC
+	out		PortC,temp1
+	rjmp	main
+
+overflow:
+	flash		/*	flash	LED		one	times*/
+	flash
+	flash
+	rjmp	main

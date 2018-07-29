@@ -1,0 +1,107 @@
+;
+; AssemblerApplication1.asm
+;
+; Created: 17/08/2017 5:03:53 PM
+; Author : lmcmz
+;
+
+Posdiv:
+
+.cseg
+
+ldi ZH, high(Table_1<<1)	/*	read	dividend	from	Table_1*/
+ldi ZL, low(Table_1<<1)
+
+lpm	r16,Z+				/*	store	dividend	to	r16*/
+lpm	r17,Z+
+
+ldi	YH,	high(Table_1<<2)	/*	read	divisor	from	Table_1*/
+ldi	YL,	low(Table_1<<2)
+
+lpm	r18,Z+		/*	store	divior	to	r16*/
+lpm	r19,Z+
+
+table_1:
+	.dw 5000		/*value	of	dividend*/
+	.dw	50		/*value	of	divior*/
+
+
+.def	diL=r16		;dividend
+.def	diH=r17
+
+.def	dL=r18		;divisor
+.def	dH=r19
+
+.def	qL=r20		;quotient
+.def	qH=r21
+
+.def	bL=r22		;bit_position
+.def	bH=r23
+
+Main:
+
+ldi		qL,0		;set	quotient=0
+ldi		qH,0
+
+ldi		bL,1		;set	bit_position=1		
+ldi		bH,0
+
+Loop_1:
+
+	cpi	dH,0x80		;if	divisor	>0x8000,it'll	overflow
+	brge	Loop_2		;go	to	loop_2
+
+	cp		dH,diH		;compare	high	divisor	dividend
+	brlo	do_1
+	breq	cp_low_d
+	brge	Loop_2
+	
+	cp_low_d:			;compare	low		divisor	dividend
+	cp		dL,diL
+	brge	Loop_2
+	
+	do_1:	
+	lsl		dL			;shift	left	low		divisor
+	rol		dH			;shift	left	high	divisor
+	lsl		bL			;shift	left	low		bit_position
+	rol		bH			;shift	left	high	bit_position
+	rjmp	Loop_1
+
+Loop_2:
+	
+	cpi		bH,0		;compare	high	bit_position	with	0
+	breq	cp_low_b
+	brge	do_2
+
+	cp_low_b:			;compare	low	bit_position	with	0
+	cpi		bL,0
+	breq	END
+	brlo	END
+
+	do_2:
+	cp		diH,dH		;compare	high		divisor	dividend
+	breq	do_4
+	brge	do_3
+	brlo	Else
+
+	do_4:
+	cp		diL,dL		;compare	low		divisor	dividend
+	brlo	Else
+
+	do_3:
+	sub		diL,dL
+	sbc		diH,dH		;dividend=dividend-divisor
+	add		qL,bL		;quotient=quotient+bit_position
+	adc		qH,bH
+	rjmp	Loop_2
+
+Else:
+	lsr		dH			;shift	right	high		divisor
+	ror		dL			;shift	right	low			divisor
+	lsr		bH			;shift	right	high		bit_position
+	ror		bL			;shift	right	low			bit_position
+	rjmp	Loop_2
+
+End:
+	
+	rjmp	End

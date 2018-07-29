@@ -1,0 +1,695 @@
+.include "m2560def.inc"
+.include "map.inc"
+
+.equ LCD_CTRL_PORT = PORTA
+.equ LCD_CTRL_DDR = DDRA
+.equ LCD_RS = 7
+.equ LCD_E = 6
+.equ LCD_RW = 5
+.equ LCD_BE = 4	
+
+.equ LCD_DATA_PORT = PORTF
+.equ LCD_DATA_DDR = DDRF
+.equ LCD_DATA_PIN = PINF
+
+.def row    =r16		; current row number
+.def col    =r17		; current column number
+.def rmask   =r18		; mask for current row
+.def cmask	=r19		; mask for current column
+.def temp1	=r20		
+.def temp2  =r21
+
+.def	data	=r22
+
+.def	X_target=r5
+.def	Y_target=r6
+
+.def	height	=r7
+.def	X_cursor	=r8
+.def	Y_cursor	=r9
+.def	Z_cursor	=r10
+
+.def	reader	=r11
+
+.equ PORTLDIR =0xF0			; use PortD for input/output from keypad: PF7-4, output, PF3-0, input
+.equ INITCOLMASK = 0xEF		; scan from the leftmost column, the value to mask output
+.equ INITROWMASK = 0x01		; scan from the bottom row
+.equ ROWMASK  =0x0F			; low four bits are output from the keypad. This value mask the high 4 bits.
+
+.macro STORE
+.if @0 > 63
+sts @0, @1
+.else
+out @0, @1
+.endif
+.endmacro
+
+.macro LOAD
+.if @1 > 63
+lds @0, @1
+.else
+in @0, @1
+.endif
+.endmacro
+
+.macro do_lcd_command
+	ldi r16, @0
+	rcall lcd_command
+	rcall lcd_wait
+.endmacro
+
+.macro do_lcd_data
+	mov r16, @0
+	rcall lcd_data
+	rcall lcd_wait
+.endmacro
+
+.macro lcd_set
+	sbi LCD_CTRL_PORT, @0
+.endmacro
+
+.macro lcd_clr
+	cbi LCD_CTRL_PORT, @0
+.endmacro
+
+.macro	set_motor_speed
+	clr	temp1
+	sts	OCR3BH,Temp1
+	ldi	temp1,@0
+	sts	OCR3BL,temp1
+	ldi	temp1,(1<<cs30)
+	sts	TCCR3B,temp1
+	ldi	temp1,(1<<WGM30)|(1<<COM3B1)
+	sts	TCCR3A,temp1
+.endmacro
+
+.macro	flash
+	ser	temp1
+	out	PORTC,temp1
+	rcall	sleep_300ms
+	rcall	sleep_300ms
+	clr	temp1
+	out	PORTC,temp1
+	rcall	sleep_300ms
+	rcall	sleep_300ms
+.endmacro
+
+.macro	decimal_shift		;@0*10+@1	with	decimal	shift
+	subi	@1,'0'
+	ldi		temp2,10
+	mul		@0,temp2
+	mov		@0,r0
+	add		@0,@1
+	subi	@1,-'0'
+.endmacro
+
+.MACRO     INIT_TIME1
+; To generate 1s timer 1
+; Timer1 is 16 bits timer, 2^16 = 65536; 65536 * 1/16M s * Clock_Selection = 1s
+; Clock_Selection = 256
+; Therefore: TCCR1B = 0b00000100            
+LDI      TEMP1,        0b00000000            
+STS      TCCR1A,       TEMP1         ; Normal mode            
+LDI      TEMP1,        0b00000100            
+STS      TCCR1B,       TEMP1         ; Clock selection = 256            
+LDI      TEMP1,        (1<<TOIE1)            
+STS      TIMSK1,TEMP1         ; Overflow enabled
+.ENDMACRO
+
+.cseg
+.org 0		;start	address	from	0x0
+	rjmp RESET
+
+.org OVF1addr				;Set	triggle	Timer1
+	rjmp Timer1OverFlow
+
+RESET:
+	ldi r16, low(RAMEND)
+	out SPL, r16
+	ldi r16, high(RAMEND)
+	out SPH, r16
+
+	ser r16
+	STORE LCD_DATA_DDR, r16
+	STORE LCD_CTRL_DDR, r16
+	clr r16
+	STORE LCD_DATA_PORT, r16
+	STORE LCD_CTRL_PORT, r16
+
+	do_lcd_command 0b00111000 ; 2x5x7
+	rcall sleep_5ms
+	do_lcd_command 0b00111000 ; 2x5x7
+	rcall sleep_1ms
+	do_lcd_command 0b00111000 ; 2x5x7
+	do_lcd_command 0b00111000 ; 2x5x7
+	do_lcd_command 0b00001000 ; display off
+	do_lcd_command 0b00000001 ; clear display
+	do_lcd_command 0b00000110 ; increment, no display shift
+	do_lcd_command 0b00001110 ; Cursor on, bar, no blink
+
+	ldi temp1, PORTLDIR			; columns are outputs, rows are inputs
+	sts	DDRL, temp1
+	ser temp1					; PORTC is outputs
+	out DDRC, temp1				
+	out PORTC, temp1
+
+	ser temp1					; PORTC is outputs
+	out DDRE, temp1				
+	out PORTE, temp1
+
+	clr	X_target
+	clr	Y_target
+
+	clr	X_cursor
+	clr	Y_cursor
+
+	set_motor_speed	0x00
+
+	rcall	display_welcome
+
+	flash		/*	flash	LED		one	times*/
+	flash
+	;flash
+
+	do_lcd_command 0b00000001
+
+	rcall	display_input_x
+
+	ldi zl, low(matrix<<1)
+	ldi zh, high(matrix<<1)
+
+	clr	height
+
+main:
+	ldi cmask, INITCOLMASK		; initial column mask
+	clr	col						; initial column
+colloop:
+	cpi col, 4
+	breq main
+	sts	PORTL, cmask				; set column to mask value (one column off)
+	ldi temp1, 0xFF
+delay:
+	dec temp1
+	brne delay
+
+	lds	temp1, PINL				; read PORTD
+	andi temp1, ROWMASK
+	cpi temp1, 0xF				; check if any rows are on
+	breq nextcol
+								; if yes, find which row is on
+	ldi rmask, INITROWMASK		; initialise row check
+	clr	row						; initial row
+rowloop:
+	cpi row, 4
+	breq nextcol
+	mov temp2, temp1
+	and temp2, rmask			; check masked bit
+	breq convert 				; if bit is clear, convert the bitcode
+	inc row						; else move to the next row
+	lsl rmask					; shift the mask to the next bit
+	jmp rowloop
+
+nextcol:
+	lsl cmask					; else get new mask by shifting and 
+	inc col						; increment column value
+	jmp colloop					; and check the next column
+
+convert:
+	cpi col, 3					; if column is 3 we have a letter
+	breq letters				
+	cpi row, 3					; if row is 3 we have a symbol or 0
+
+	breq symbols
+	mov temp1, row				; otherwise we have a number in 1-9
+	lsl temp1
+	add temp1, row				; temp1 = row * 3
+	add temp1, col				; add the column address to get the value
+	subi temp1, -'1'			; add the value of character '0'
+	
+	rcall	sleep_300ms
+	decimal_shift	Y_target,temp1
+
+	jmp convert_end
+
+letters:
+	ldi temp1, 'A'
+	add temp1, row				; increment the character 'A' by the row value
+	jmp convert_end
+
+symbols:
+	cpi col, 0					; check if we have a star
+	breq star
+	cpi col, 1					; or if we have zero
+	breq zero					
+	ldi temp1, '#'				; if not we have hash
+	jmp convert_end
+star:
+	ldi temp1, '*'				; set to star
+	rcall	sleep_300ms
+	mov	X_target,Y_target
+	clr	Y_target
+
+	do_lcd_command 0b00000001
+
+	out PORTC, X_target
+	rcall	display_input_y
+	jmp main
+zero:
+	ldi temp1, '0'				; set to zero
+	rcall	sleep_300ms
+	decimal_shift	Y_target,temp1
+
+convert_end:
+	cpi	temp1,'#'
+	breq	end_input
+
+	do_lcd_data temp1
+	subi	temp1,'0'
+	out PORTC, temp1			; write value to PORTC
+	
+	rcall	sleep_300ms
+
+	rjmp	main
+
+end_input:
+
+	do_lcd_command 0b00000001
+	rcall	display_start
+	out PORTC, Y_target
+
+	check_botton:
+	sbis	PIND,0	//if	button	is	unpressed	skip	next	line
+	rjmp	start
+	rjmp	check_botton
+
+start:
+	rcall	sleep_300ms
+	;do_lcd_command 0b00000001
+	sbis	PIND,0
+	rjmp	abort
+	set_motor_speed	0x00
+	INIT_TIME1
+	rjmp	start
+
+abort:
+	set_motor_speed	0x00
+	rjmp	abort
+
+Timer1OverFlow:
+	do_lcd_command 0b00000001
+	lpm reader, Z+
+	;inc	height
+	;mov	reader,height
+	out	PORTC,reader
+	rcall	LCD_DISPLAY_NUMBER
+	reti
+
+;halt:
+;	rjmp halt
+
+/////////////////////////////////////////////////
+
+
+lcd_command:
+	STORE LCD_DATA_PORT, r16
+	rcall sleep_1ms
+	lcd_set LCD_E
+	rcall sleep_1ms
+	lcd_clr LCD_E
+	rcall sleep_1ms
+	ret
+
+lcd_data:
+	STORE LCD_DATA_PORT, r16	
+	lcd_set LCD_RS			;RS	->	1	
+	rcall sleep_1ms
+	lcd_set LCD_E			;Enable	input
+	rcall sleep_1ms
+	lcd_clr LCD_E			;Disable	input
+	rcall sleep_1ms
+	lcd_clr LCD_RS			;RS	->	0
+	ret
+
+lcd_wait:
+	push r16
+	clr r16
+	STORE LCD_DATA_DDR, r16
+	STORE LCD_DATA_PORT, r16
+	lcd_set LCD_RW
+lcd_wait_loop:
+	rcall sleep_1ms
+	lcd_set LCD_E
+	rcall sleep_1ms
+	LOAD r16, LCD_DATA_PIN
+	lcd_clr LCD_E
+	sbrc r16, 7
+	rjmp lcd_wait_loop
+	lcd_clr LCD_RW
+	ser r16
+	STORE LCD_DATA_DDR, r16
+	pop r16
+	ret
+
+
+LCD_DISPLAY_NUMBER:
+	;Converts the total into separate digits for printing.
+	push r16;
+	push r17;
+	push r18;
+	push r19;
+	push data;
+
+	mov r16,reader ;Temporary total
+	clr r17; Hundreds
+	clr r18; Tens
+	clr r19; Ones
+
+	;Extract Hundreds
+	extract_100s:
+		cpi r16, 100			;number	<-->100
+		brlo extract_10s		;go	10
+		inc r17;				;hundred+1
+		subi r16, 100			;x-100
+		jmp extract_100s
+
+	;Ectract Tens
+	extract_10s:
+		cpi r16, 10
+		brlo extract_1s
+		inc r18
+		subi r16, 10
+		rjmp extract_10s
+
+	;Extract Ones
+	extract_1s:
+		cpi r16, 1
+		brlo display_digits
+		inc r19
+		subi r16, 1
+		rjmp extract_1s
+
+	display_digits:
+		mov data, r17
+		cpi data, 0
+		breq display_digits_two
+		subi data, -'0'
+		;data contains the value in ascii to be written
+		;rcall lcd_wait_busy
+		do_lcd_data	data	; write the character to the screen
+
+		display_digits_two:
+
+			cpi r18, 0
+			brne display_digits_two_continue
+			cpi r17, 0
+			breq display_digits_one
+
+			display_digits_two_continue:
+			mov data, r18
+    		subi data, -'0'
+    		;data contains the value in ascii to be written
+    		;rcall lcd_wait_busy
+    		do_lcd_data	data	; write the character to the screen
+
+		display_digits_one:
+			mov data, r19
+    		subi data, -'0'
+    		;data contains the value in ascii to be written
+    		;rcall lcd_wait_busy
+    		do_lcd_data	data	; write the character to the screen
+
+	pop data
+	pop r23
+	pop r22
+	pop r21
+	pop r20
+	ret
+//////////////////////////////////////////
+.equ F_CPU = 16000000
+.equ DELAY_1MS = F_CPU / 4 / 1000 - 4
+; 4 cycles per iteration - setup/call-return overhead
+
+sleep_1ms:			;delay
+	push r24
+	push r25
+	ldi r25, high(DELAY_1MS)
+	ldi r24, low(DELAY_1MS)
+delayloop_1ms:
+	sbiw r25:r24, 1
+	brne delayloop_1ms
+	pop r25
+	pop r24
+	ret
+
+sleep_5ms:
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	ret
+
+sleep_50ms:
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	ret
+
+sleep_300ms:
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	ret
+
+display_welcome:
+	ldi	temp1,'W'
+	do_lcd_data temp1
+
+	ldi	temp1,'e'
+	do_lcd_data temp1
+
+	ldi	temp1,'l'
+	do_lcd_data temp1
+
+	ldi	temp1,'c'
+	do_lcd_data temp1
+	
+	ldi	temp1,'o'
+	do_lcd_data temp1
+
+	ldi	temp1,'m'
+	do_lcd_data temp1
+
+	ldi	temp1,'e'
+	do_lcd_data temp1
+
+	ldi	temp1,'!'
+	do_lcd_data temp1
+
+	do_lcd_command 0b11000000
+
+	ldi	temp1,'E'
+	do_lcd_data temp1
+
+	ldi	temp1,'n'
+	do_lcd_data temp1
+
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ldi	temp1,'e'
+	do_lcd_data temp1
+	
+	ldi	temp1,'r'
+	do_lcd_data temp1
+
+	ldi	temp1,':'
+	do_lcd_data temp1
+
+	ldi	temp1,'X'
+	do_lcd_data temp1
+
+	ldi	temp1,'&'
+	do_lcd_data temp1
+
+	ldi	temp1,'Y'
+	do_lcd_data temp1
+	ret
+
+display_input_x:
+	ldi	temp1,'E'
+	do_lcd_data temp1
+
+	ldi	temp1,'n'
+	do_lcd_data temp1
+
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ldi	temp1,'e'
+	do_lcd_data temp1
+	
+	ldi	temp1,'r'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'X'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'('
+	do_lcd_data temp1
+	
+	ldi	temp1,'0'
+	do_lcd_data temp1
+
+	ldi	temp1,'-'
+	do_lcd_data temp1
+
+	ldi	temp1,'6'
+	do_lcd_data temp1
+
+	ldi	temp1,'4'
+	do_lcd_data temp1
+
+	ldi	temp1,')'
+	do_lcd_data temp1
+
+	do_lcd_command 0b11000000
+
+	ldi	temp1,'X'
+	do_lcd_data temp1
+
+	ldi	temp1,'='
+	do_lcd_data temp1
+	ret
+
+
+display_input_y:
+	ldi	temp1,'E'
+	do_lcd_data temp1
+
+	ldi	temp1,'n'
+	do_lcd_data temp1
+
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ldi	temp1,'e'
+	do_lcd_data temp1
+	
+	ldi	temp1,'r'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'Y'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'('
+	do_lcd_data temp1
+	
+	ldi	temp1,'0'
+	do_lcd_data temp1
+
+	ldi	temp1,'-'
+	do_lcd_data temp1
+
+	ldi	temp1,'6'
+	do_lcd_data temp1
+
+	ldi	temp1,'4'
+	do_lcd_data temp1
+
+	ldi	temp1,')'
+	do_lcd_data temp1
+
+	do_lcd_command 0b11000000
+
+	ldi	temp1,'Y'
+	do_lcd_data temp1
+
+	ldi	temp1,'='
+	do_lcd_data temp1
+	ret
+
+
+display_start:
+	ldi	temp1,'P'
+	do_lcd_data temp1
+
+	ldi	temp1,'u'
+	do_lcd_data temp1
+
+	ldi	temp1,'s'
+	do_lcd_data temp1
+
+	ldi	temp1,'h'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'B'
+	do_lcd_data temp1
+
+	ldi	temp1,'u'
+	do_lcd_data temp1
+
+	ldi	temp1,'t'
+	do_lcd_data temp1
+	
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ldi	temp1,'o'
+	do_lcd_data temp1
+
+	ldi	temp1,'n'
+	do_lcd_data temp1
+
+	do_lcd_command 0b11000000
+
+	ldi	temp1,'T'
+	do_lcd_data temp1
+
+	ldi	temp1,'o'
+	do_lcd_data temp1
+
+	ldi	temp1,' '
+	do_lcd_data temp1
+
+	ldi	temp1,'S'
+	do_lcd_data temp1
+
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ldi	temp1,'a'
+	do_lcd_data temp1
+
+	ldi	temp1,'r'
+	do_lcd_data temp1
+	
+	ldi	temp1,'t'
+	do_lcd_data temp1
+
+	ret

@@ -1,0 +1,81 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.6</VERSION>
+ <DEVICE>"ATmega2560"</DEVICE>
+ <WORKING_DIR>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.132\avrasm\inc\m2560def.inc</FILE>
+  <FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\map.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\Debug\Project.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Project.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Project.map</FILE>
+  <FILE>Project.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <matrix><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\map.inc</FILE><LINE>10</LINE></matrix>
+  <RESET><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>141</LINE></RESET>
+  <Timer1OverFlow><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>316</LINE></Timer1OverFlow>
+  <lcd_command><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>396</LINE></lcd_command>
+  <lcd_wait><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>416</LINE></lcd_wait>
+  <sleep_5ms><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>534</LINE></sleep_5ms>
+  <sleep_1ms><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>522</LINE></sleep_1ms>
+  <display_welcome><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>570</LINE></display_welcome>
+  <sleep_300ms><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>555</LINE></sleep_300ms>
+  <display_input_x><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>625</LINE></display_input_x>
+  <main><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>203</LINE></main>
+  <colloop><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>206</LINE></colloop>
+  <delay><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>211</LINE></delay>
+  <nextcol><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>232</LINE></nextcol>
+  <rowloop><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>222</LINE></rowloop>
+  <convert><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>237</LINE></convert>
+  <letters><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>253</LINE></letters>
+  <symbols><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>258</LINE></symbols>
+  <convert_end><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>281</LINE></convert_end>
+  <star><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>265</LINE></star>
+  <zero><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>276</LINE></zero>
+  <display_input_y><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>678</LINE></display_input_y>
+  <end_input><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>290</LINE></end_input>
+  <lcd_data><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>405</LINE></lcd_data>
+  <display_start><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>731</LINE></display_start>
+  <check_botton><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>294</LINE></check_botton>
+  <start><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>299</LINE></start>
+  <abort><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>308</LINE></abort>
+  <display_abort><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>833</LINE></display_abort>
+  <halt><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>313</LINE></halt>
+  <check_Y><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>321</LINE></check_Y>
+  <move><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>326</LINE></move>
+  <found><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>378</LINE></found>
+  <next_line><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>346</LINE></next_line>
+  <forward><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>335</LINE></forward>
+  <back><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>340</LINE></back>
+  <search_position><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>372</LINE></search_position>
+  <set_direction_1><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>352</LINE></set_direction_1>
+  <set_direction_0><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>357</LINE></set_direction_0>
+  <change_line><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>362</LINE></change_line>
+  <display_position><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>800</LINE></display_position>
+  <display_found><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>880</LINE></display_found>
+  <end><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>386</LINE></end>
+  <lcd_wait_loop><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>422</LINE></lcd_wait_loop>
+  <LCD_DISPLAY_NUMBER><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>437</LINE></LCD_DISPLAY_NUMBER>
+  <extract_100s><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>451</LINE></extract_100s>
+  <extract_10s><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>459</LINE></extract_10s>
+  <extract_1s><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>467</LINE></extract_1s>
+  <display_digits><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>474</LINE></display_digits>
+  <display_digits_two><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>483</LINE></display_digits_two>
+  <display_digits_two_continue><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>490</LINE></display_digits_two_continue>
+  <display_digits_one><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>497</LINE></display_digits_one>
+  <delayloop_1ms><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>527</LINE></delayloop_1ms>
+  <sleep_50ms><FILE>C:\Users\lmcmz\Documents\Atmel Studio\7.0\Project\Project\main.asm</FILE><LINE>542</LINE></sleep_50ms>
+ </LABELS>
+</ASSEMBLER_INFO>

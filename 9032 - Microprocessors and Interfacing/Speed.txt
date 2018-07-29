@@ -1,0 +1,310 @@
+.include "m2560def.inc"
+.include "map.inc"
+
+.equ LCD_CTRL_PORT = PORTA
+.equ LCD_CTRL_DDR = DDRA
+.equ LCD_RS = 7
+.equ LCD_E = 6
+.equ LCD_RW = 5
+.equ LCD_BE = 4	
+
+.equ LCD_DATA_PORT = PORTF
+.equ LCD_DATA_DDR = DDRF
+.equ LCD_DATA_PIN = PINF
+
+.def row    =r16		; current row number
+.def col    =r17		; current column number
+.def rmask   =r18		; mask for current row
+.def cmask	=r19		; mask for current column
+.def temp1	=r20		
+.def temp2  =r21
+.def temp3  =r22
+.def speed  =r23
+
+.equ PORTLDIR =0xF0			; use PortD for input/output from keypad: PF7-4, output, PF3-0, input
+.equ INITCOLMASK = 0xEF		; scan from the leftmost column, the value to mask output
+.equ INITROWMASK = 0x01		; scan from the bottom row
+.equ ROWMASK  =0x0F			; low four bits are output from the keypad. This value mask the high 4 bits.
+
+.macro STORE
+.if @0 > 63
+sts @0, @1
+.else
+out @0, @1
+.endif
+.endmacro
+
+.macro LOAD
+.if @1 > 63
+lds @0, @1
+.else
+in @0, @1
+.endif
+.endmacro
+
+.macro do_lcd_command
+	ldi r16, @0
+	rcall lcd_command
+	rcall lcd_wait
+.endmacro
+
+.macro do_lcd_data
+	mov r16, @0
+	rcall lcd_data
+	rcall lcd_wait
+.endmacro
+
+.macro lcd_set
+	sbi LCD_CTRL_PORT, @0
+.endmacro
+
+.macro lcd_clr
+	cbi LCD_CTRL_PORT, @0
+.endmacro
+
+.macro	set_motor_speed
+	clr	temp1
+	sts	OCR3BH,Temp1
+	mov	temp1,@0
+	sts	OCR3BL,temp1
+	ldi	temp1,(1<<cs30)
+	sts	TCCR3B,temp1
+	ldi	temp1,(1<<WGM30)|(1<<COM3B1)
+	sts	TCCR3A,temp1
+.endmacro
+
+.org 0		;start	address	from	0x0
+
+RESET:
+	ldi r16, low(RAMEND)
+	out SPL, r16
+	ldi r16, high(RAMEND)
+	out SPH, r16
+
+	ser r16
+	STORE LCD_DATA_DDR, r16
+	STORE LCD_CTRL_DDR, r16
+	clr r16
+	STORE LCD_DATA_PORT, r16
+	STORE LCD_CTRL_PORT, r16
+
+	do_lcd_command 0b00111000 ; 2x5x7
+	rcall sleep_5ms
+	do_lcd_command 0b00111000 ; 2x5x7
+	rcall sleep_1ms
+	do_lcd_command 0b00111000 ; 2x5x7
+	do_lcd_command 0b00111000 ; 2x5x7
+	do_lcd_command 0b00001000 ; display off
+	do_lcd_command 0b00000001 ; clear display
+	do_lcd_command 0b00000110 ; increment, no display shift
+	do_lcd_command 0b00001110 ; Cursor on, bar, no blink
+
+	clr	temp3
+
+	ldi temp1, PORTLDIR			; columns are outputs, rows are inputs
+	sts	DDRL, temp1
+	ser temp1					; PORTC is outputs
+	out DDRC, temp1				
+	out PORTC, temp1
+
+	ser temp1					; PORTC is outputs
+	out DDRE, temp1				
+	out PORTE, temp1
+
+	clr	speed
+	set_motor_speed	speed
+
+main:
+	ldi cmask, INITCOLMASK		; initial column mask
+	clr	col						; initial column
+colloop:
+	cpi col, 4
+	breq main
+	sts	PORTL, cmask				; set column to mask value (one column off)
+	ldi temp1, 0xFF
+delay:
+	dec temp1
+	brne delay
+
+	lds	temp1, PINL				; read PORTD
+	andi temp1, ROWMASK
+	cpi temp1, 0xF				; check if any rows are on
+	breq nextcol
+								; if yes, find which row is on
+	ldi rmask, INITROWMASK		; initialise row check
+	clr	row						; initial row
+rowloop:
+	cpi row, 4
+	breq nextcol
+	mov temp2, temp1
+	and temp2, rmask				; check masked bit
+	breq convert 				; if bit is clear, convert the bitcode
+	inc row						; else move to the next row
+	lsl rmask					; shift the mask to the next bit
+	jmp rowloop
+
+nextcol:
+	lsl cmask					; else get new mask by shifting and 
+	inc col						; increment column value
+	jmp colloop					; and check the next column
+
+convert:
+	cpi col, 3					; if column is 3 we have a letter
+	breq letters				
+	cpi row, 3					; if row is 3 we have a symbol or 0
+
+	breq symbols
+	mov temp1, row				; otherwise we have a number in 1-9
+	lsl temp1
+	add temp1, row				; temp1 = row * 3
+	add temp1, col				; add the column address to get the value
+	subi temp1, -'1'			; add the value of character '0'
+	jmp convert_end
+
+letters:
+	ldi temp1, 'A'
+	add temp1, row				; increment the character 'A' by the row value
+	jmp convert_end
+
+symbols:
+	cpi col, 0					; check if we have a star
+	breq star
+	cpi col, 1					; or if we have zero
+	breq zero					
+	ldi temp1, '#'				; if not we have hash
+	jmp convert_end
+star:
+	ldi temp1, '*'				; set to star
+	jmp convert_end
+zero:
+	ldi temp1, '0'				; set to zero
+
+convert_end:
+	do_lcd_data temp1
+	out PORTC, temp1			; write value to PORTC
+	rcall	sleep_300ms
+
+	cpi	temp1,'1'
+	breq	inc_speed
+	cpi	temp1,'2'
+	breq	dec_speed
+	cpi	temp1,'3'
+	breq	stop
+	jmp main					; restart main loop
+
+inc_speed:
+	cpi		speed,200
+	brge	continue
+	subi	speed,-'0'
+	set_motor_speed	speed
+	jmp main
+dec_speed:
+	cpi		speed,0
+	breq	stop
+	subi	speed,'0'
+	set_motor_speed	speed
+	jmp main
+stop:
+	clr	speed
+	set_motor_speed	speed
+	jmp main
+continue:
+	ser	speed
+	set_motor_speed	speed
+	jmp main
+;halt:
+;	rjmp halt
+
+/////////////////////////////////////////////////
+
+
+;
+; Send a command to the LCD (r16)
+;
+
+
+lcd_command:
+	STORE LCD_DATA_PORT, r16
+	rcall sleep_1ms
+	lcd_set LCD_E
+	rcall sleep_1ms
+	lcd_clr LCD_E
+	rcall sleep_1ms
+	ret
+
+lcd_data:
+	STORE LCD_DATA_PORT, r16	
+	lcd_set LCD_RS			;RS	->	1	
+	rcall sleep_1ms
+	lcd_set LCD_E			;Enable	input
+	rcall sleep_1ms
+	lcd_clr LCD_E			;Disable	input
+	rcall sleep_1ms
+	lcd_clr LCD_RS			;RS	->	0
+	ret
+
+lcd_wait:
+	push r16
+	clr r16
+	STORE LCD_DATA_DDR, r16
+	STORE LCD_DATA_PORT, r16
+	lcd_set LCD_RW
+lcd_wait_loop:
+	rcall sleep_1ms
+	lcd_set LCD_E
+	rcall sleep_1ms
+	LOAD r16, LCD_DATA_PIN
+	lcd_clr LCD_E
+	sbrc r16, 7
+	rjmp lcd_wait_loop
+	lcd_clr LCD_RW
+	ser r16
+	STORE LCD_DATA_DDR, r16
+	pop r16
+	ret
+
+.equ F_CPU = 16000000
+.equ DELAY_1MS = F_CPU / 4 / 1000 - 4
+; 4 cycles per iteration - setup/call-return overhead
+
+sleep_1ms:			;delay
+	push r24
+	push r25
+	ldi r25, high(DELAY_1MS)
+	ldi r24, low(DELAY_1MS)
+delayloop_1ms:
+	sbiw r25:r24, 1
+	brne delayloop_1ms
+	pop r25
+	pop r24
+	ret
+
+sleep_5ms:
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	rcall sleep_1ms
+	ret
+
+sleep_50ms:
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	rcall sleep_5ms
+	ret
+
+sleep_300ms:
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	rcall sleep_50ms
+	ret

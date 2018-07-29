@@ -1,0 +1,114 @@
+;
+; lab05_1.asm
+;
+; Created: 07/09/2017 5:36:10 PM
+; Author : lmcmz
+;
+
+
+.include "m2560def.inc" 
+.equ loop_count = 65530			//0xFF
+
+.def iH = r25
+.def iL = r24
+.def countH = r21
+.def countL = r20
+.def count = r19
+
+.macro oneSecondDelay
+ldi		countL, low(loop_count)			//use	16-bit	counter
+ldi		countH, high(loop_count) 
+clr		iH
+clr		iL
+
+loop:
+cp		iL, countL 
+cpc		iH, countH 
+brsh	done 
+adiw	iH:iL, 1		//counter+1
+
+clr		count
+loop_in:		//add	more	loop	to	reach	16M	cycles
+cpi		count,30
+brge	out
+inc		count
+nop
+nop
+
+stop:			//add	button	stop
+sbis	PIND,0	//if	button	is	unpressed	skip	next	line
+rjmp	stop	//
+rjmp	loop_in
+out:
+
+rjmp loop
+done:
+.endmacro
+
+.equ	Pattern1=0b00000011				//set	pattern
+.equ	Pattern2=0b00001111
+.equ	Pattern3=0b00111111
+.equ	Pattern4=0b11111111
+
+.def temp = r16
+.def output = r17
+
+/*
+.cseg
+Pattern1:	.db	0b00000011	
+Pattern2:	.db	0b00001111	
+Pattern3:	.db	0b00111111	
+Pattern4:	.db	0b11111111
+*/
+
+Loop2:
+
+ser temp			//set	PortC	as	output
+out DDRC, temp 
+out PORTC, temp
+
+out PORTD, temp		//input	PortD
+clr temp
+out DDRA, temp
+
+/*
+ldi		ZL,(Pattern1<<1)
+ldi		ZH,(Pattern1<<1)
+lpm		temp,Z
+*/
+ldi		temp,Pattern1
+out		PORTC, temp
+
+oneSecondDelay
+
+/*
+ldi		ZL,(Pattern2<<1)
+ldi		ZH,(Pattern2<<1)
+lpm		temp,Z
+*/
+ldi		temp,Pattern2
+out		PORTC, temp
+
+oneSecondDelay
+
+/*
+ldi		ZL,(Pattern3<<1)
+ldi		ZH,(Pattern3<<1)
+lpm		temp,Z
+*/
+ldi		temp,Pattern3
+out		PORTC, temp
+
+oneSecondDelay
+
+/*
+ldi		ZL,(Pattern4<<1)
+ldi		ZH,(Pattern4<<1)
+lpm		temp,Z
+*/
+ldi		temp,Pattern4
+out		PORTC, temp
+
+oneSecondDelay
+
+rjmp	Loop2

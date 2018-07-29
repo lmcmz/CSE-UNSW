@@ -1,0 +1,93 @@
+
+.include "m2560def.inc" 
+.equ loop_count = 65530			//0xFF
+
+.def iH = r25
+.def iL = r24
+.def countH = r21
+.def countL = r20
+.def count = r19
+
+.macro oneSecondDelay
+ldi		countL, low(loop_count)			//use	16-bit	counter
+ldi		countH, high(loop_count) 
+clr		iH
+clr		iL
+
+loop:
+cp		iL, countL 
+cpc		iH, countH 
+brsh	done 
+adiw	iH:iL, 1		//counter+1
+
+clr		count
+loop_in:		//add	more	loop	to	reach	16M	cycles
+cpi		count,30
+brge	out
+inc		count
+nop
+nop
+rjmp	loop_in
+
+out:
+
+rjmp loop
+done:
+.endmacro
+
+//////////////////////////
+
+.def temp = r16
+
+jmp Loop2 
+.org INT0addr		//set	interupt
+jmp EXT_INT0	
+
+Loop2:
+
+ser temp			//set	portC	as	output
+out DDRC, temp 
+out PORTC, temp
+
+ldi		ZL,(Pattern1<<1)
+lpm		temp,Z
+out		PORTC, temp
+
+oneSecondDelay
+
+ldi		ZL,(Pattern2<<1)
+lpm		temp,Z
+out		PORTC, temp
+
+oneSecondDelay
+
+ldi		ZL,(Pattern3<<1)
+lpm		temp,Z
+out		PORTC, temp
+
+oneSecondDelay
+
+ldi		ZL,(Pattern4<<1)
+lpm		temp,Z
+out		PORTC, temp
+
+oneSecondDelay
+
+in temp, EIMSK			
+ori temp, (1<<INT0)		; enable INT0
+out EIMSK, temp
+
+sei						; enable Global Interrupt	SREG
+rjmp loop2
+
+
+EXT_INT0:
+nop			//stop	pattern
+reti		//back	to	loop
+
+
+.cseg
+Pattern1:	.db	0b00000011	
+Pattern2:	.db	0b00001111	
+Pattern3:	.db	0b00111111	
+Pattern4:	.db	0b11111111
