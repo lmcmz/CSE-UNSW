@@ -1,0 +1,11 @@
+home_suburb: Blacktown
+password: amanda
+birthday: 1996-06-05
+full_name: Reese Witherspoon
+zid: z5198410
+courses: (2016 S2 ELEC1111, 2016 S2 ENGG1000, 2016 S2 MATH1131, 2016 S2 PHYS1121, 2017 S1 CHEM1011, 2017 S1 COMP1911, 2017 S1 MMAN2130, 2017 S1 PTRL1010, 2017 S2 CVEN1300, 2017 S2 MATH1231, 2017 S2 MMAN2100, 2017 S2 MMAN2600)
+home_longitude: 150.9019
+program: Engineering (Honours)
+friends: (z5190009, z5197433, z5190688, z5192543)
+home_latitude: -33.7643
+email: z5198410@unsw.edu.au

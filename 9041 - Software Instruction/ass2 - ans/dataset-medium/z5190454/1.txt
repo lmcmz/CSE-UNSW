@@ -1,0 +1,5 @@
+time: 2013-10-26T09:53:59+0000
+longitude: 150.7023
+from: z5190454
+message: Serious question: where do all the cute guys on campus hang out?
+latitude: -33.8902

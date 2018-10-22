@@ -1,0 +1,5 @@
+message: Please let me find a boyfriend who can dance really well and really smoothly. HAHAHA
+latitude: -33.9177
+longitude: 151.0309
+time: 2016-06-18T08:43:59+0000
+from: z5190995

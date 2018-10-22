@@ -1,0 +1,11 @@
+courses: (2017 S2 GSOE9210, 2017 S2 GSOE9810)
+program: Biomedical Engineering
+home_longitude: 151.0819
+email: z5191125@unsw.edu.au
+home_latitude: -33.9972
+friends: (z5192731, z5195928, z5195995, z5199585, z5190454, z5191520, z5193755, z5199953, z5192543, z5193989)
+full_name: Lana Clarkson
+password: access
+zid: z5191125
+birthday: 1998-06-30
+home_suburb: Connells Point

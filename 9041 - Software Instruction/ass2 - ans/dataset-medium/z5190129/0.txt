@@ -1,0 +1,5 @@
+longitude: 151.1166
+latitude: -33.9599
+from: z5190129
+message: To the halfie with the cute (american?) accent whose name I think is Oliver. I see you in all my classes and then I saw you again in my exam this morning (26/06). I just want you to know that you're amasian!
+time: 2013-07-02T10:04:40+0000

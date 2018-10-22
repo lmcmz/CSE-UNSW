@@ -1,0 +1,5 @@
+message: Whilst you chase after other girls Saunders, you'll never see the one waiting for you.\n-From that girl you NEVER seem to notice. Sigh.
+latitude: -33.9182
+time: 2013-10-09T23:27:57+0000
+longitude: 151.2255
+from: z5195195

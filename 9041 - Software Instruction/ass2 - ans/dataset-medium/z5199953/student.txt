@@ -1,0 +1,11 @@
+home_latitude: -33.8930
+zid: z5199953
+full_name: Andre Agassi
+birthday: 1998-09-15
+home_suburb: Bondi
+email: z5199953@unsw.edu.au
+friends: (z5194082, z5198491, z5195151, z5190454, z5191824, z5191125, z5194476, z5192930)
+home_longitude: 151.2671
+program: Science / Arts
+courses: (2017 S1 ARTS1452, 2017 S1 ARTS1630, 2017 S1 CHEM1011, 2017 S1 MATH1131, 2017 S2 COMP1511, 2017 S2 MATH1081, 2017 S2 MATH1231, 2017 S2 PHYS1160)
+password: golfer

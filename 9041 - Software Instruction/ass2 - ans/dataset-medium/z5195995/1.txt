@@ -1,0 +1,5 @@
+message: Widjaja, i love you. <3
+latitude: -33.7628
+time: 2013-05-30T11:46:21+0000
+from: z5195995
+longitude: 150.7951

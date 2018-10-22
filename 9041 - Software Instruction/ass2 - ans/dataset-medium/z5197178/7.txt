@@ -1,0 +1,5 @@
+longitude: 151.2273
+time: 2016-07-17T14:39:30+0000
+message: When does banter reach the stage of flirtatious banter? \n- Confused
+latitude: -33.9091
+from: z5197178

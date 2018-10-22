@@ -1,0 +1,5 @@
+longitude: 151.2317
+latitude: -33.9157
+time: 2016-10-02T14:48:34+0000
+from: z5194082
+message: Dear Serotonin,\nPlease come back- I have 4 essays due and would do without having to search for the will to live.\nLove always, \nA Weekend Warrior.

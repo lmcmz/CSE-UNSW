@@ -1,0 +1,5 @@
+from: z5197361
+latitude: -33.9193
+message: Dear Nev Panda,\n\nI have admired your work at unsw red centre. I see you there all the time but I don't have the courage to talk to you...\n\nFrom your secret admirer,\n\nDJZ <3
+longitude: 151.2009
+time: 2015-11-15T08:07:56+0000

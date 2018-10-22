@@ -1,0 +1,5 @@
+time: 2016-04-28T05:03:45+0000
+latitude: -33.7492
+message: Where to meet new people (especially girls without them getting all defensive) UNSW?
+from: z5198807
+longitude: 151.1093

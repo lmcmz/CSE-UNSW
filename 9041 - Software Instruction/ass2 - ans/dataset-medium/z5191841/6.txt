@@ -1,0 +1,5 @@
+time: 2016-04-27T08:49:30+0000
+message: To the girl with curly brown hair and a fringe, who was wearing blue/green jelly sandals and a white shirt and in the ARTS1870 lecture today, i have no idea who you are but I've seen you a couple times and i just wanted to tell you that you are very beautiful and i hope you had a nice day.
+latitude: -33.9096
+from: z5191841
+longitude: 151.2383

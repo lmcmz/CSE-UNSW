@@ -1,0 +1,10 @@
+program: Information Technology
+home_latitude: -33.9658
+home_longitude: 151.1590
+email: z5192731@unsw.edu.au
+full_name: Daisy Fuentes
+password: tennis
+courses: (2017 S2 COMP9020, 2017 S2 COMP9021, 2017 S2 COMP9311, 2017 S2 GSOE9820)
+zid: z5192731
+birthday: 1998-11-23
+friends: (z5194685, z5194082, z5194548, z5197433, z5191824, z5191125, z5195734, z5193757, z5195369)

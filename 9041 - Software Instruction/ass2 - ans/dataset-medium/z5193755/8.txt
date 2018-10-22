@@ -1,0 +1,5 @@
+latitude: -33.9202
+message: Turning 22 and still never had a boyfriend. Will it get any easier?
+from: z5193755
+time: 2016-09-29T11:11:24+0000
+longitude: 151.2311

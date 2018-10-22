@@ -1,0 +1,5 @@
+latitude: -34.0101
+longitude: 151.1007
+time: 2016-09-29T11:15:29+0000
+from: z5193742
+message: Nat K, When you walk through the library doors and the wind blows back your soft black hair, it's like an angel just fell from heaven

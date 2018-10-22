@@ -1,0 +1,3 @@
+message: still benching 100kg?
+from: z5190129
+time: 2016-04-21T06:50:15+0000

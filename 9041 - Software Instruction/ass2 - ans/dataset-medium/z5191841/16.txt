@@ -1,0 +1,5 @@
+message: From a UNSW girl to a UTS boy, please don't let the bus distant us T. Hemmings. I'll make sure you get into UNSW for ur masters
+time: 2016-09-15T02:37:48+0000
+from: z5191841
+longitude: 151.0208
+latitude: -33.8789

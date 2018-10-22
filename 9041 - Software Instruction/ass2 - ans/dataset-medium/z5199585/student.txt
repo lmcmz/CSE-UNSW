@@ -1,0 +1,11 @@
+birthday: 1998-12-02
+full_name: Carmen Electra
+password: driver
+email: z5199585@unsw.edu.au
+courses: (2017 S2 COMP1511, 2017 S2 MATH1131)
+home_latitude: -33.9012
+home_longitude: 151.1834
+home_suburb: Newtown
+program: Engineering (Hons) / Comp Sci
+friends: (z5190009, z5196487, z5195928, z5195995, z5191841, z5191125, z5195935, z5191520, z5193755, z5192930, z5192543, z5193989, z5191238)
+zid: z5199585

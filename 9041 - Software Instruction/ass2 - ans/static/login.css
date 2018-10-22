@@ -1,0 +1,131 @@
+body {
+	padding-top: 120px;
+	padding-bottom: 40px;
+	background-color: #FDE433;
+}
+.btn {
+	outline: 0;
+	border: none;
+	border-top: none;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+	box-shadow: inset 2px -3px rgba(0, 0, 0, 0.15);
+}
+.btn:focus {
+	outline: 0;
+	-webkit-outline: 0;
+	-moz-outline: 0;
+}
+.color_bg {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: #FDE433;
+	color: #FDE433;
+}
+.fullscreen_bg {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	background-position: 50% 30%;
+	background-image: url('http://tertiary-choices-2017.smh.com.au/wp-content/uploads/2017/07/j4590_SMH_TertiaryChoices_VideoBackground_Desktop_Bottom-web.jpg');
+	background-repeat:no-repeat;
+}
+.form-signup {
+	max-width: 280px;
+	padding: 15px;
+	margin: 0 auto;
+	margin-top: 0px;
+}
+.form-signin {
+	max-width: 280px;
+	padding: 15px;
+	margin: 0 auto;
+	margin-top: 230px;
+}
+.form-signin .form-signin-heading,
+.form-signin {
+	margin-bottom: 10px;
+}
+.form-signin .form-control {
+	position: relative;
+	font-size: 16px;
+	height: auto;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-left-style: solid;
+	border-color: #000;
+}
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-color: rgb(0, 0, 0);
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.form-signin-heading {
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.form-forgot-heading {
+	color: #fff;
+	text-align: right;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.form-or-heading {
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.form-message-heading {
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.glyphicon-lg
+{
+	font-size:4em
+}
+.info-block
+{
+	border-right:5px solid #E6E6E6;margin-bottom:25px
+}
+.info-block .square-box
+{
+	width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
+}
+.info-block.block-info
+{
+	border-color:#20819e
+}
+.info-block.block-info .square-box
+{
+	background-color:#20819e;color:#FFF
+}

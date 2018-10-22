@@ -1,0 +1,5 @@
+from: z5192731
+latitude: -33.9226
+longitude: 151.2207
+time: 2016-10-06T02:14:29+0000
+message: to Michael\n\nI love how square your face is, I could stare at it all day\n\nfrom C

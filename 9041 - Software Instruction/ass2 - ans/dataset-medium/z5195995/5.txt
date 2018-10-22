@@ -1,0 +1,5 @@
+longitude: 151.2128
+time: 2013-09-08T20:28:57+0000
+message: This isn't really a love letter. But, em where are the Hyuna look alikes... :(
+from: z5195995
+latitude: -33.8371

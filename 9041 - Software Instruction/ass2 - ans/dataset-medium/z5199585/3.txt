@@ -1,0 +1,5 @@
+message: To Jason Khou-te, third year actuary student. Your incandescent smile, exuberant confidence and outward demeanour makes me want you so bad.
+time: 2016-05-07T03:14:02+0000
+longitude: 151.2228
+from: z5199585
+latitude: -33.9118

@@ -1,0 +1,11 @@
+full_name: Pedro Pauleta
+program: Biomedical Engineering
+zid: z5195935
+email: z5195935@unsw.edu.au
+friends: (z5196487, z5198491, z5198807, z5195195, z5190454, z5197178, z5191125, z5195734, z5198757, z5190520, z5194476, z5192930)
+password: rosebud
+home_longitude: 150.3226
+courses: (2017 S2 BIOM9450, 2017 S2 GSOE9010, 2017 S2 GSOE9220, 2017 S2 GSOE9510)
+home_latitude: -33.7140
+birthday: 1998-07-12
+home_suburb: Leura

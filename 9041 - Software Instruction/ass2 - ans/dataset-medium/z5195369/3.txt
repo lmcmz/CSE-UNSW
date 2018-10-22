@@ -1,0 +1,5 @@
+message: To the girl named Cordelia that study at UNSW and my flat mate, I really love you. I'm not bold enough to confess it to you. you know who I am. - love
+longitude: 151.1871
+time: 2013-06-02T07:46:42+0000
+latitude: -33.9020
+from: z5195369

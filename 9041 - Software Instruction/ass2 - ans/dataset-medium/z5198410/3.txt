@@ -1,0 +1,5 @@
+longitude: 151.2053
+from: z5198410
+latitude: -33.8925
+time: 2013-07-30T11:20:33+0000
+message: Dear Pokesoc,\n\nStop spamming UNSW Love Letters. You're awesome and everything, but jees, give it a break already.\n\nLove,\nUNSW\n\nPS I hope Apiwat and Melanie find true love soon.

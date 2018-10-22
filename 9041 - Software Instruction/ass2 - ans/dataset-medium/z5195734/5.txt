@@ -1,0 +1,5 @@
+latitude: -33.9500
+time: 2016-05-11T08:55:31+0000
+message: j, i really like u and its driving me crazy. i know i don't have a chance but can we at least hang out as friends? don't blow me off..... its hurts more than you know...
+from: z5195734
+longitude: 150.9009

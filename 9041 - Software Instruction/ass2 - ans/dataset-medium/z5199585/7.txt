@@ -1,0 +1,5 @@
+latitude: -33.9089
+longitude: 151.2476
+message: Dear Chloe,\n\nU are the apple of my eye, the sugar to coffee, the dirty to my mind. \n\nSincerely,\nDude who looks at you with someone else
+time: 2016-08-25T12:37:29+0000
+from: z5199585

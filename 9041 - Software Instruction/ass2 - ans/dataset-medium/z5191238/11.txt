@@ -1,0 +1,5 @@
+message: To M who travels to and from livo 3 days a week \nYour perfect hourglass ratio body is immaculate. So many other boys want to get it. I just want to say hi.
+from: z5191238
+longitude: 150.8614
+latitude: -33.8954
+time: 2016-09-19T11:50:47+0000

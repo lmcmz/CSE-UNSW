@@ -1,0 +1,3 @@
+from: z5198807
+time: 2016-10-05T09:34:00+0000
+message: z5191405 found an lg for our trip

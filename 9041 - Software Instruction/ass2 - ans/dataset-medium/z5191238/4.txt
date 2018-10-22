@@ -1,0 +1,5 @@
+longitude: 150.9966
+time: 2016-05-12T12:42:37+0000
+message: Hi girl with the beautiful hair in the Business Taxation lecture. You catch my heart every time. We talked once, and I hope you remember me.\n\nCoffee sometime?
+from: z5191238
+latitude: -33.7313

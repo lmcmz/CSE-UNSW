@@ -1,0 +1,41 @@
+/*
+ * written by andrewt@cse.unsw.edu.au October 2017
+ * as a starting point for COMP[29]041 assignment 2
+ * https://cgi.cse.unsw.edu.au/~cs2041/assignments/UNSWtalk/
+ *
+ * Change (or replace) the CSS below to create you own look-and-feel
+ *
+ * You will probably want to add  CSS to this file too
+ */
+
+.unswtalk_heading {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.unswtalk_user_details {
+    background-color: #ABCDEF;
+    color: #204142;
+    white-space: pre;
+    border:thin solid #204142;
+    border-radius: 1em;
+    padding-left: 0.42em;
+}
+
+.unswtalk_button {
+    background-color: #FEDBCA;
+    border:thin solid #904142;
+    border-radius: 0.42em;
+    color: #904142;
+}
+
+.h4,
+.unswtalk_test {
+    padding-left: 2cm;
+}
+
+

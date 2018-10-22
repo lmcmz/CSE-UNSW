@@ -1,0 +1,5 @@
+latitude: -33.7628
+message: We walked past each other and instantly smiled around 3 last Friday just around physics lawn. You were wearing a black hoodie and I was wearing a monkey sweatshirt. I was rushing to class but I should've said hi.\n\nFind me again next Thursday around physics lawn at lunchtime (1-2) if you want another smile!\n\n- Monkeyboy
+from: z5195995
+longitude: 150.7951
+time: 2013-09-01T20:00:12+0000

@@ -1,0 +1,5 @@
+latitude: -33.8907
+message: To the mayor of Bnkstown,\n\nYour villager Del has moved via StreetPass into a patch of cedar trees in my village. If I ever find you I am going to pillage your village and raze it to the ground, whilst making an example of your villagers.\n\nIf I ever find you, I will skin you alive and set alight the flesh that is left behind. I will use your skin to prepare an exquisite crackling that you will enjoy whilst you feast on the flesh of your villagers.\n\nYou have been marked.
+longitude: 151.1851
+from: z5193989
+time: 2013-10-28T10:05:07+0000

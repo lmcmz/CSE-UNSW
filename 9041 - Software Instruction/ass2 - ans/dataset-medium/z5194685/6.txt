@@ -1,0 +1,5 @@
+latitude: -33.9048
+message: Asian girl with Queen shirt. Study buddies?
+from: z5194685
+time: 2016-05-27T04:00:43+0000
+longitude: 151.2798

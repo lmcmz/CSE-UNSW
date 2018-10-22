@@ -1,0 +1,5 @@
+latitude: -33.8732
+longitude: 151.2427
+time: 2016-07-30T12:41:04+0000
+from: z5198757
+message: Roses are red\nViolets are blue\nRyuu-ga, \nWa-ga-te-ki-wo Ku-ra-u

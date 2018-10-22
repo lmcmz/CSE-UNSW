@@ -1,0 +1,11 @@
+email: z5198757@unsw.edu.au
+home_latitude: -33.9150
+program: Biomedical Engineering
+friends: (z5197433, z5195369)
+birthday: 1994-06-03
+password: swimming
+courses: (2017 S2 BIOM9432, 2017 S2 BIOM9450, 2017 S2 GSOE9510, 2017 S2 GSOE9830)
+home_longitude: 151.2718
+home_suburb: Clovelly
+full_name: Marc-Andre Fleury
+zid: z5198757

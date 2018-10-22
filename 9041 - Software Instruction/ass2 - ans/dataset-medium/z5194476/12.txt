@@ -1,0 +1,5 @@
+latitude: -33.9022
+longitude: 151.2530
+from: z5194476
+time: 2016-10-06T02:31:04+0000
+message: Lonely girl is waiting for her lonely boy to appear.\nXOXO GG

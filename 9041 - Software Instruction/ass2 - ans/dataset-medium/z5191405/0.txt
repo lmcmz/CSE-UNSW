@@ -1,0 +1,5 @@
+latitude: -33.6672
+longitude: 151.2005
+message: I confessed my love to you today in the services marketing & mgmt lecture today. Heba, you and I are meant to be. Don't chop my balls off next week.
+time: 2013-04-20T10:49:42+0000
+from: z5191405

@@ -1,0 +1,5 @@
+time: 2013-08-11T01:44:59+0000
+message: Can I have been anymore dumber on Friday afternoon on the bus from High St to Central?? We chatted and I asked you about your violin. Why didn't I ask you if you wanted to go for a drink?? To Mr Violin-enviro science- guy from Mr PhD guy.
+latitude: -33.9154
+longitude: 151.2384
+from: z5190688

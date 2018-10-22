@@ -1,0 +1,5 @@
+message: A big hey to the guy that I somehow always end up sitting next to in the computer room. Don't be embarrassed about that really lame "love thy neighbour" line you pulled on me today. I thought it was really funny and cute and I laughed all the way to Tyree. Thanks! Made my day! Catch ya round buddy!
+time: 2013-10-02T06:02:20+0000
+latitude: -33.8570
+longitude: 150.9727
+from: z5191520

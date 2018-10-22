@@ -1,0 +1,5 @@
+longitude: 151.2348
+message: To the brunette girl in the White jumper, light grey jeans, white shoes and dark bag at the MARK1012 final exam. \nPlease marry me what is your name ?!?!\nYou were in The scientia gallery with me for the exam
+time: 2016-07-01T14:22:12+0000
+latitude: -33.9191
+from: z5191824

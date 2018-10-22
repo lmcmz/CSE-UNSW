@@ -1,0 +1,35 @@
+{% block body_contents %}
+<html lang="en">
+<head>
+		<meta charset="utf-8">
+		<title>Welcome to UNSW Talk</title>
+		<link href="{{url_for('static', filename='login.css')}}") rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<body>
+	<div id="color_bg" class="color_bg"/>
+	<div id="fullscreen_bg" class="fullscreen_bg"/>
+<div class="container">
+
+	<form class="form-signin" method="POST" action={{ url_for('login') }}>
+		<h1 class="form-signin-heading">Sign In</h1>
+		<input type="text" class="form-control" placeholder="zID" required="" autofocus="" name="zid">
+		<input type="password" class="form-control" placeholder="Password" required="" name="password">
+		<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+			Sign In
+		</button>
+		<a href= {{ url_for('reset') }} class="form-forgot-heading"><h4>Forgot password?</h4></a>
+		<!--
+		<h1 class="form-signin-heading">{{message}}</h1>
+		-->
+		<h1 class="form-message-heading">{{message}}</h1>
+	<h1 class="form-or-heading">or</h1>
+	</form>
+	<form class="form-signup" method="POST" action={{ url_for('register') }}>
+	<button class="btn btn-lg btn-default btn-block" value="register">Sign Up</button>
+	</form>
+	
+</div>
+</body>
+</html>
+{% endblock %}

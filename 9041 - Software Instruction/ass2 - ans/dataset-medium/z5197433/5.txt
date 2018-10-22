@@ -1,0 +1,5 @@
+longitude: 151.2374
+from: z5197433
+time: 2013-11-26T13:15:11+0000
+message: I'm secretly in love with Emily in 3rd year Pathology.
+latitude: -33.9838

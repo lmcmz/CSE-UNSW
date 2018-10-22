@@ -1,0 +1,5 @@
+longitude: 150.7653
+latitude: -34.0450
+from: z5194685
+message: tfw you about to graduate and write yourself a UNSW Love Letter post #justengineeringthings
+time: 2016-08-30T21:20:34+0000

@@ -1,0 +1,5 @@
+from: z5191238
+longitude: 151.2376
+message: To Benjamin Avanzi, your accent is sexy and your ACTL2001 videos were mad last year. You're the only reason I go to 3001 lectures. Bring your cello next lecture, love to watch you play it :)
+latitude: -33.9159
+time: 2013-04-21T01:58:14+0000

@@ -1,0 +1,5 @@
+longitude: 151.2281
+latitude: -33.9269
+time: 2016-06-24T09:47:13+0000
+message: Dear the girl from yesterday's (4/6/16) 'uni life' story on snapchat towards the end in black with an American accent fascinated by the fact it does indeed rain in NSW. You made the pain of waiting eternity for that story to load and the tiresome clicking through boring videos while procrastinating study worth it. Next time how about some coffee on campus to get through the weather instead?
+from: z5197178

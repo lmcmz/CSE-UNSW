@@ -1,0 +1,5 @@
+message: pls help!! If there's a good looking girl in my tutorial, how do you get past her ring of bodyguards (ie. her friends) to talk to her?
+longitude: 151.2357
+latitude: -33.9087
+time: 2016-08-14T14:06:22+0000
+from: z5194082

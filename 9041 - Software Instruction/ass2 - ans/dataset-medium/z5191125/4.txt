@@ -1,0 +1,5 @@
+from: z5191125
+message: There's this guy who I see around campus, either 1st or 2nd year - I have no idea, but he looks like Francisco Lachowski! Let me just say you are one sexy man. I saw you in lower campus the other day and I really couldn't stop staring... too bad i'm too chicken to even say hi.
+latitude: -33.7859
+time: 2013-10-04T07:45:56+0000
+longitude: 151.0772

@@ -1,0 +1,11 @@
+birthday: 1995-01-29
+home_suburb: University Of New South Wales
+password: rosebud
+courses: (2016 S2 MATH5855, 2016 S2 MATH5905, 2017 S1 COMP9417, 2017 S1 MATH5960, 2017 S2 COMP9444, 2017 S2 MATH5836)
+program: Mathematics and Statistics
+home_latitude: -33.9196
+zid: z5199781
+full_name: Mark Swartz
+home_longitude: 151.2401
+friends: (z5194685, z5195928, z5190129, z5190454, z5190520, z5190009, z5193989, z5191238, z5193757, z5195369)
+email: z5199781@unsw.edu.au

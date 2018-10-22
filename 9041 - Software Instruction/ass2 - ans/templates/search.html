@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block body_contents %}
+<link href="{{url_for('static', filename='Profile1.css')}}") rel="stylesheet">
+<div class="container">
+<div class="row">
+			<div class="col-md-8 col-sm-12 pull-left posttimeline">
+				</div>
+				</div>
+					{% if match_students|list|length  == 0  %}
+					<p>
+						No Result from user
+					</p>
+					{% endif %}
+					{% for zid in match_students %}
+					<div class="panel panel-default">
+					<div class="col-md-12">
+					<button class="btn btn-primary followbtn">Follow</button>
+						<div class="media"> 
+							<a href={{ url_for('visit',zid=zid) }}><img src="{{ url_for('static', filename='student_avatar/'+zid+'/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" alt="" class="media-object testLabel">
+							<h4 style="margin-left: 2cm;">{{all_students_info[zid]['full_name']}}<br></h4>
+							</a>
+							<h5>{{all_students_info[zid]['program']}}</h5>
+							<p>{{all_students_info[zid]['email']}}</p>
+						</div>
+					</div>
+					</div>
+					{% endfor %}
+					
+					{% if match_students|list|length  == 0  %}
+					<p>
+						No Result from post
+					</p>
+					{% endif %}
+					
+					{% for key,value in student_messages.items() %}
+					<div class="panel panel-default">
+					<div class="col-md-12">
+						<div class="media">
+							<div class="media-left"> <a href={{url_for('visit',zid=value['from'] ) }}> <img src="{{ url_for('static', filename='student_avatar/'+value['from']+'/img.jpg')}}" alt="" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" class="media-object"> </a> </div>
+							<div class="media-body">
+								<a href={{ url_for('visit',zid=value['from'] ) }}>
+								<h4 class="media-heading">{{all_students_info[value['from']]['full_name']}} </a><br>
+									<small><i class="fa fa-clock-o"></i> {{value['time']}}</small> </h4>
+								<p>{{value['message']}}</p>
+
+								<ul class="nav nav-pills pull-left ">
+									<li><a href="" title=""><i class="glyphicon glyphicon-thumbs-up"></i> {{ range(1, 2001) | random }}</a></li>
+									<li><a href="" title=""><i class=" glyphicon glyphicon-comment"></i> {{ range(1, 51) | random }}</a></li>
+									<li><a href="" title=""><i class="glyphicon glyphicon-share-alt"></i> {{ range(1, 15) | random }}</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="btn-group pull-right postbtn">
+						<button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="dots"></span> </button>
+					</div>
+					</div>
+					{% endfor %}
+				
+						<!-- Status Upload  --> 
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,5 @@
+longitude: 151.2387
+from: z5191520
+message: I'd like to take a moment to say thank you to all the redshirt girls on Open Day giving hope to all the freshers thinking there will be enough girls in engineering for them. And I'd like to take another moment to say girls that can handle tools are hot af. I got zapped by a biomed gal, tracked sattelite with a surveying chick and got pumped up for a pretty petro. Too bad I'm already doing mech. Come get ur hands on my hardware ladies.
+time: 2016-09-09T14:22:18+0000
+latitude: -33.9240

@@ -1,0 +1,5 @@
+from: z5194685
+message: To the girl with blonde hair who is always studying on level 6 in the main library every night. I have a crush on you. <3
+longitude: 150.7653
+latitude: -34.0450
+time: 2016-08-29T05:18:47+0000

@@ -1,0 +1,5 @@
+longitude: 151.2247
+time: 2013-04-19T06:17:35+0000
+latitude: -33.9152
+message: To the guy who dresses like a mens fashion ad from the 1920s. I think your moustache is really cute, and I wouldn't mind showing you my ankles some time. Love from your future doll.
+from: z5190520

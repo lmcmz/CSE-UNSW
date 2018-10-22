@@ -1,0 +1,5 @@
+message: Robert Zheng, be mine
+from: z5198491
+latitude: -33.7935
+time: 2013-05-07T21:46:02+0000
+longitude: 150.9519

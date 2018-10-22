@@ -1,0 +1,5 @@
+longitude: 151.2328
+time: 2016-05-25T06:16:44+0000
+message: A Love Letter to Midsem Break\nI love Midsem Break so much that I took a 13 week break and broke up with good marks for midsem break
+latitude: -33.9471
+from: z5191520

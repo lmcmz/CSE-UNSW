@@ -1,0 +1,11 @@
+zid: z5197361
+password: flyers
+program: Engineering (Honours)
+home_suburb: Picnic Point
+full_name: Richard Virenque
+home_longitude: 151.0062
+courses: (2017 S1 ENGG1811, 2017 S1 MATH1131, 2017 S1 MINE1010, 2017 S1 PHYS1121, 2017 S2 CVEN1300, 2017 S2 GENC3004, 2017 S2 GMAT1110, 2017 S2 MATH1231)
+home_latitude: -33.9892
+friends: (z5190009, z5194082, z5198491, z5196487, z5190129, z5190454, z5193755, z5199953, z5192930, z5193989, z5193757, z5194685)
+birthday: 1994-12-09
+email: z5197361@unsw.edu.au

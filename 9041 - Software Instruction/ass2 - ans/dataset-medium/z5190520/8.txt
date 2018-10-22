@@ -1,0 +1,5 @@
+message: To that good looking Indian guy in red and grey sweater. Why don't u smile?
+latitude: -33.9583
+time: 2016-09-24T01:14:38+0000
+from: z5190520
+longitude: 151.1411

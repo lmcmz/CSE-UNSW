@@ -1,0 +1,5 @@
+longitude: 151.0586
+message: Dear  #12705,\nLet's meet and hang out.\nIf you want to talk about her, that's cool.\nSome beer and new companion may help. ;)
+latitude: -34.0559
+from: z5194082
+time: 2016-08-26T16:06:44+0000

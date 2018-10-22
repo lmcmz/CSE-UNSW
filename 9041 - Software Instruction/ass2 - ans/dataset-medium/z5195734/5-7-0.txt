@@ -1,0 +1,3 @@
+time: 2016-05-10T09:30:32+0000
+message: Bruh I might have an idea...
+from: z5195151

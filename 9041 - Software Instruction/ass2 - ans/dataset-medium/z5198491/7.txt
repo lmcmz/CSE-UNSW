@@ -1,0 +1,5 @@
+latitude: -33.9229
+from: z5198491
+time: 2016-06-05T06:57:36+0000
+message: Clinton from Civil Eng, r u single? xx
+longitude: 151.2263

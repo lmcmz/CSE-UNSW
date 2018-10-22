@@ -1,0 +1,5 @@
+message: I still remember the first time I saw you, you walked into my FINS2624 - Portfolio Management lecture... that body of yours, so beautifully distributed...and that tail, so risk-é! Your a real asset to the course and I can only imagine how you would send my sharpe ratio through the roof. I know this might sound irrational, but who knows, maybe one day I'll random walk you down the aisle and turn this bond of ours into a perpetuity. I know I'm probably coming across a little strong, but I hope you take this at face value and don't discount my interest.\n\nSee you in the futures x
+latitude: -33.7416
+longitude: 150.8499
+time: 2016-05-16T21:44:00+0000
+from: z5198807

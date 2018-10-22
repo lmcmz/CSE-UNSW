@@ -1,0 +1,11 @@
+program: Engineering (Hons) / Science
+home_longitude: 151.2228
+zid: z5194548
+password: jackson
+birthday: 1993-11-25
+home_suburb: University Of New South Wales
+courses: (2017 S1 CHEM1031, 2017 S1 ENGG1000, 2017 S1 MATH1131, 2017 S1 PHYS1121, 2017 S2 CEIC1000, 2017 S2 CHEM1041, 2017 S2 ENGG1811, 2017 S2 MATH1231)
+friends: (z5193757)
+full_name: LeAnn Rimes
+email: z5194548@unsw.edu.au
+home_latitude: -33.9206

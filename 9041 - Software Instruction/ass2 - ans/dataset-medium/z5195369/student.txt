@@ -1,0 +1,11 @@
+home_latitude: -33.9728
+full_name: Celine Dion
+program: Engineering (Honours)
+home_longitude: 151.2444
+home_suburb: Malabar
+friends: (z5192731, z5190129, z5191405, z5199781, z5191824, z5194476, z5198757, z5193755, z5192930, z5191238)
+password: muffin
+zid: z5195369
+birthday: 1997-03-02
+courses: (2017 S1 ENGG1000, 2017 S1 MATH1141, 2017 S1 PHYS1131, 2017 S1 PSYC1001, 2017 S2 CVEN1300, 2017 S2 ELEC1111, 2017 S2 ENGG1811, 2017 S2 MATH1241)
+email: z5195369@unsw.edu.au

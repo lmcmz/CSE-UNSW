@@ -1,0 +1,5 @@
+longitude: 151.2263
+message: To Marcus of CHEM1041,\nSince semester 1, I've been missing you're vibrant flaming orange hair in lectures. Although your hairline is higher than my wam, the way that you always hold eye contact with me in class really turns me on. I'll make sure I'll be at every lecture from now on to confess my love for you on Zeetings.
+time: 2016-09-29T09:45:51+0000
+latitude: -33.9267
+from: z5197361

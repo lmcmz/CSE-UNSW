@@ -1,0 +1,5 @@
+message: I am actually so cut out to be a player, it is like God pointed at me and said, "that guy there, he will break hearts left and right, he will be so heartless."
+longitude: 151.2005
+time: 2016-09-02T08:57:27+0000
+latitude: -33.6672
+from: z5191405

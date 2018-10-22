@@ -1,0 +1,9 @@
+birthday: 1996-01-02
+zid: z5197178
+courses: (2017 S2 COMP1511, 2017 S2 FINS1613, 2017 S2 MATH1081, 2017 S2 MATH1131)
+email: z5197178@unsw.edu.au
+program: Computer Science
+home_suburb: Earlwood
+friends: (z5194082, z5194548, z5195995, z5198807, z5195151, z5195195, z5195935, z5190688, z5193755, z5192930)
+full_name: Trista Rehn
+password: michael

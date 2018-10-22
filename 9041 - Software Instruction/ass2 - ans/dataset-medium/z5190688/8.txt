@@ -1,0 +1,5 @@
+message: to M.T.\n\nGlad we've been spending this time together, ask me out already\n\nFrom C.
+latitude: -33.8645
+time: 2016-08-15T11:52:07+0000
+from: z5190688
+longitude: 151.2226

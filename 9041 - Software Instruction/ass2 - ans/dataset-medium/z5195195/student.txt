@@ -1,0 +1,10 @@
+email: z5195195@unsw.edu.au
+home_latitude: -34.0943
+password: crystal
+birthday: 1995-04-12
+friends: (z5195151, z5198410, z5197178, z5197361, z5191824, z5195935, z5199953, z5190009, z5191238, z5193757)
+program: Engineering (Honours)
+courses: (2017 S1 COMP1511, 2017 S1 ECON1101, 2017 S1 ENGG1000, 2017 S1 MATH1131, 2017 S2 COMP1521, 2017 S2 COMP1531, 2017 S2 MATH1081, 2017 S2 MATH1231)
+zid: z5195195
+home_longitude: 150.8315
+full_name: Rachel Hunter

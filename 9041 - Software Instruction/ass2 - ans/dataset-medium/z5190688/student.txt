@@ -1,0 +1,11 @@
+birthday: 1998-05-08
+full_name: Angelina Jolie
+email: z5190688@unsw.edu.au
+program: Biomedical Engineering
+home_longitude: 150.9058
+home_latitude: -34.0105
+courses: (2014 S2 BIOM9001, 2014 S2 BIOM9660, 2015 S1 BIOM9001, 2015 S1 GSOE9400, 2015 S1 GSOE9712, 2015 S2 BIOM9001, 2016 S1 BIOM9001, 2016 S2 BIOM9001, 2017 S1 BIOM9001, 2017 S2 BIOM9001)
+home_suburb: Long Point
+password: gateway
+zid: z5190688
+friends: (z5197178, z5190009, z5198410)

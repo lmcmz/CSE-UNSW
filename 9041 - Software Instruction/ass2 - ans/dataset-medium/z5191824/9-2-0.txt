@@ -1,0 +1,3 @@
+from: z5194476
+time: 2016-05-14T09:00:55+0000
+message: 😑 he doesn't even do psych

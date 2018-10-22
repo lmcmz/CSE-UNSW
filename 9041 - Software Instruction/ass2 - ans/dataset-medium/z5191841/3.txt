@@ -1,0 +1,5 @@
+longitude: 151.2230
+time: 2013-12-01T08:24:51+0000
+from: z5191841
+message: I love you, Andrew!
+latitude: -33.9086

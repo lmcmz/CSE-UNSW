@@ -1,0 +1,9 @@
+program: Adv Science (Hons) / Comp Sci
+password: porsche
+friends: (z5195928, z5195995, z5191841, z5197178, z5195935, z5191520, z5193742, z5199953, z5192543, z5193757, z5194685)
+courses: (2017 S1 CHEM1031, 2017 S1 COMP1511, 2017 S1 MATH1131, 2017 S1 PHYS1121, 2017 S2 CHEM1041, 2017 S2 MATH1231, 2017 S2 MATS1192, 2017 S2 SCIF1131)
+email: z5198491@unsw.edu.au
+zid: z5198491
+full_name: James Franco
+birthday: 1994-06-15
+home_suburb: Eveleigh

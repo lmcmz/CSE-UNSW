@@ -1,0 +1,5 @@
+from: z5197361
+longitude: 151.0062
+time: 2013-07-29T10:11:47+0000
+message: To the cool guy, who's a second year arts/law student, I met in an English lecture earlier this year. I've been thinking about you all semester, after the way you shook my hand with such masculine vigour and left a palimpsest on my heart. I have yearned for your erudite wit since that time I first laid my eyes on your superior intellect but have sought to seek you again with no avail. I'll be Daisy and you can be my Gatsby. Come meet me so we can gaze at the mechanical birds in the sky and maybe engage in some analysis of oral techniques?
+latitude: -33.9892

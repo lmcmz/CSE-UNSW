@@ -1,0 +1,5 @@
+from: z5194082
+message: To Sam H in my MMAN2400 course,\n\nI hope you're single, because I'd love to make a stress-strain curve together.\n\n-Guy that was in your MATH1231 tute last year
+time: 2016-06-28T14:25:43+0000
+latitude: -33.9730
+longitude: 151.2406

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block body_contents %}
+<body style="padding-top: 120px">
+	<form class="form-horizontal" method="POST" action={{url_for('create')}}>
+<fieldset>
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Zid</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" required="">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Full name</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Password</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="password" placeholder="placeholder" class="form-control input-md">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Birthday</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" required="">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">E-mail</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Address</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md" required="">
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="textinput">Program</label>  
+	<div class="col-md-4">
+	<input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md">
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-md-4 control-label" for="singlebutton">Create user?</label>
+	<div class="col-md-4">
+		<button id="singlebutton" name="singlebutton" class="btn btn-primary">Yes</button>
+	</div>
+</div>
+
+</fieldset>
+</form>
+</body>
+</html>
+{% endblock %}
+

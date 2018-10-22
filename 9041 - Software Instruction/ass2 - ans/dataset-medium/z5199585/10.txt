@@ -1,0 +1,5 @@
+latitude: -33.9012
+time: 2016-09-08T01:54:12+0000
+message: Need bf to play dota 2 with me. Must be able to beat me 1v1 mid and carry me to victory. Xx
+from: z5199585
+longitude: 151.1834

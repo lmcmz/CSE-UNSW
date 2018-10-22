@@ -1,0 +1,5 @@
+latitude: -34.0406
+time: 2013-11-21T12:42:38+0000
+message: To the freckled girl with the red blouse and boots on the bus this morning. I tried my best not to stare but holy wow.\n\nHere's hoping I find you again next semester.
+from: z5193757
+longitude: 151.0658

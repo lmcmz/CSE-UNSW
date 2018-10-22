@@ -1,0 +1,3 @@
+from: z5197433
+time: 2013-10-26T09:48:26+0000
+message: ^hey, don't you go to usyd? guess not then.

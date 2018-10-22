@@ -1,0 +1,5 @@
+longitude: 151.2349
+from: z5195734
+latitude: -33.9193
+time: 2016-08-30T07:42:06+0000
+message: Julia Lin, you are my reason to get to uni everyday <3

@@ -1,0 +1,5 @@
+latitude: -33.9658
+longitude: 151.1590
+from: z5192731
+time: 2016-08-09T13:01:31+0000
+message: To the tall, dark, mysterious guy in the Higher Chem 1B lab on Thursday mornings, coffee sometime????

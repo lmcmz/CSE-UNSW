@@ -1,0 +1,5 @@
+from: z5193742
+latitude: -34.0101
+longitude: 151.1007
+message: My soul will LINger over the holidays without seeing my beautiful Rebecca <3
+time: 2013-11-15T15:50:42+0000

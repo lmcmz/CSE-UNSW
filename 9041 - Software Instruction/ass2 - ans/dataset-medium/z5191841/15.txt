@@ -1,0 +1,5 @@
+time: 2016-09-05T11:29:23+0000
+longitude: 151.2741
+from: z5191841
+latitude: -33.8894
+message: Why can't I find anybody from UNSW on Tinder??

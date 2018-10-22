@@ -1,0 +1,5 @@
+message: im so happy to know that Ethan Lo is single. im hoping ill see you around soon ;)
+from: z5198757
+longitude: 151.1968
+latitude: -33.8997
+time: 2013-05-27T22:06:11+0000

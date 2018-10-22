@@ -1,0 +1,5 @@
+message: To that friend I go to math lectures with, I am so thankful for having met such an intelligent and patient friend who helps me whenever I get stuck on a question but I absolutely hate it when your other friend comes along and distracts you from me. I wish I could tell you how much you mean to me but i'm not sure if you feel the same way as me...
+longitude: 151.2391
+time: 2016-10-01T13:35:07+0000
+from: z5191841
+latitude: -33.9218

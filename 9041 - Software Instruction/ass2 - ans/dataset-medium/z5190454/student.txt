@@ -1,0 +1,11 @@
+friends: (z5196684, z5199781, z5191824, z5191125, z5197361, z5195734, z5199953, z5190009)
+email: z5190454@unsw.edu.au
+home_suburb: Luddenham
+password: teresa
+zid: z5190454
+birthday: 1997-04-23
+program: Life Sciences
+full_name: Erin Brockovich
+courses: (2017 S1 BABS1201, 2017 S1 CHEM1011, 2017 S1 MATH1041, 2017 S1 MATH1131, 2017 S2 BABS1202, 2017 S2 BIOS1101, 2017 S2 CHEM1021, 2017 S2 COMP1511)
+home_latitude: -33.8902
+home_longitude: 150.7023

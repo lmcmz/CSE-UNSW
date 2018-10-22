@@ -1,0 +1,11 @@
+program: Engineering Science
+email: z5195995@unsw.edu.au
+full_name: Lucy Liu
+home_latitude: -33.7628
+home_longitude: 150.7951
+zid: z5195995
+home_suburb: Oxley Park
+courses: (2017 S1 ELEC4612, 2017 S1 ELEC4614, 2017 S1 ELEC9713, 2017 S1 ELEC9714, 2017 S2 ELEC4632, 2017 S2 ELEC9711, 2017 S2 ELEC9712, 2017 S2 GSOE9010)
+friends: (z5198491, z5193989, z5197178, z5191125, z5192543, z5199585)
+birthday: 1998-05-16
+password: einstein

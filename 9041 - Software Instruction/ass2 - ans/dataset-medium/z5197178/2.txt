@@ -1,0 +1,5 @@
+message: I know this isn't a love letter, but this is to my lab partner, I know you like me but following me the wrong way to the bus stop whilst pretending to be on your phone isn't cute it's creepy. Next time I'm calling campus security.
+from: z5197178
+latitude: -33.9098
+time: 2013-11-02T12:23:08+0000
+longitude: 151.2210

@@ -1,0 +1,5 @@
+latitude: -33.9030
+longitude: 151.1951
+message: Sonia Swarup, I'm ready to reveal myself. Meet me in front of the law library at 1pm Wednesday Week 13 if you're ready for the best journey of your life.
+time: 2013-10-17T22:31:25+0000
+from: z5195369

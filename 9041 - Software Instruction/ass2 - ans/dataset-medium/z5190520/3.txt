@@ -1,0 +1,5 @@
+from: z5190520
+longitude: 151.2303
+latitude: -33.9229
+message: I'm going to attend every roundhouse party for the rest of the year until I find my Lolita.
+time: 2013-10-02T07:19:29+0000

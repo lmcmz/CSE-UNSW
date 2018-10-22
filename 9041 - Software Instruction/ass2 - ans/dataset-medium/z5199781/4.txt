@@ -1,0 +1,5 @@
+message: Mansi Bhatt Life without you is like a broken pencil- Pointless! Coffee sometime??
+latitude: -33.8802
+time: 2013-06-26T04:15:23+0000
+from: z5199781
+longitude: 151.1150

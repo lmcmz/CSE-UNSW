@@ -1,0 +1,5 @@
+longitude: 151.2671
+latitude: -33.8930
+message: Joanna in first year comm/law, heard you were single ;) will you go to Bsoc ball with me?
+from: z5199953
+time: 2016-08-30T21:46:23+0000

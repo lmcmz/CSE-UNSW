@@ -1,0 +1,5 @@
+longitude: 151.1967
+message: How does a shy guy talk to a shy girl? Pls halp
+time: 2016-08-16T15:56:51+0000
+latitude: -33.8882
+from: z5190688

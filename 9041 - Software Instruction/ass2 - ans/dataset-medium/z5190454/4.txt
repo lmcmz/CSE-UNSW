@@ -1,0 +1,5 @@
+from: z5190454
+longitude: 151.2400
+message: tfw i realise i have never gotten a love letter written about me because i drive to uni...
+time: 2016-05-17T10:50:28+0000
+latitude: -33.9156

@@ -1,0 +1,5 @@
+latitude: -33.9225
+from: z5193757
+time: 2013-03-19T12:29:16+0000
+longitude: 151.2291
+message: Dear law lecturer with the beachy hair, indie outfits and boat shoes, You're hot.

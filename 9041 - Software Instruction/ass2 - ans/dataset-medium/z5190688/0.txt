@@ -1,0 +1,5 @@
+time: 2013-03-22T13:33:21+0000
+latitude: -33.9088
+longitude: 151.2330
+message: To the beautiful engineering girl - Oh wait, nvm. You don't exist.
+from: z5190688

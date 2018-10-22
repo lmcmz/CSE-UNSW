@@ -1,0 +1,11 @@
+email: z5190129@unsw.edu.au
+password: money
+program: Engineering (Honours)
+full_name: Pamela Anderson
+zid: z5190129
+home_longitude: 151.1166
+home_suburb: Carlton
+birthday: 1995-07-15
+courses: (2017 S1 ENGG1000, 2017 S1 ENGG1811, 2017 S1 MATH1141, 2017 S1 PHYS1121, 2017 S2 ELEC1111, 2017 S2 MATH1081, 2017 S2 MATH1241, 2017 S2 MMAN1300)
+friends: (z5192731, z5198807, z5191405, z5193742, z5193755, z5190009, z5192543, z5193989, z5191238, z5195369)
+home_latitude: -33.9599

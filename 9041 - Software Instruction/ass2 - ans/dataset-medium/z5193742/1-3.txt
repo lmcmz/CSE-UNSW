@@ -1,0 +1,3 @@
+from: z5198491
+message: Patrick, you have to teach me your ways.
+time: 2013-04-24T14:55:36+0000

@@ -1,0 +1,5 @@
+longitude: 150.9966
+message: Dear M,\n\nIf you love your girl as much as she loves you, you'll be thanking her every day just for being in your life. But thank her again, please, from me. I'm so relieved to see you happy again. Good luck over there, and I wish you all the best together, from my heart.\n\n(You're not even at UNSW but, as #12378 pointed out, the USYD page is on break.)
+latitude: -33.7313
+time: 2016-08-11T14:24:29+0000
+from: z5191238

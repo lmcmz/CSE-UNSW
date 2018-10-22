@@ -1,0 +1,11 @@
+home_suburb: Sylvania
+email: z5193742@unsw.edu.au
+zid: z5193742
+courses: (2017 S1 CHEM1011, 2017 S1 ENGG1000, 2017 S1 MATH1131, 2017 S1 PHYS1121, 2017 S2 CEIC1000, 2017 S2 CHEM1021, 2017 S2 ENGG1811, 2017 S2 MATH1231)
+friends: (z5198491, z5194548, z5197433, z5191841, z5197361, z5195935, z5190520, z5199953, z5194685)
+home_latitude: -34.0101
+home_longitude: 151.1007
+birthday: 1997-07-04
+password: hello
+program: Engineering (Honours)
+full_name: Susie Castillo

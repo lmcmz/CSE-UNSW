@@ -1,0 +1,5 @@
+time: 2016-09-25T22:42:48+0000
+message: The cute curry girl in my INFS 1609 tute on Monday evenings, why you gotta leave so early??? Please stay longer so I can admire your beauty.
+longitude: 151.1791
+from: z5198410
+latitude: -33.8811

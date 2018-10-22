@@ -1,0 +1,5 @@
+latitude: -33.9109
+message: I just really want to make out with whoever makes the UNSW Library Facebook posts. Your love for the library has swept me off my feet like the roof off the Matthews building.
+from: z5191841
+longitude: 151.2237
+time: 2013-08-14T11:55:53+0000

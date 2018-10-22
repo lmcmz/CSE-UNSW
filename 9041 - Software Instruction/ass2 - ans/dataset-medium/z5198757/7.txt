@@ -1,0 +1,5 @@
+from: z5198757
+latitude: -33.9194
+message: To my German class eye candy, I think your name is Danielle Glynn, I'd love to take you out - maybe for some German sausage?
+longitude: 151.2218
+time: 2016-05-14T08:21:51+0000

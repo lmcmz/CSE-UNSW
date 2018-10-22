@@ -1,0 +1,5 @@
+message: Lucas C from Arts Camp are you single yet because i'm waiting ;)
+from: z5194548
+latitude: -33.9206
+longitude: 151.2228
+time: 2016-04-25T23:56:20+0000

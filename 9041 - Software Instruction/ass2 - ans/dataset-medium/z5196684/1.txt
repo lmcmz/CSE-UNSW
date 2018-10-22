@@ -1,0 +1,5 @@
+from: z5196684
+latitude: -33.9215
+message: To the Egyptian girl in first year medicine, i think you're really funny and you have a great personality on top of your amazing intelligence and beauty.
+longitude: 151.2288
+time: 2013-05-03T09:42:12+0000

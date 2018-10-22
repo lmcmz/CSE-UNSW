@@ -1,0 +1,5 @@
+latitude: -33.8554
+message: Charlotte Owen, you are the hottest girl in UNSW doing business. \nI saw your textbooks on sale, I will buy the books if you make me a deal ;) \nI will pay $69 dollars for the books, only if you come with it ;)
+from: z5193755
+longitude: 151.2858
+time: 2016-06-30T01:41:15+0000

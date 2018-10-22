@@ -1,0 +1,5 @@
+latitude: -33.9144
+longitude: 151.2318
+time: 2013-06-13T23:55:39+0000
+from: z5195734
+message: Hot guy with glasses working at Boost. Julian, can I have your babies?

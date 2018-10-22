@@ -1,0 +1,5 @@
+from: z5190009
+message: To the girl in the commerce lab I asked out for coffee sometime. I may never get your name in this lifetime, but I will always remember that amazingly awkward smile. :) #thosewerethedays.
+longitude: 151.1698
+time: 2013-05-29T11:30:38+0000
+latitude: -33.8462

@@ -1,0 +1,5 @@
+message: what do when your friend likes you but you're straight
+latitude: -33.9239
+from: z5192543
+longitude: 151.2214
+time: 2016-09-30T04:19:31+0000

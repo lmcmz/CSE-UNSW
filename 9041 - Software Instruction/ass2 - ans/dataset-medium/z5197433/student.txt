@@ -1,0 +1,11 @@
+friends: (z5190009, z5192731, z5194082, z5198807, z5191405, z5198410, z5198757, z5190520, z5191520, z5193742, z5192930, z5192543, z5191238, z5193757)
+program: Engineering (Honours)
+home_longitude: 151.2374
+email: z5197433@unsw.edu.au
+home_suburb: Little Bay
+home_latitude: -33.9838
+password: prince
+full_name: Jose Canseco
+birthday: 1995-09-17
+courses: (2017 S1 ENGG1000, 2017 S1 ENGG1811, 2017 S1 MATH1011, 2017 S1 PHYS1111, 2017 S2 MATH1131, 2017 S2 MMAN2130, 2017 S2 PHYS1121)
+zid: z5197433

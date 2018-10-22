@@ -1,0 +1,5 @@
+longitude: 151.2268
+message: Kevin Zheng, you are one hot techie ;)
+latitude: -33.9266
+from: z5193757
+time: 2013-10-28T21:06:44+0000

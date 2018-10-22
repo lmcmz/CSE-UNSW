@@ -1,0 +1,5 @@
+latitude: -33.9808
+from: z5194685
+message: Mikiella S, I think you're v cute are you single?
+time: 2016-08-04T12:19:54+0000
+longitude: 151.1137

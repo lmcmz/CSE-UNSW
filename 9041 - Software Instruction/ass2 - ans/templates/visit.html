@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block body_contents %}
+<link href="{{url_for('static', filename='Profile1.css')}}") rel="stylesheet">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center ">
+			<div class="panel panel-default">
+				<div class="userprofile social">
+					<div class="userpic"> <img src="{{ url_for('static', filename='student_avatar/'+student_zid+'/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" alt="" class="userpicimg"> </div>
+					<h3 class="username">{{student_name}}</h3>
+					<p>{{student_location}}</p>
+				</div>
+				<div class="col-md-12 border-top border-bottom">
+					<ul class="nav nav-pills pull-left countlist" role="tablist">
+						<li role="presentation">
+							<h3>{{student_friends|list|length}}<br>
+								<small>Friends</small> 
+							</h3>
+						</li>
+						<li role="presentation">
+							<h3>{{student_messages|list|length}}<br>
+								<small>Posts</small> 
+							</h3>
+						</li>
+					</ul>
+					{% if not is_Friend  %}
+						<form action={{url_for('follow')}} method="post">
+							<button name="zid" value={{student_zid}} class="btn btn-primary followbtn">Follow</button>
+						</form>
+					{% else %}
+						<form action={{url_for('unfollow')}} method="post">
+							<button name="zid" value={{student_zid}} class="btn btn-primary unfollowbtn">Unfollow</button>
+						</form>
+					{% endif %}
+					
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!-- /.col-md-12 -->
+		<div class="col-md-4 col-sm-12 pull-right">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="page-header small">Personal Details</h1>
+					<p class="page-subtitle small">Email : {{student_email}}</p>
+					<p class="page-subtitle small">zID : {{student_zid}}</p>
+					<p class="page-subtitle small">DOB : {{student_DOB}}</p>
+					<p class="page-subtitle small">Program : {{student_program}}</p>
+					<p class="page-subtitle small">Course : {{student_course}}</p>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="page-header small">Friends</h1>
+					<p class="page-subtitle small">You have recemtly connected with {{student_friends|list|length}} friends</p>
+				</div>
+				<div class="col-md-12">
+					<div class="memberblock">
+						{% for friends in student_friends %}
+						<a href={{ url_for('visit', zid=friends) }} class="member" action="visit" name="{{friends}}" method="POST">
+							<img src="{{ url_for('static', filename='student_avatar/'+friends+'/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" alt="">
+							<div class="memmbername">{{all_students_info[friends]['full_name']}}</div>
+						</a>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="page-header small">What others are saying </h1>
+					<p class="page-subtitle small">Express your self, Express to other</p>
+				</div>
+				<div class="col-md-12">
+					<div class="media">
+						<div class="media-left"> <a href={{url_for('visit',zid="z5192731")}}> <img src="{{ url_for('static', filename='student_avatar/z5192731/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" alt="" class="media-object"> </a> </div>
+						<div class="media-body">
+							<h4 class="media-heading">Daisy Fuentes</h4>
+							To the tall, dark, mysterious guy in the Higher Chem 1B lab on Thursday mornings, coffee sometime???? 
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-left"><a href={{url_for('visit',zid="z5195734")}}> 
+							<img src="{{ url_for('static', filename='student_avatar/z5195734/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" alt="" class="media-object"></a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">John Doe</h4>
+							Julia Lin, you are my reason to get to uni everyday :3
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="col-md-8 col-sm-12 pull-left posttimeline">
+			{% for key,value in student_messages.items() %}
+			<div class="panel panel-default">
+				<div class="col-md-12">
+					<div class="media">
+						<div class="media-left"> <a href="javascript:void(0)"> <img src="{{ url_for('static', filename='student_avatar/'+value['from']+'/img.jpg')}}" alt="" class="media-object"> </a> </div>
+						<div class="media-body">
+							<h4 class="media-heading">{{all_students_info[value['from']]['full_name']}}<br>
+								<small><i class="fa fa-clock-o"></i> {{value['time']}}</small> 
+							</h4>
+							<p>{{value['message']}}</p>
+							<ul class="nav nav-pills pull-left ">
+								<li><a href="" title=""><i class="glyphicon glyphicon-thumbs-up"></i> {{ range(1, 2001) | random }}</a></li>
+								<li><a  href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=" glyphicon glyphicon-comment"></i> {{ range(1, 51) | random }}</a></li>
+								<li><a href="" title=""><i class="glyphicon glyphicon-share-alt"></i> {{ range(1, 15) | random }}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 commentsblock border-top">
+				{% for key2,value2 in value.items() %}
+				{% if value2['from']|length != 0  %}
+					<div class="media">
+					<button type="submit" class="btn btn-success replybtn"> Reply</button>
+						<div class="media-left"> <a href={{ url_for('visit', zid=value2['from']) }}> <img alt="64x64" src="{{ url_for('static', filename='student_avatar/'+value2['from']+'/img.jpg')}}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxG56kDxdi77DqwB57yChY0wQ5al2VVGL_nVxhkUlzMtVzvTj'" class="media-object"> </a> </div>
+						<div class="media-body" style="border-bottom: 1px solid #ddd">
+						<a href={{'/visit/'+value2['from'] }}>
+							<h4 class="media-heading">{{all_students_info[value2['from']]['full_name']}}</h4>
+							</a>
+							<p>{{value2['message']}}</p>
+					</div>
+					</div>
+				{% endif %}
+				{% endfor %}
+				</div>
+				<!-- -->
+				<div class="btn-group pull-right postbtn">
+					<button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="dots"></span> </button>
+				</div>
+			</div>
+			{% endfor %}
+			<!-- Status Upload  --> 
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

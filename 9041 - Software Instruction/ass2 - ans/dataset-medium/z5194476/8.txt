@@ -1,0 +1,5 @@
+longitude: 151.2531
+latitude: -33.8827
+from: z5194476
+message: To the girl that was sitting across me in the bus on Wednesday 09 of August, you wore full black and were short with a UNSW bag, sitting with your brown haired friend. I want you :)
+time: 2016-08-13T12:25:00+0000

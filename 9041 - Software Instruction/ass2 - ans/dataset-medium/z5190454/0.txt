@@ -1,0 +1,5 @@
+message: to the cuties who make the coffee at q lounge, i never need to add sugar to my cappuccinos because you're all the sweetness that i need ;)
+latitude: -34.0370
+longitude: 151.0531
+time: 2013-10-18T00:00:33+0000
+from: z5190454

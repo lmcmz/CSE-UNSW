@@ -1,0 +1,5 @@
+latitude: -34.0052
+longitude: 151.1132
+message: That person gives gives you so many emotions, some you've never felt before. When you see them, your cheeks flush, your palms sweat, and you are having a mental hysteria, struggling to say something cool or witty to them when you get the chance. At times, you are frustrated with them for the most trivial reasons, like when they don't seem to know much about you like you do about them. But this sense of affection will overshadow that little annoying feeling you have for them, and you are constantly distracted by them wherever you are. You might even hate them for not responding the way you want them to. But at the most unpredictable time, your feelings for that person change. You no longer feel that attachment to them. You no longer blush, no longer have these strong emotions clouding your heart and mind. Instead, that person is now only someone you once knew. You don't really care about them or their actions, which might even be lame to you. This may sometimes frustrate you a little, but that's it. You feel nothing else towards them. You move on.
+time: 2013-09-22T04:55:36+0000
+from: z5191405

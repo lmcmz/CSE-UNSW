@@ -1,0 +1,5 @@
+latitude: -33.8853
+from: z5191824
+message: Been rehearsing how to say hi to you countless times in my head, but today, when I bumped into you at the main walk way, the only thing I could say was "hi", when you looked into my eyes, i could do nothing but feeling my heartbeat and keeping a straight face. Wish I could be so lucky more often.
+longitude: 151.2505
+time: 2016-08-31T17:14:22+0000

@@ -1,0 +1,11 @@
+email: z5190520@unsw.edu.au
+home_latitude: -33.9229
+program: Computer Science
+home_suburb: University Of New South Wales
+full_name: Aaron Peirsol
+password: internet
+friends: (z5191824, z5194082, z5191520)
+birthday: 1996-04-06
+home_longitude: 151.2303
+courses: (2017 S1 COMP1511, 2017 S1 HUMS1005, 2017 S1 MATH1081, 2017 S1 MATH1131, 2017 S2 COMP1531, 2017 S2 COMP2521, 2017 S2 MATH1231, 2017 S2 PHYS1110)
+zid: z5190520
