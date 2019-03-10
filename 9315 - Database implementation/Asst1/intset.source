@@ -1,0 +1,176 @@
+---------------------------------------------------------------------------
+--
+-- complex.sql-
+--    This file shows how to create a new user-defined type and how to
+--    use this new type.
+--
+--
+-- Portions Copyright (c) 1996-2017, PostgreSQL Global Development Group
+-- Portions Copyright (c) 1994, Regents of the University of California
+--
+-- src/tutorial/complex.source
+--
+---------------------------------------------------------------------------
+
+CREATE TYPE intset;
+
+CREATE FUNCTION intset_in(cstring)
+   RETURNS intset
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+
+-- the output function 'complex_out' takes the internal representation and
+-- converts it into the textual representation.
+
+CREATE FUNCTION intset_out(intset)
+   RETURNS cstring
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+   
+CREATE TYPE intset (
+  internallength = variable,
+  input = intset_in,
+  output = intset_out
+);
+   
+-- -----------------------------
+
+-- -- first, define a function complex_add (also in complex.c)
+CREATE FUNCTION intset_include(int, intset)
+   RETURNS bool
+   AS '_OBJWD_/intset'
+   LANGUAGE C IMMUTABLE STRICT;
+
+-- -- we can now define the operator. We show a binary operator here but you
+-- -- can also define unary operators by omitting either of leftarg or rightarg.
+CREATE OPERATOR <@ (
+   leftarg = int,
+   rightarg = intset,
+   procedure = intset_include
+);
+
+
+
+
+CREATE FUNCTION intset_cadinality(intset)
+  RETURNS int
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR @ (
+  rightarg = intset,
+  procedure = intset_cadinality
+);
+
+
+
+CREATE FUNCTION intset_subset(intset, intset)
+  RETURNS bool
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR @> (
+  leftarg = intset,
+  rightarg = intset,
+  procedure = intset_subset
+);
+
+
+CREATE FUNCTION intset_equal(intset, intset)
+  RETURNS bool
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR = (
+  leftarg = intset,
+  rightarg = intset,
+  procedure = intset_equal
+);
+
+
+CREATE FUNCTION intset_intersection(intset, intset)
+  RETURNS intset
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR && (
+  leftarg = intset,
+  rightarg = intset,
+  procedure = intset_intersection
+);
+
+
+CREATE FUNCTION intset_union(intset, cstring)
+  RETURNS intset
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR || (
+  leftarg = intset,
+  rightarg = cstring,
+  procedure = intset_union
+);
+
+
+CREATE FUNCTION intset_disjunction(intset, intset)
+  RETURNS intset
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR !! (
+  leftarg = intset,
+  rightarg = intset,
+  procedure = intset_disjunction
+);
+
+
+CREATE FUNCTION intset_difference(intset, intset)
+  RETURNS intset
+  AS '_OBJWD_/intset'
+  LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR - (
+  leftarg = intset,
+  rightarg = intset,
+  procedure = intset_difference
+);
+
+-- --------------------------------------------------------------------
+create table mySets (id integer primary key, iset intset);
+insert into mySets values (1, ' {a,b,	c} ');
+insert into mySets values (2, '   {1,3,1, three, 1}');
+insert into mySets values (3, ' { 3,{4,3}, 5 } ');
+insert into mySets values (4, '{4  5  2} ');
+select * from mySets;
+
+
+-- select a.*, b.* from mySets a, mySets b where (b.iset = a.iset) and a.id != b.id;
+
+select id, iset, (1<@iset) as include from mySets order by id;
+
+select a.*, b.* from mySets a, mySets b where (b.iset @> a.iset) and a.id != b.id;
+
+update mySets set iset = iset || '{5,6,7,8}' where id = 4;
+
+select * from mySets where id=4;
+
+select a.*, b.* from mySets a, mySets b where (b.iset @> a.iset) and a.id != b.id;
+
+
+select id, iset, (@iset) as card from mySets order by id;
+
+select a.iset, b.iset, a.iset && b.iset from mySets a, mySets b where a.id < b.id;
+
+select a.iset, b.iset, a.iset !! b.iset from mySets a, mySets b where a.id < b.id;
+
+select a.iset, b.iset, a.iset - b.iset from mySets a, mySets b where a.id < b.id;
+
+delete from mySets where iset @> '{1,2,3,4,5,6}';
+
+select * from mySets;
+
+
+-- -- clean up the example
+DROP TABLE mySets;
+DROP TYPE intset CASCADE;
+

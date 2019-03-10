@@ -33,9 +33,29 @@
 ---
 Helen 人很好，挺负责的，上课能把自己讲笑。Asst不难但是挺麻烦的，抱着简单课心情来的，写写后端和API，顺便又把 Flask 弄了弄。最后出分一般，都是期末考问题，都是概念。总之，这课可选，压力不大。[Project 链接](https://github.com/lmcmz/Junipy)
 
-## 2018 S2 (To be continued)
+## 2018 S2
 ---
-### 9444 - Neural Networks and Deep Learning
-### 9313 - Big Data Management
-### 9319 - Web Data Compression and Search
-### 9315 - Database Systems Implementation 
+### 9444 - Neural Networks and Deep Learning 👍
+---
+Alan 讲课挺认真的，课程大致介绍了，CNN，RNN，GAN, Reinforcement learning 等一些主流的神经网络框架。虽说都是皮毛，值得一学，一共3个Assignment，和去年基本一致，这差不多是Alan的风格了。考试完全考 sample exam 和 tutorial 的内容。基本上背下来，基本上能上HD了。
+
+### 9313 - Big Data Management 👍
+---
+挺好的一门课，作业不少，从 Hadoop 到 Spark，从单机伪分布式到AWS部署真分布式。介绍了一些算法：Bloom-filter, Min-hash, recommand systerm. 期末考试，手写代码，主要都是平时写的 Map Reduce。话说，Scala语法真美。
+
+### 9319 - Web Data Compression and Search 👍
+---
+传说中 CSE 里面最难的课Top3，的确。用的最底层的C，写的两个assignment，东西都挺多的。的却不简单，但是努力花花时间还是可以的。第一个是，Haffman Tree。第二个是，BWT 的文件。涉及到的算法不多，很多时候要多想想结构，直接硬写一般都不行。最后提交有内存和运行时间限制。
+
+### 9315 - Database Systems Implementation 💔
+---
+无敌的差，lec听得人真的无聊。怪不得130号注册的人，每次上次不到15个人。John讲的有气无力的，note里面代码一堆一堆的，并没有把Database内部结构讲的太清楚。作业不难，看清楚结构，基本上就出来了。
+
+## 2019 T1 (To be continued)
+---
+### 6452 - Software Architecture for Blockchain Applications
+---
+### 9322 - Software Service Design and Engineering
+--- 
+### 9414 - Artificial Intelligence
+--- 
