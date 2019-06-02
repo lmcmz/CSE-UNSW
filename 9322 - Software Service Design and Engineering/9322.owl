@@ -1,0 +1,344 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#"
+     xml:base="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Year -->
+
+    <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Year"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#downloading -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#downloading">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#generateModel -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#generateModel">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#outputValue -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#outputValue"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#predicting -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#predicting">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#preprocessing -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#preprocessing">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#trainning -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#trainning">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModule -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModule">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset"/>
+        <trainning rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSource -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSource">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource"/>
+        <downloading rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainInput -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainInput">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput"/>
+        <predicting rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictValue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictProgram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictProgram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModule"/>
+        <outputValue rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictValue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictValue -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictValue">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainRegressionModel -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainRegressionModel">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel"/>
+        <predicting rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictProgram"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromDomain -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromDomain">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule"/>
+        <preprocessing rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromRealestate -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromRealestate">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule"/>
+        <preprocessing rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSet"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#LinearRegression -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#LinearRegression">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType"/>
+        <trainning rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromDomain"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#NeuralNetwork -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#NeuralNetwork">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType"/>
+        <trainning rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromRealestate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSet -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSet">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset"/>
+        <trainning rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromRealestate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSource -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSource">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource"/>
+        <downloading rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromRealestate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateInput -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateInput">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput"/>
+        <predicting rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictProgram"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateNeuralNetworkMoel -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateNeuralNetworkMoel">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel"/>
+        <predicting rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictProgram"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictProgram -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictProgram">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModule"/>
+        <outputValue rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictValue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictValue -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictValue">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromDomain -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromDomain">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule"/>
+        <generateModel rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainRegressionModel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromRealestate -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromRealestate">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule"/>
+        <generateModel rdf:resource="http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateNeuralNetworkMoel"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

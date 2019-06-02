@@ -15,7 +15,10 @@
 
 写汇编，老师口音真烂，是个中国老师。Lab 和 Asst 还不错 (但是据说不是她设计的)，课程的话，头几节还行，后面就稀烂了。期末考试更是。不鼓励也不diss
 
+
+
 ## 2018 S1
+
 ### 9417 - Machine Learning and Data Mining 😕
 ---
 学AI的话，推荐一上的，至少吧基本算法，概念都过一遍。老师的PPT很烂，主要是没重点，一节课三个小时，当个PPT Reader，都是文字，很多地方他说不清楚。推荐与吴恩达在coursera上课程一起服用，每周Tutorial内容还行，期中考试特别迷，期末简单。Project的话，避免坑货吧。唉，心疼自己。总体一般般，可选。
@@ -33,7 +36,10 @@
 ---
 Helen 人很好，挺负责的，上课能把自己讲笑。Asst不难但是挺麻烦的，抱着简单课心情来的，写写后端和API，顺便又把 Flask 弄了弄。最后出分一般，都是期末考问题，都是概念。总之，这课可选，压力不大。[Project 链接](https://github.com/lmcmz/Junipy)
 
+
+
 ## 2018 S2
+
 ---
 ### 9444 - Neural Networks and Deep Learning 👍
 ---
@@ -51,11 +57,40 @@ Alan 讲课挺认真的，课程大致介绍了，CNN，RNN，GAN, Reinforcement
 ---
 无敌的差，lec听得人真的无聊。怪不得130号注册的人，每次上次不到15个人。John讲的有气无力的，note里面代码一堆一堆的，并没有把Database内部结构讲的太清楚。作业不难，看清楚结构，基本上就出来了。
 
-## 2019 T1 (To be continued)
+
+
+## 2019 T1 
+
 ---
-### 6452 - Software Architecture for Blockchain Applications
+### 6452 - Software Architecture for Blockchain Applications 👎
+
 ---
-### 9322 - Software Service Design and Engineering
---- 
-### 9414 - Artificial Intelligence
---- 
+
+巨傻逼，教的很皮毛，讲些理论东西，没啥用。Lecturer多数都是PPT reader 巨无聊，讨论了大半天的NFP，纯理论没实践，Asst1 简单的改动官方的模板1小时就行。期末挂科还巨高，垃圾课刷新三观。
+
+
+
+### 9322 - Software Service Design and Engineering 🙃
+---
+Tutorial 秒杀 Lecture， Lecture很垃圾，尤其下半部分，很迷。讲的 Semantic Modeling 基本没啥用，很偏又老的东西。 前部分基本和9321重合，唯一新鲜东西就是 Swagger 和 Docker，但是讲的一样皮毛。
+
+
+
+### 9414 - Artificial Intelligence ☺️
+
+---
+
+纯粹没啥课选的，选的。 很简单，Alan老套路，期末搞懂Tutorial 基本上就不会翻车。 最后一个Asst挺有意思，基本上拿了满分。Prolog挺一般的，基本上上完这门课，以后基本上也用不上了。
+
+
+
+## 2019 T2 (To be continued)
+
+### 9900 - Information Technology Project
+
+---
+
+### 6441 - Security Engineering and Cyber Security
+
+---
+
