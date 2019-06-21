@@ -1,0 +1,282 @@
+[
+    {
+        "id": 0,
+        "name": "John Snow",
+        "weekdays": {
+            "monday": [
+                true,
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "tuesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "wednesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "thursday": [
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "friday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        }
+    },
+    {
+        "id": 1,
+        "name": "Lily Smith",
+        "weekdays": {
+            "monday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "tuesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "wednesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "thursday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "friday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "name": "Stella Chen",
+        "weekdays": {
+            "monday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "tuesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "wednesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "thursday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "friday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "name": "Luke Song",
+        "weekdays": {
+            "monday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "tuesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "wednesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "thursday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "friday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        }
+    },
+    {
+        "id": 4,
+        "name": "James Nicola",
+        "weekdays": {
+            "monday": [
+                true,
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true
+            ],
+            "tuesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "wednesday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "thursday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            "friday": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ]
+        }
+    }
+]

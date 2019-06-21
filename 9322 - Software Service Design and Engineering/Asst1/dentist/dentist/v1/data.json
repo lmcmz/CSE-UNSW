@@ -1,0 +1,32 @@
+[
+    {
+        "id": 0,
+        "name": "John Snow",
+        "location": "Maroubra, Sydney, NSW",
+        "specialization": "Paediatric Dentistry"
+    },
+    {
+        "id": 1,
+        "name": "Lily Smith",
+        "location": "Randwick, Sydney, NSW",
+        "specialization": "Orthodontics"
+    },
+    {
+        "id": 2,
+        "name": "Stella Chen",
+        "location": "Kensington, Sydney, NSW",
+        "specialization": "Oral Surgery"
+    },
+    {
+        "id": 3,
+        "name": "Luke Song",
+        "location": "Mascot, Sydney, NSW",
+        "specialization": "Oral Surgery"
+    },
+    {
+        "id": 4,
+        "name": "James Nicola",
+        "location": "Bondi, Sydney, NSW",
+        "specialization": "Paediatric Dentistry"
+    }
+]

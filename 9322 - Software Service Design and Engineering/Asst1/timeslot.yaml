@@ -1,0 +1,135 @@
+swagger: "2.0"
+info:
+  title: Dentist Booking
+  description: A dump chatbot to book the dentist.
+  version: "1.0"
+# host: api.booking.com
+# basePath: /v1
+schemes:
+  - https
+  - http
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  msg:
+    properties:
+      code:
+        type: integer
+      msg:
+        type: string
+    required:
+      - code
+    example:
+      code: 0
+      msg: "Success"
+  
+  # timetable:
+  #   properties:
+  #     id:
+  #       type: integer
+  #     weekdays:
+        
+      
+paths:
+  /alltime:
+    get:
+      summary: Get all dentist timetable
+      description: Return all dentist timetable
+      responses:
+        200:
+          description: OK
+          schema:
+            type: string
+          
+          
+  /time/{id}:
+    get:
+      summary: Get one dentist timetable with id
+      description: Return one dentist timetable
+      
+      parameters: 
+      - in: path
+        name: id
+        description: dentist id
+        type: integer
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: string
+
+  /available:
+    post:
+      summary: Get all available dentist
+      description: Show dentist list
+      parameters:
+        - in: body
+          name: Available time
+          description: Show dentist which is available.
+          schema:
+            type: object
+            properties:
+              time:
+                type: integer
+                example: 2
+      responses:
+        200:
+          description: OK
+          schema:
+            type: string
+          
+            
+  /book:
+    post:
+      summary: Book a specific hour.
+      description: Book a hour of dentist.
+      
+      parameters:
+        - in: body
+          name: Cancel booking
+          description: Cancel dentist a time.
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 0
+              time:
+                type: integer
+                example: 2
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/msg'
+          
+  /cancel:
+    post:
+      summary: Cancel a specific hour.
+      description: Cancel booking.
+      
+      parameters:
+        - in: body
+          name: Cancel booking
+          description: Cancel dentist a time.
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 0
+              time:
+                type: integer
+                example: 2
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/msg'

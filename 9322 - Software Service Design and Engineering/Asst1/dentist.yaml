@@ -1,0 +1,89 @@
+swagger: "2.0"
+info:
+  title: Dentist Booking
+  description: A dump chatbot to book the dentist.
+  version: "1.0"
+# host: api.booking.com
+# basePath: /v1
+schemes:
+  - https
+  - http
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  dentist :
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      location:
+        type: string
+      specialization:
+        type: integer
+      available:
+        type: array
+        items:
+          type: boolean
+    required:
+      - name
+    
+    example:
+      id: 1
+      name: "Jon Snow"
+      location: "Maroubra, NSW"
+      specialization: 1
+      available: [true, true, true, false, true, false, true, false]
+
+paths:
+  /dentist:
+    get:
+      summary: List all dentist info.
+      description: Show all dentist info to user.
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/dentist'
+              
+  /available:
+    get:
+      summary: List available dentist.
+      description: Give a list of available dentist.
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/dentist'
+              
+  /available/{id}:
+    get:
+      summary: Get a specific doctor time.
+      description: Give a timetable of dentist.
+      
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: integer
+          description: Dentist id
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/dentist'
+        404:
+          description: Not Found
+          schema:
+            type: string

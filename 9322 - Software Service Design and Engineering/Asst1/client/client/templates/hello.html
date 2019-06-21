@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+			$("button").click(function() {
+				// alert("succeed");
+				var bla = $('input').val();
+				var dia = $('#output').html();
+				$.post({url:"/data", data:{"sentence": bla, "dialog": dia},success:function(data){
+				// $.ajax({url:"/data", data:{"sentence": bla, "dialog": dia},success:function(data){
+					$('#output').html(data);
+				}});
+			});
+		});
+	</script>
+
+	<body>
+		<div class="container">
+			<div class="example">
+				<h3>Example</h3>
+				<ul style="list-style-type:disc;">
+						<li>hi</li>
+						<li>can you give me some information about doctors?</li>
+						<li>can you show me all doctor timeslot?</li>
+						<li>can you show me doctor 1 timeslot?</li>
+						<li>can i book doctor 0 at 10AM on monday?</li>
+						<li>i would like to cancel the appointment with doctor 0 at 10AM on monday</li>
+						<!-- <li>which doctor are available at 2PM on friday</li> -->
+				</ul>  
+			</div>
+
+			<div class="chatDiv">
+				<input type="text" class="chatin">
+				<button class="btn1" id="btn1">Send</button>
+			</div>
+			<div class="dialog" id="output"></div>
+		
+		</div>
+		
+	</body>
+	
+	<style> 
+	
+	.container {
+		width: 50%;
+		margin: 0 auto; 
+		box-sizing: border-box;
+		border:3px solid grey;
+		top: 50%;
+/*		-ms-transform: translateY(50%);*/
+		transform: translateY(10%);
+		border-radius: 25px;
+		padding: 20px 30px;
+		display: grid;
+		grid-template-rows: 1fr 0.5fr 2.5fr;
+	}
+
+	/* text */
+	
+	.chatDiv {
+		width: 100%;
+		margin: 0 auto; 
+/*		box-sizing: border-box;*/
+/*		border: 2px solid blue;*/
+		height: 50px;
+		display: grid;
+		grid-template-columns: 4fr 1fr;
+	}
+
+	.btn1 {
+		font-size:18pt;
+		border-radius: 5px;
+		/* color: darkorange; */
+	}
+	
+	.chatin {
+		font-size:18pt;
+		width: 90%;
+		height: 100%;
+		/* padding: 12px 20px; */
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		border: 2px solid grey;
+		border-radius: 4px;
+	}
+	.dialog {
+/*		width: 100%;*/
+		margin: 0; 
+		height:300px;
+/*		width:540px;*/
+		border:1px solid grey;
+		padding:5%;
+		border-radius: 25px;
+		overflow:auto;
+	}
+	</style>
+</html>

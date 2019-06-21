@@ -1,0 +1,208 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Dentist Booking",
+    "description": "A dump chatbot to book the dentist.",
+    "version": "0.0.1"
+  },
+  "basePath": "/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "dentist": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "specialization": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "example": {
+        "id": 1,
+        "name": "Jon Snow",
+        "location": "Maroubra, NSW",
+        "specialization": 1,
+        "available": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false,
+          true,
+          false
+        ]
+      }
+    },
+    "msg": {
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "example": {
+        "code": 0,
+        "msg": "Success"
+      }
+    }
+  },
+  "paths": {
+    "/dentist": {
+      "get": {
+        "summary": "List all dentist info.",
+        "description": "Show all dentist info to user.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dentist"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/available": {
+      "get": {
+        "summary": "List available dentist.",
+        "description": "Give a list of available dentist.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dentist"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/avilable/{id}": {
+      "get": {
+        "summary": "Get a specific doctor time.",
+        "description": "Give a timetable of dentist.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer",
+            "description": "Dentist id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/dentist"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/book": {
+      "post": {
+        "summary": "Book a specific hour.",
+        "description": "Book a hour of dentist.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Cancel booking",
+            "description": "Cancel dentist a time.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "time": {
+                  "type": "integer",
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/msg"
+            }
+          }
+        }
+      }
+    },
+    "/cancel": {
+      "post": {
+        "summary": "Cancel a specific hour.",
+        "description": "Cancel booking.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Cancel booking",
+            "description": "Cancel dentist a time.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 0
+                },
+                "time": {
+                  "type": "integer",
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/msg"
+            }
+          }
+        }
+      }
+    }
+  }
+}

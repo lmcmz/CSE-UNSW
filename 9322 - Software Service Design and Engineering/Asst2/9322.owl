@@ -1,0 +1,227 @@
+@prefix : <http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4> .
+
+<http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Year
+:Year rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#downloading
+:downloading rdf:type owl:ObjectProperty ;
+             rdfs:domain :DataSource ;
+             rdfs:range :DownloadModule .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#generateModel
+:generateModel rdf:type owl:ObjectProperty ;
+               rdfs:domain :TrainningModule ;
+               rdfs:range :PredictModel .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#outputValue
+:outputValue rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#predicting
+:predicting rdf:type owl:ObjectProperty ;
+            rdfs:domain :PredictModel ,
+                        :UserInput ;
+            rdfs:range :PredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#preprocessing
+:preprocessing rdf:type owl:ObjectProperty ;
+               rdfs:domain :DownloadModule ;
+               rdfs:range :Dataset .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#trainning
+:trainning rdf:type owl:ObjectProperty ;
+           rdfs:domain :Dataset ,
+                       :ModelType ;
+           rdfs:range :TrainningModule .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainYear
+:DomainYear rdf:type owl:DatatypeProperty ;
+            rdfs:domain :DataSource ;
+            rdfs:range xsd:float .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DataSource
+:DataSource rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Dataset
+:Dataset rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadModule
+:DownloadModule rdf:type owl:Class ;
+                rdfs:subClassOf :Program .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#ModelType
+:ModelType rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModel
+:PredictModel rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictModule
+:PredictModule rdf:type owl:Class ;
+               rdfs:subClassOf :Program .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#PredictValue
+:PredictValue rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#Program
+:Program rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningModule
+:TrainningModule rdf:type owl:Class ;
+                 rdfs:subClassOf :Program .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#UserInput
+:UserInput rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSet
+:DomainDataSet rdf:type owl:NamedIndividual ,
+                        :Dataset ;
+               :trainning :TrainningFromDomain .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainDataSource
+:DomainDataSource rdf:type owl:NamedIndividual ,
+                           :DataSource ;
+                  :downloading :DownloadFromDomain ;
+                  :DomainYear "" .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainInput
+:DomainInput rdf:type owl:NamedIndividual ,
+                      :UserInput ;
+             :predicting :DomainPredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictProgram
+:DomainPredictProgram rdf:type owl:NamedIndividual ,
+                               :PredictModule ;
+                      :outputValue :DomainPredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainPredictValue
+:DomainPredictValue rdf:type owl:NamedIndividual ,
+                             :PredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DomainRegressionModel
+:DomainRegressionModel rdf:type owl:NamedIndividual ,
+                                :PredictModel ;
+                       :predicting :DomainPredictProgram .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromDomain
+:DownloadFromDomain rdf:type owl:NamedIndividual ,
+                             :DownloadModule ;
+                    :preprocessing :DomainDataSet .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#DownloadFromRealestate
+:DownloadFromRealestate rdf:type owl:NamedIndividual ,
+                                 :DownloadModule ;
+                        :preprocessing :RealestateDataSet .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#LinearRegression
+:LinearRegression rdf:type owl:NamedIndividual ,
+                           :ModelType ;
+                  :trainning :TrainningFromDomain .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#NeuralNetwork
+:NeuralNetwork rdf:type owl:NamedIndividual ,
+                        :ModelType ;
+               :trainning :TrainningFromRealestate .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSet
+:RealestateDataSet rdf:type owl:NamedIndividual ,
+                            :Dataset ;
+                   :trainning :TrainningFromRealestate .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateDataSource
+:RealestateDataSource rdf:type owl:NamedIndividual ,
+                               :DataSource ;
+                      :downloading :DownloadFromRealestate .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateInput
+:RealestateInput rdf:type owl:NamedIndividual ,
+                          :UserInput ;
+                 :predicting :RealestatePredictProgram .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestateNeuralNetworkMoel
+:RealestateNeuralNetworkMoel rdf:type owl:NamedIndividual ,
+                                      :PredictModel ;
+                             :predicting :RealestatePredictProgram .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictProgram
+:RealestatePredictProgram rdf:type owl:NamedIndividual ,
+                                   :PredictModule ;
+                          :outputValue :RealestatePredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#RealestatePredictValue
+:RealestatePredictValue rdf:type owl:NamedIndividual ,
+                                 :PredictValue .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromDomain
+:TrainningFromDomain rdf:type owl:NamedIndividual ,
+                              :TrainningModule ;
+                     :generateModel :DomainRegressionModel .
+
+
+###  http://www.semanticweb.org/lmcmz/ontologies/2019/3/untitled-ontology-4#TrainningFromRealestate
+:TrainningFromRealestate rdf:type owl:NamedIndividual ,
+                                  :TrainningModule ;
+                         :generateModel :RealestateNeuralNetworkMoel .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
