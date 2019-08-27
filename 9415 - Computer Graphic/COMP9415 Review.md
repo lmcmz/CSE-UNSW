@@ -82,6 +82,14 @@
 
   - In addition to the transformation properties inherited from SceneObject the Camera has an **aspect ratio**.
 
+- **View matrix**
+
+  - ```
+    VIEW MATRIX: = INVERSE_CAMERA_GLOBAL_SCALE *
+                   INVERSE_CAMERA_GLOBAL_ROTATION *
+                   INVERSE_CAMERA_GLOBAL_TRANSLATION
+    ```
+
 
 
 ## 3D Transformations
@@ -171,9 +179,85 @@
   - If it is closer, we update the pixel in the colour buffer and update the buffer value to the new pseudodepth. If not we discard it.
   - ![19](./image/19.png)
 
+## Depth
+
+- **Pseudodepth**
+- **Bilinear interpolation**
+  - Bilinear interpolation is lerping in 2 dimensions.
+  - It works for any polygon.
+  - $f(R_1)=\frac{y-y_1}{y_2-y_1}f(Q_2)+\frac{y_2-y}{y_2-y_1}f(Q_1)$
+  - $f(R_2)=\frac{y-y_3}{y_4-y_3}f(Q_4)+\frac{y_4-y}{y_4-y_3}f(Q_3)$
+  - $f(P)=\frac{x-x_1}{x_2-x_1}f(R_2)+\frac{x_2-x}{x_2-x_1}f(R_1)$
+  - ![22](./image/22.png)
+- **Z-fighting**
+  - The depth buffer has limited precision
+  - To prevent this, you can offset one of the two polygons using **glPolygonOffset()**.
+
+## Clipping
+
+- **Cohen-Sutherland (line vs rect)**
+
+  - Clipping lines to an axis-aligned rectangle.
+
+  - ```c
+    code = 0;
+    if (x < left) code |= 8; 
+    if (y > top) code |= 4; 
+    if (x > right) code |= 2;
+    if (y < bottom) code |= 1;
+    return code;
+    ```
+
+  - |       Labelling       |   Clipping a point    |
+    | :-------------------: | :-------------------: |
+    | ![23](./image/23.png) | ![23](./image/24.png) |
+
+    No bit in common,  need to clip.
+
+  - 
+
+- Cyrus-Beck (line vs convex poly)**
+
+  - Clipping a line to a convex polygon.
+  - Parametric ray:
+    - $R(t)=A+ct$
+  - Point normal segment:
+    - $n\cdot(P-B)=0$
+  - Collide when:
+    - $n\cdot(R(t_{hit})-B)=0$
+  - ***Hit time***
+    - $n\cdot(R(t_{hit})-B)=0$
+    - $n\cdot(A+(ct_{hit})-B)=0$
+    - $n\cdot(A-B)+n\cdot ct_{hit}=0$
+    - $t_{hit}=\frac{n\cdot(B-A)}{n\cdot c}$
+    - $P_hit = A+ct_{hit}$
+    - ![25](./image/25.png)
+  - Initialise tin to 0 and tout to 1
+  - Compare the ray to each edge of the (convex) polygon.
+  - Compute thit for each edge.
+  - Keep track of maximum tin
+  - Keep track of minimum tout.
+  - ![26](./image/26.png)
+
+- **Sutherland-Hodgman (poly vs convex poly)**
+
+- **Weiler-Atherton (ploy vs poly)**
+
+  
+
 ## Limitations
 
-- **Ambient light**
+- **$\widehat{s}$** is the vector from vectex to light source
+
+- **$\widehat{m}$** is the vector of model
+
+- **$\widehat{v}$** is the vector from vectex to camera
+
+- **$\widehat{r}$** is the vector of reflereflection ($\widehat{m}$ 做法线)
+
+- ***All vector should be normalisation***
+
+- **Ambient light** （环境光）
 
   - $I_{ambient}=I_{a}\rho_a$
 
@@ -191,7 +275,7 @@
 
   - Light is coming from all directions, reflected off other objects, not just from ‘sources’
 
-- **Diffuse light (Lambert’s Cosine Law)**
+- **Diffuse light (Lambert’s Cosine Law)** （扩散光）
 
   - $I_d = I_s\rho_d(\widehat{s}\cdot\widehat{m})$
     - $I_s$ is the source intensity
@@ -204,7 +288,7 @@
   - When the angle is > 90 degrees
     - $cos$ gives us a negative value! This is not what we want.
 
-- **Specular light (Phong model)**
+- **Specular light (Phong model)** (高光)
 
   - $\widehat{r}=-s+2(s\cdot\widehat{m})\widehat{m}$
 
@@ -221,8 +305,9 @@
   - It is good for adding bright highlights but cannot create a true mirror.
 
 - **Total intensity for the vertex**
-  - $I=I_{ambient} + I_d + I_{sp}$
+  - $I=I_{ambient} + I_{diffuse} + I_{specular}$
   - $I=I_{a}ρ_a + max(0, I_sρ_d(\widehat{r}\cdot\widehat{v})) + max(0, I_s\rho_{sp}(\widehat{r}\cdot\widehat{v})^{f})$
+  
 - **Spotlights**
   - A spotlight has a direction and a cutoff angle
   - Spotlights are also attenuated, so the brightness falls off as you move away from the centre.
@@ -232,6 +317,10 @@
 ## Shading
 
 - **Flat shading** 
+  
+  - ***Compute the intensity for some point on the face (usually the first vertex)***
+  - ***Set every pixel to that value.***
+  
   - Calculated for each face
   - The simplest option is to shade the entire face the same colour
   - ***Pro***
@@ -243,31 +332,67 @@
     - close light sources
     - specular shading
     - curved surfaces
+  
 - **Gouraud shading** 
   - Calculated for each vertex and interpolated for every fragment
+  
   - Illumination  is calculated at each of these vertices.
+  
   - Gouraud shading is a simple smooth shading model.
+  
   - We calculate fragment colours by bilinear interpolation on neighbouring vertices.
+  
   - ***Pro***
     - curved surfaces
     - close light sources
-    - diffuse shading
+  - diffuse shading
+    
   - ***con***
     - more expensive than flat shading
     - handles specular highlights poorly
+    
+  - ***Example***
+  
+    <img src="./image/27.png" height="300">
+  
+    $I_d(Q_1)=\widehat{s_1}\cdot\widehat{m_1}=\cos(30^{\circ})$
+  
+    $I_d(Q_1)=\widehat{s_2}\cdot\widehat{m_2}=\cos(75^{\circ})$
+  
+    $I_s(Q_1)=max(0,(\widehat{r_1}\cdot\widehat{m_1}))=max(0, \cos(105^{\circ}))= 0$
+  
+    $I_s(Q_2)=max(0,(\widehat{r_2}\cdot\widehat{m_2}))=max(0, \cos(105^{\circ}))= 0$
+  
+    - ***Flat Shading***
+      - $I_d(P)=I_d(Q_1) | I_d(Q_2)$
+  
+    
+  
+    
 
 - **Phong shading**
+  
   - Calculated for every fragment
+  
   - designed to handle specular lighting better than Gouraud. 
+  
   - It also handles diffuse better as well.
+  
   - illumination values are calculated per fragment rather than per vertex
+  
   - ***Pro***
     - Handles specular lighting well
     - Improves diffuse shading
     - More physically accurate
+    
   - ***Con***
+    
     - Slower than Gouraud as normals and illumination values have to be calculated per pixel rather than per vertex. 
     - In the old days this was a BIG issue. Not so much any more.
+    
+  - |         Phong         |       Actually        |
+    | :-------------------: | :-------------------: |
+    | ![27](./image/28.png) | ![27](./image/29.png) |
 
 |         | Where    | Pro                                | Con                                  |
 | ------- | -------- | ---------------------------------- | ------------------------------------ |
@@ -361,8 +486,22 @@
 - **Tangents**
   - Tangent vector
     - $\frac{dP(t)}{dt}=\sum_{k=0}^m\frac{dB_{k}^m(t)}{dt}P_k$
-    - $\frac{dP(t)}{dt}=\sum_{k=0}^{m-1}\frac{dB_{k}^{m-1}(t)}{dt}(P_{k+1}-P_k)$
+    
+    - $\frac{dP(t)}{dt}=m\sum_{k=0}^{m-1}\frac{dB_{k}^{m-1}(t)}{dt}(P_{k+1}-P_k)$
+    
+    - ***Example***
+    
+      -  t = 0.25
+    
+      - <img src="./image/30.png" height="400">
+      - $P_{01} = (4, 16) - (0,0) = (4,16)$
+      - $P_{12} = (20, 8) - (4,16) = (16,-8)$
+      - $P_{23} = (20, 0) - (20,8) = (0,-8)$
+      - $tangent = 3*[(1-t)^2P_{01}+2t(1-t)P_{12}+t^2P_{23}]$
+      - $= 3*[(1-0.25)^2*(4,16)+2*0.25*(1-0.25)(16,-8)+0.25^2*(0,-8)]$
+      - $=(24.75, 16.5)$ 
 - **L-System **(Lindenmayer System)
+  
   - Can give us realistic plants and trees
   - L-system is a formal grammar
   - Symbols
@@ -403,9 +542,28 @@
 
   - Nearest Texel
     - Find the nearest texel
-    - ![image]()
+    
+    - ```c
+      gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+      ```
+    
+    - 
+    
   - Bilinear Filtering
+    
     - Find the nearest four texels and use bilinear interpolation over them 
+    
+    - ```c
+      gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+      ```
+    
+    - 
+    
+  - |        Nearest        |       Bilinear        |
+    | :-------------------: | :-------------------: |
+    | ![32](./image/31.png) | ![32](./image/32.png) |
+
+    
 
 - **Minification** (zoom out)
 
@@ -676,7 +834,7 @@
 
 - Particles are created by an emitter object and evolve over time, usually changing position, size, colour.
 
-  ![11](./image/11.png)
+  <img src="./image/11.png" height="400"/>
 
 ## Global Lighting
 
@@ -725,6 +883,7 @@
   - $i_c=-w+x(\frac{2w}{c})=w(\frac{2x}{c}-1)$
   - $j_r=h(\frac{2y}{r}-1)$
   - The point P(x,y) of pixel (x,y) is given by:
+    
     - $P(x,y)=E+w(\frac{2x}{c}-1)i+h(\frac{2y}{r}-1)k-nk$
   - A ray from the camera through P(x,y) is given by:
     - $R(t)=E+t(P(x,y)-E)=E+tv$
@@ -732,43 +891,43 @@
     - t = 0, we get E (Eye/Camera)
     - t = 1, we get P(x,y) – the point on the near plane
     - t > 1 point in the world
-    - t < 0 point behind the camera – not on ray
-
-  - ***Generic Sphere***
-
-    ![15](./image/15.png)
-
-  - ***Shadows***
-
-    - At each hit point we cast a new ray towards each light source. These rays are called shadow feelers.
-
-  - ***Extents*** (大小)
-
+  - t < 0 point behind the camera – not on ray
+  
+- ***Generic Sphere***
+  
+  ![15](./image/15.png)
+  
+- ***Shadows***
+  
+  - At each hit point we cast a new ray towards each light source. These rays are called shadow feelers.
+  
+- ***Extents*** (大小)
+  
     - Extents are bounding boxes or spheres which enclose an object
     - To compute a box extent for a mesh we simply take the min and max x, y and z coordinates over all the points.
     - To compute a sphere extent we find the centroid of all the vertices by averaging their coordinates. This is the centre of the sphere.
-    - ![16](./image/16.png)
-
-  - ***Projection extents***
-
-    - A projection extent of an object is a bounding box which encloses all the pixels which would be in the image of the object (ignoring occlusions).
-
-  - ***Binary Space Partitioning (BSP)***
-
+  - ![16](./image/16.png)
+  
+- ***Projection extents***
+  
+  - A projection extent of an object is a bounding box which encloses all the pixels which would be in the image of the object (ignoring occlusions).
+  
+- ***Binary Space Partitioning (BSP)***
+  
     - Another approach to optimisation is to build a Binary Space Partitioning (BSP) tree dividing the world into cells, where each cell contains a small number of objects.
-    - ![17](./image/17.png)
-
-  - **Raytracing Can’t Do**
-
+  - ![17](./image/17.png)
+  
+- **Raytracing Can’t Do**
+  
     - Basic recursive raytracing cannot do:
       - Light bouncing off a shiny surface like a mirror and illuminating a diffuse surface
       - Light bouncing off one diffuse surface to illuminate others
       - Light transmitting then diffusing internally
     - Also a problem for rough specular reflection
-      - Fuzzy reflections in rough shiny objects
-
-  - **Realtime ray-tracing (RTX)**
-
+    - Fuzzy reflections in rough shiny objects
+  
+- **Realtime ray-tracing (RTX)**
+  
     - Works by arranging objects in a bounding volume hierarchy (BVH)
     - Specialised hardware offers fast traversal of these hierarchies to find ray intersections.
 
