@@ -72,11 +72,14 @@
 - **Decomposing**
 
   - $Translation = (\phi_1,\phi_2,1)^T$
+
   - $Rotation=atan2(i_2,i_1)$
+
   - $Scale=|i|$
+
   - **Perpendicular** (垂直) : $i⋅j=0$
 
-  ![18](./image/18.png)
+    <img src="./image/18.png" height="300">
 
 - **Camera**
 
@@ -156,6 +159,14 @@
 
   - This matrix is **not affine**.
 
+  - $r \Rightarrow  right = -aspectRatio * halfHeight$
+  
+  - $l \Rightarrow  left = aspectRatio * halfHeight$
+  
+  - $t \Rightarrow  right = -halfHeight$
+  
+  - $t \Rightarrow  right = halfHeight$
+  
   - |       Situation       |        Matrix         |
     | :-------------------: | :-------------------: |
     | ![20](./image/20.png) | ![20](./image/21.png) |
@@ -510,6 +521,37 @@
     - B→A + B + A
   - Use a **LIFO** stack to save and restore global state like position and heading
 
+## 3D Modeling
+
+- **Extrusion**
+
+  - We can extrude a polygon along a path by specifying it as a series of transformations.
+    - $poly=P_0,P_1....,P_k$
+    - $path=M_0,M_1....,M_n$
+    - $poly_i=M_iP_0,M_iP_1....,M_iP_k$
+  - At each point in the path we calculate a cross- section
+
+  - ![35](./image/35.png)
+
+- **Revolution**
+
+  - A surface with radial symmetry (i.e. a round object, like a ring, a vase, a glass) can be made by sweeping a half cross-section around an axis.
+  - Given a 2D curve: $C(t)=(X(t),Y(t))$
+  - We can revolve it by adding an extra parameter
+    - $P(t,\theta)=(X(t)\cos\theta,Y(t),X(t)\sin\theta)$
+  - ![36](./image/36.png)
+
+- **L-Systems**
+
+  - A Lindenmayer System (or L-System) is a method for producing fractal structures.
+  - An L-system is a formal grammar:  
+    - ***example***
+    - Symbols: 
+      - A :draw forward 1 step 
+      - B :draw backward 1 step 
+      - "+": turn left 60 degrees
+      - "-" turn right 60 degrees
+
 ##Textures
 
 - Usage
@@ -697,6 +739,7 @@
   - ***Cons***
     - Does not affect silhouette
     - Does not affect occlusion calculation
+  - ![34](./image/34.png)
 
 
 
@@ -878,55 +921,69 @@
 - Location of pixel
 
   - ![14](./image/14.png)
+  
   - $pixelWidth=\frac{2w}{c}$
+  
   - $pixelHeight=\frac{2h}{r}$
+  
   - $i_c=-w+x(\frac{2w}{c})=w(\frac{2x}{c}-1)$
+  
   - $j_r=h(\frac{2y}{r}-1)$
+  
   - The point P(x,y) of pixel (x,y) is given by:
     
     - $P(x,y)=E+w(\frac{2x}{c}-1)i+h(\frac{2y}{r}-1)k-nk$
-  - A ray from the camera through P(x,y) is given by:
+    
+- A ray from the camera through P(x,y) is given by:
     - $R(t)=E+t(P(x,y)-E)=E+tv$
-    - $v = w(\frac{2x}{c}-1)i+h(\frac{2y}{r}-1)k-nk$
+  - $v = w(\frac{2x}{c}-1)i+h(\frac{2y}{r}-1)k-nk$
     - t = 0, we get E (Eye/Camera)
-    - t = 1, we get P(x,y) – the point on the near plane
+  - t = 1, we get P(x,y) – the point on the near plane
     - t > 1 point in the world
   - t < 0 point behind the camera – not on ray
   
-- ***Generic Sphere***
+- **Snell's law**
   
-  ![15](./image/15.png)
-  
-- ***Shadows***
-  
-  - At each hit point we cast a new ray towards each light source. These rays are called shadow feelers.
+  - To handle transparency appropriately we need to take into account the refraction of light.
+    - Light bends as it moves from one medium to another. The change is described by Snell's Law:
+    - $\frac{\sin\theta_1}{c_1}=\frac{\sin\theta_2}{c_2}$
+    - where c1 and c2 are the speeds of light in each medium.
+    - ![33](./image/33.png)
+
+  - ***Generic Sphere***
+
+    ![15](./image/15.png)
+
+  - ***Shadows***
+
+    - At each hit point we cast a new ray towards each light source. These rays are called shadow feelers.
   
 - ***Extents*** (大小)
   
-    - Extents are bounding boxes or spheres which enclose an object
+  - Extents are bounding boxes or spheres which enclose an object
     - To compute a box extent for a mesh we simply take the min and max x, y and z coordinates over all the points.
     - To compute a sphere extent we find the centroid of all the vertices by averaging their coordinates. This is the centre of the sphere.
-  - ![16](./image/16.png)
+    - ![16](./image/16.png)
   
-- ***Projection extents***
+  - ***Projection extents***
   
   - A projection extent of an object is a bounding box which encloses all the pixels which would be in the image of the object (ignoring occlusions).
   
 - ***Binary Space Partitioning (BSP)***
   
     - Another approach to optimisation is to build a Binary Space Partitioning (BSP) tree dividing the world into cells, where each cell contains a small number of objects.
-  - ![17](./image/17.png)
+    - ![17](./image/17.png)
   
-- **Raytracing Can’t Do**
+  - **Raytracing Can’t Do**
   
     - Basic recursive raytracing cannot do:
       - Light bouncing off a shiny surface like a mirror and illuminating a diffuse surface
       - Light bouncing off one diffuse surface to illuminate others
       - Light transmitting then diffusing internally
     - Also a problem for rough specular reflection
-    - Fuzzy reflections in rough shiny objects
+      - Fuzzy reflections in rough shiny objects
   
-- **Realtime ray-tracing (RTX)**
+  - **Realtime ray-tracing (RTX)**
   
     - Works by arranging objects in a bounding volume hierarchy (BVH)
     - Specialised hardware offers fast traversal of these hierarchies to find ray intersections.
@@ -952,6 +1009,14 @@
       - $E_i$ is the energy emitted by patch i 
       - $\rho_i$ is the reflectivity of patch i 
       - $F_{ij}$is a form factor which encodes what fraction of light from patch j reaches patch i.
+- Radiosity is computationally expensive, so rarely suitable for real-time rendering.
+- However, it can be used in conjunction with light mapping.
+- **Pro**
+  - it models indirect diffuse lighting and as a result can render soft shadows and realistic diffuse lighting.
+- **Con**
+  - The disadvantage of radiosity is that it does not handle translu- cent, transparent or specular surfaces in the calculations.
+- **IterIteration**
+  - ![37](./image/37.png)
 
 ## Color
 
